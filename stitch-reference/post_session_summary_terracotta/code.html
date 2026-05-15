@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;family=Work+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#690005",
+                    "surface-container-highest": "#383431",
+                    "surface-container-lowest": "#110e0b",
+                    "on-background": "#e9e1dc",
+                    "outline-variant": "#524437",
+                    "on-secondary-fixed-variant": "#624000",
+                    "inverse-surface": "#e9e1dc",
+                    "error": "#ffb4ab",
+                    "secondary": "#C4522A",
+                    "tertiary": "#cbc6bd",
+                    "on-tertiary-container": "#2d2a25",
+                    "on-tertiary-fixed-variant": "#494640",
+                    "surface": "#161310",
+                    "surface-container-high": "#2d2927",
+                    "on-tertiary": "#32302a",
+                    "primary": "#C4522A",
+                    "primary-fixed": "#ffddbb",
+                    "tertiary-fixed": "#e7e2d9",
+                    "secondary-fixed-dim": "#C4522A",
+                    "secondary-fixed": "#ffddb3",
+                    "on-surface-variant": "#d7c3b1",
+                    "surface-bright": "#3d3835",
+                    "on-primary-fixed": "#2b1700",
+                    "error-container": "#93000a",
+                    "on-primary-fixed-variant": "#673d00",
+                    "surface-container": "#231f1c",
+                    "tertiary-container": "#95918a",
+                    "on-primary-container": "#412400",
+                    "on-tertiary-fixed": "#1d1b16",
+                    "inverse-primary": "#885200",
+                    "primary-fixed-dim": "#C4522A",
+                    "background": "#161310",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary": "#452b00",
+                    "surface-dim": "#161310",
+                    "on-secondary-fixed": "#291800",
+                    "surface-container-low": "#1e1b18",
+                    "secondary-container": "#C4522A",
+                    "inverse-on-surface": "#34302d",
+                    "outline": "#9f8e7d",
+                    "on-secondary-container": "#fff2e6",
+                    "on-primary": "#482900",
+                    "surface-variant": "#383431",
+                    "primary-container": "#C4522A",
+                    "on-surface": "#e9e1dc",
+                    "surface-tint": "#C4522A",
+                    "tertiary-fixed-dim": "#cbc6bd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "4px",
+                    "lg": "4px",
+                    "xl": "4px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader", "serif"],
+                    "body": ["Manrope", "sans-serif"],
+                    "label": ["Manrope", "sans-serif"],
+                    "work": ["Work Sans", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #12100E;
+        color: #e9e1dc;
+        font-family: 'Manrope', sans-serif;
+      }
+      .serif-display {
+        font-family: 'Newsreader', serif;
+      }
+      .letter-spacing-widest {
+        letter-spacing: 0.25em;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top AppBar (JSON Mapping: TopAppBar) -->
+<header class="fixed top-0 left-0 w-full flex justify-between items-center px-6 py-4 bg-[#161310] z-50 bg-gradient-to-b from-[#161310] to-transparent">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[#C4522A] active:scale-95 transition-transform" data-icon="menu">menu</span>
+</div>
+<h1 class="text-3xl font-bold tracking-widest text-[#C4522A] uppercase font-headline">ARAMZOR</h1>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[#C4522A] active:scale-95 transition-transform" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="w-full max-w-5xl px-6 py-24 flex flex-col items-center text-center">
+<!-- Asymmetric Decorative Element: The Resinous Monolith Visual -->
+<div class="relative w-full mb-32 flex justify-center">
+<div class="absolute -top-12 left-1/4 w-32 h-32 bg-[#C4522A]/10 blur-[100px]"></div>
+<div class="relative z-10 w-[1px] h-64 bg-gradient-to-b from-transparent via-outline-variant/30 to-transparent"></div>
+<!-- Hero Texture / Mood Image -->
+<div class="mt-16 w-full max-w-md aspect-[3/4] overflow-hidden grayscale contrast-125 opacity-40">
+<img alt="Close-up of deep amber resin with organic bubbles and soft directional lighting" class="w-full h-full object-cover" data-alt="Close-up of deep amber resin with organic bubbles and soft directional lighting, dark moody atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASZeNy_aHoC-Sv0O-Zw-A5bXscZ1OWcXXw3evSoc_aMzqES6BKcC0nTLN5OfpvnV9OoBZlxcEhjhsoAu4XZdF50f2-4GPaGA9ZRzCFz1rAJNn0igaTagXG-r2FEYZ85IzY8U0JGdCx9_N9mGGZdW1veBdJ7HZgv2tc4kp_96lqKmmHOj3LShNnJypMe860pPUSHjvqPHRZ_mt_TekOD-nvYDdtcI4yABsQXE2QFBkrfeMPCoEOBx0VJXU8jzixsvOISK-KgQPiKuE"/>
+</div>
+</div>
+<!-- Session Completion Message -->
+<div class="space-y-12">
+<h2 class="serif-display text-5xl md:text-7xl font-light italic text-on-background tracking-tight">
+                You just did your Aramzor.
+            </h2>
+<!-- Static Data -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-8 h-[1px] bg-outline-variant/40"></div>
+<p class="font-label text-[11px] uppercase tracking-[0.4em] text-outline">
+                    Session count
+                </p>
+<p class="serif-display text-2xl text-[#C4522A]">
+                    47 Aramzors.
+                </p>
+</div>
+</div>
+<!-- Action Section -->
+<div class="mt-24">
+<button class="bg-[#C4522A] text-on-primary text-[12px] uppercase tracking-[0.3em] font-bold px-12 py-4 rounded-[4px] hover:bg-[#A33E1D] transition-all duration-700 ease-in-out active:scale-95">
+                Return
+            </button>
+</div>
+</main>
+<!-- Navigation Drawer (Structural requirement, updated styling) -->
+<aside class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50">
+<div class="bg-[#1E1B18] h-full w-80 flex flex-col py-8 shadow-2xl shadow-black">
+<div class="px-8 mb-8">
+<h2 class="text-3xl font-bold text-[#C4522A] font-headline italic">ARAMZOR</h2>
+<p class="text-[11px] text-[#E9E1DC]/60 uppercase tracking-widest mt-2">Practitioner</p>
+</div>
+<nav class="flex flex-col">
+<a class="text-[#FFB59D] font-bold border-l-4 border-[#C4522A] pl-4 py-4 font-headline text-lg" href="#">The Practice</a>
+<a class="text-[#E9E1DC]/80 pl-5 py-4 font-headline text-lg hover:bg-[#2D2927] hover:text-[#FFB59D] transition-all ease-in-out" href="#">Archive</a>
+<a class="text-[#E9E1DC]/80 pl-5 py-4 font-headline text-lg hover:bg-[#2D2927] hover:text-[#FFB59D] transition-all ease-in-out" href="#">Journal</a>
+<a class="text-[#E9E1DC]/80 pl-5 py-4 font-headline text-lg hover:bg-[#2D2927] hover:text-[#FFB59D] transition-all ease-in-out" href="#">Settings</a>
+<a class="text-[#E9E1DC]/80 pl-5 py-4 font-headline text-lg hover:bg-[#2D2927] hover:text-[#FFB59D] transition-all ease-in-out" href="#">Support</a>
+</nav>
+</div>
+</aside>
+<!-- Footer -->
+<footer class="w-full py-16 flex flex-col items-center justify-center space-y-8 bg-[#110e0b] border-t border-[#1e1b18]/15 mb-24 md:mb-0">
+<div class="text-lg font-serif italic text-[#C4522A]">ARAMZOR</div>
+<div class="flex gap-8">
+<a class="text-[11px] tracking-widest font-sans text-[#383431] hover:text-[#C4522A]" href="#">PRIVACY</a>
+<a class="text-[11px] tracking-widest font-sans text-[#383431] hover:text-[#C4522A]" href="#">TERMS</a>
+<a class="text-[11px] tracking-widest font-sans text-[#383431] hover:text-[#C4522A]" href="#">RESEARCH</a>
+</div>
+<p class="text-[11px] tracking-widest font-sans text-[#383431]">
+            © 2024 ARAMZOR. THE ANCIENT MODERNIST.
+        </p>
+</footer>
+<!-- Bottom Navigation (JSON Mapping: BottomNavBar) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#110E0B]/80 backdrop-blur-xl rounded-t-[32px] shadow-[0px_-10px_30px_rgba(132,38,0,0.08)]">
+<div class="flex flex-col items-center justify-center text-[#FFB59D] bg-gradient-to-br from-[#C4522A] to-[#842600] rounded-full px-5 py-1 active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="air">air</span>
+<span class="font-work text-[10px] uppercase tracking-[0.05em]">Breathe</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E9E1DC]/60 hover:text-[#FFB59D] active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-work text-[10px] uppercase tracking-[0.05em]">Library</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E9E1DC]/60 hover:text-[#FFB59D] active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="local_fire_department">local_fire_department</span>
+<span class="font-work text-[10px] uppercase tracking-[0.05em]">Rituals</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E9E1DC]/60 hover:text-[#FFB59D] active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="font-work text-[10px] uppercase tracking-[0.05em]">Stats</span>
+</div>
+</nav>
+</body></html>

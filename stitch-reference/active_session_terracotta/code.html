@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-error": "#690005",
+                  "surface-container-highest": "#383431",
+                  "surface-container-lowest": "#110e0b",
+                  "on-background": "#e9e1dc",
+                  "outline-variant": "#524437",
+                  "on-secondary-fixed-variant": "#624000",
+                  "inverse-surface": "#e9e1dc",
+                  "error": "#ffb4ab",
+                  "secondary": "#C4522A",
+                  "tertiary": "#cbc6bd",
+                  "on-tertiary-container": "#2d2a25",
+                  "on-tertiary-fixed-variant": "#494640",
+                  "surface": "#161310",
+                  "surface-container-high": "#2d2927",
+                  "on-tertiary": "#32302a",
+                  "primary": "#C4522A",
+                  "primary-fixed": "#ffddbb",
+                  "tertiary-fixed": "#e7e2d9",
+                  "secondary-fixed-dim": "#C4522A",
+                  "secondary-fixed": "#ffddb3",
+                  "on-surface-variant": "#d7c3b1",
+                  "surface-bright": "#3d3835",
+                  "on-primary-fixed": "#2b1700",
+                  "error-container": "#93000a",
+                  "on-primary-fixed-variant": "#673d00",
+                  "surface-container": "#231f1c",
+                  "tertiary-container": "#C4522A",
+                  "on-primary-container": "#412400",
+                  "on-tertiary-fixed": "#1d1b16",
+                  "inverse-primary": "#842600",
+                  "primary-fixed-dim": "#C4522A",
+                  "background": "#161310",
+                  "on-error-container": "#ffdad6",
+                  "on-secondary": "#452b00",
+                  "surface-dim": "#161310",
+                  "on-secondary-fixed": "#291800",
+                  "surface-container-low": "#1e1b18",
+                  "secondary-container": "#C4522A",
+                  "inverse-on-surface": "#34302d",
+                  "outline": "#9f8e7d",
+                  "on-secondary-container": "#fff2e6",
+                  "on-primary": "#ffffff",
+                  "surface-variant": "#383431",
+                  "primary-container": "#C4522A",
+                  "on-surface": "#e9e1dc",
+                  "surface-tint": "#C4522A",
+                  "tertiary-fixed-dim": "#cbc6bd"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0px",
+                  "lg": "0px",
+                  "xl": "0px",
+                  "full": "9999px"
+          },
+          "fontFamily": {
+                  "headline": ["Newsreader", "serif"],
+                  "body": ["Manrope", "sans-serif"],
+                  "label": ["Manrope", "sans-serif"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+        background-color: #0D0A08;
+    }
+    .breath-pacer {
+        box-shadow: 0 0 120px 20px rgba(196, 82, 42, 0.25);
+        background: radial-gradient(circle, #C4522A 0%, #842600 100%);
+    }
+    .tide-progress {
+        background: linear-gradient(to top, #1e1b18 0%, #161310 100%);
+    }
+    .tide-fill {
+        height: 40%; /* Mock state */
+        background-color: #C4522A;
+        opacity: 0.6;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col overflow-hidden">
+<!-- Navigation Shell: TopAppBar consistency with COMPONENTS_8 -->
+<header class="flex justify-between items-center w-full px-8 py-10 z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline-variant cursor-pointer hover:text-primary transition-colors duration-700">close</span>
+</div>
+<h1 class="text-2xl font-headline italic font-bold tracking-widest text-primary uppercase">ARAMZOR</h1>
+<div class="w-6"></div> <!-- Balance spacer -->
+</header>
+<!-- Main Session Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center relative px-6">
+<!-- Phase Name -->
+<div class="mb-24 text-center">
+<h2 class="font-headline italic text-5xl md:text-7xl font-bold tracking-[0.2em] text-on-surface leading-tight">
+        THE ZOR
+      </h2>
+</div>
+<!-- The Aramzor Breath Pacer - Updated to Glowing Ember -->
+<div class="relative flex items-center justify-center">
+<!-- Visual Glow Layers -->
+<div class="absolute w-[300px] h-[300px] rounded-full opacity-25 blur-[120px] bg-primary"></div>
+<!-- The Core Pacer -->
+<div class="breath-pacer w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center">
+<!-- Inner Ring -->
+<div class="w-[95%] h-[95%] rounded-full border border-white/10 flex items-center justify-center">
+<div class="w-[90%] h-[90%] rounded-full border border-white/5"></div>
+</div>
+</div>
+</div>
+<!-- Instruction Text -->
+<div class="mt-24 text-center">
+<p class="font-label text-sm md:text-base uppercase tracking-[0.4em] text-outline font-light">
+        Inhale through your nose
+      </p>
+</div>
+</main>
+<!-- Vertical Tide Progress -->
+<aside class="fixed right-0 top-0 h-full w-1 tide-progress">
+<div class="w-full absolute bottom-0 tide-fill transition-all duration-[4000ms] ease-in-out"></div>
+</aside>
+<!-- Minimal Bottom Feedback/Meta -->
+<footer class="w-full py-16 flex flex-col items-center justify-center space-y-8 z-50">
+<div class="flex items-center gap-12">
+<div class="flex flex-col items-center gap-2">
+<span class="text-[10px] uppercase tracking-[0.2em] font-medium text-outline-variant">Pattern</span>
+<span class="text-xs uppercase tracking-[0.15em] font-semibold text-primary">4-4-4-4</span>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/20"></div>
+<div class="flex flex-col items-center gap-2">
+<span class="text-[10px] uppercase tracking-[0.2em] font-medium text-outline-variant">Depth</span>
+<span class="text-xs uppercase tracking-[0.15em] font-semibold text-primary">Deep Diaphragm</span>
+</div>
+</div>
+<div class="pt-8">
+<button class="bg-transparent border border-outline-variant/30 px-10 py-4 text-[11px] tracking-[0.3em] font-medium text-on-surface hover:border-primary hover:text-primary transition-all duration-700 uppercase">
+            Pause Practice
+        </button>
+</div>
+</footer>
+<!-- Decorative Texture Overlay -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay">
+<img class="w-full h-full object-cover" data-alt="fine organic film grain texture with subtle noise for a tactile cinematic feel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWqlyx9ds6WR8uFER0k5px9J7rDRe2a7ZybXnofGaOcdErRIbFOykJvh4jvlwoYZm1qpiCA8jVvRUYE1_f8Aks763oYYGVbaY5S-TeH5aY4vQQbObU15HxHR7oYuW7v97JpiCdigImQXxjWFw2xlJviUyuxG5N6hOkpEP8LUyESu9_ISiwtqi_zAzxhbyOilyYPbHa95CxcvfxmkzBtNHPeHevn_2IhbNEt9VaE7HbOVIbohDCyXF91pKdxooInkfqWeEkJHY6f9k"/>
+</div>
+</body></html>

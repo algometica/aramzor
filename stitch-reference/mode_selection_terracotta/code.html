@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ARAMZOR | Mode Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#690005",
+                        "surface-container-highest": "#383431",
+                        "surface-container-lowest": "#110e0b",
+                        "on-background": "#e9e1dc",
+                        "outline-variant": "#524437",
+                        "on-secondary-fixed-variant": "#842600",
+                        "inverse-surface": "#e9e1dc",
+                        "error": "#ffb4ab",
+                        "secondary": "#C4522A",
+                        "tertiary": "#cbc6bd",
+                        "on-tertiary-container": "#2d2a25",
+                        "on-tertiary-fixed-variant": "#494640",
+                        "surface": "#161310",
+                        "surface-container-high": "#2d2927",
+                        "on-tertiary": "#32302a",
+                        "primary": "#C4522A",
+                        "primary-fixed": "#FFB59D",
+                        "tertiary-fixed": "#e7e2d9",
+                        "secondary-fixed-dim": "#C4522A",
+                        "secondary-fixed": "#FFB59D",
+                        "on-surface-variant": "#d7c3b1",
+                        "surface-bright": "#3d3835",
+                        "on-primary-fixed": "#2b1700",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#C4522A",
+                        "surface-container": "#231f1c",
+                        "tertiary-container": "#95918a",
+                        "on-primary-container": "#412400",
+                        "on-tertiary-fixed": "#1d1b16",
+                        "inverse-primary": "#C4522A",
+                        "primary-fixed-dim": "#C4522A",
+                        "background": "#161310",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary": "#110e0b",
+                        "surface-dim": "#161310",
+                        "on-secondary-fixed": "#291800",
+                        "surface-container-low": "#1e1b18",
+                        "secondary-container": "#842600",
+                        "inverse-on-surface": "#34302d",
+                        "outline": "#9f8e7d",
+                        "on-secondary-container": "#fff2e6",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#383431",
+                        "primary-container": "#C4522A",
+                        "on-surface": "#e9e1dc",
+                        "surface-tint": "#C4522A",
+                        "tertiary-fixed-dim": "#cbc6bd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "4px",
+                        "lg": "4px",
+                        "xl": "4px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #110e0b;
+            color: #e9e1dc;
+            min-height: max(884px, 100dvh);
+        }
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+        .staggered-1 { grid-column: span 7; }
+        .staggered-2 { grid-column: span 5; }
+        .staggered-3 { grid-column: span 4; }
+        .staggered-4 { grid-column: span 8; }
+        .staggered-5 { grid-column: span 12; }
+    </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-on-primary">
+<!-- TopAppBar -->
+<nav class="bg-[#161310] dark:bg-[#161310] flex justify-between items-center w-full px-8 py-6 fixed top-0 z-50 bg-gradient-to-b from-[#161310] to-transparent">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#C4522A] cursor-pointer">menu</span>
+</div>
+<div class="text-3xl font-bold tracking-widest text-[#C4522A] uppercase font-serif italic Newsreader">
+            ARAMZOR
+        </div>
+<div class="flex items-center gap-6">
+<span class="text-[#383431] font-sans font-light Manrope text-xs tracking-widest uppercase hover:text-[#FFB59D] transition-colors duration-700 cursor-pointer">PRACTICE</span>
+<span class="text-[#383431] font-sans font-light Manrope text-xs tracking-widest uppercase hover:text-[#FFB59D] transition-colors duration-700 cursor-pointer">THEORY</span>
+</div>
+</nav>
+<main class="min-h-screen pt-32 pb-40 px-8 md:px-24 max-w-7xl mx-auto">
+<!-- Header Section -->
+<header class="mb-24 flex flex-col md:flex-row items-baseline justify-between gap-8">
+<h1 class="font-serif italic text-6xl md:text-8xl font-bold text-on-surface leading-none tracking-tighter">
+                Select your <br/>ritual.
+            </h1>
+<p class="font-sans font-light text-on-surface-variant max-w-xs text-right self-end border-r-2 border-[#C4522A] pr-6 py-2">
+                Breath is the bridge between the physical and the metaphysical. Choose the frequency for your current state.
+            </p>
+</header>
+<!-- Bento Grid Selection -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+<!-- Calm Mode -->
+<button class="md:col-span-7 group relative bg-surface-container-low p-12 text-left flex flex-col justify-between min-h-[400px] hover:bg-surface-container transition-all duration-1000 ease-in-out overflow-hidden rounded-md">
+<div class="relative z-10">
+<span class="font-sans text-[10px] uppercase tracking-[0.4em] text-[#C4522A] mb-4 block">LEVEL 01</span>
+<h2 class="font-serif italic text-5xl text-on-surface group-hover:text-primary transition-colors duration-700">Calm</h2>
+</div>
+<div class="relative z-10 flex flex-col gap-4">
+<p class="font-sans font-light text-on-surface-variant max-w-sm">Dissolve the day's noise. A gentle down-regulation of the nervous system through rhythmic cadence.</p>
+<div class="flex items-baseline gap-2">
+<span class="font-serif italic text-2xl text-[#C4522A]">12</span>
+<span class="font-sans text-[10px] uppercase tracking-widest text-outline">minutes</span>
+</div>
+</div>
+<div class="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-1000">
+<img class="w-full h-full object-cover grayscale" data-alt="abstract macro photography of dark rippling water in low light with subtle amber reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC64pt8d72e3rcUduRB9zHLFiNelkNSGYIdKkG4U7Uh6LBIAlG65ZwlwmP3GYeV3x6JpfsEQ3iCsIAyarHqL4HyzfsT_JjImOXD8iLzbRSK4O3aI7njAl0ZZcnhcOH01cuGkrVQDQTR6KmvLBxrkZUxIKt-0A1EhhWsfUgI6PZ0TtC2ArByDKijKbWnYIcQ3Z8zNllZRMQY9FBwnpwkZaebTH25IOUA0QheVtDwY0mjZ1MIy05cYi7TDD27FK5WWyTsjP2HmcmTjNc"/>
+</div>
+</button>
+<!-- Sleep Mode -->
+<button class="md:col-span-5 group relative bg-surface-container-low p-12 text-left flex flex-col justify-between min-h-[400px] hover:bg-surface-container transition-all duration-1000 ease-in-out rounded-md">
+<div class="relative z-10">
+<span class="font-sans text-[10px] uppercase tracking-[0.4em] text-[#C4522A] mb-4 block">RECOVERY</span>
+<h2 class="font-serif italic text-5xl text-on-surface group-hover:text-primary transition-colors duration-700">Sleep</h2>
+</div>
+<div class="relative z-10">
+<p class="font-sans font-light text-on-surface-variant mb-6">Deep parasympathetic activation. Preparing the vessel for restoration and silence.</p>
+<div class="flex items-baseline gap-2">
+<span class="font-serif italic text-2xl text-[#C4522A]">20</span>
+<span class="font-sans text-[10px] uppercase tracking-widest text-outline">minutes</span>
+</div>
+</div>
+</button>
+<!-- Energy Mode -->
+<button class="md:col-span-4 group relative bg-surface-container-low p-12 text-left flex flex-col justify-between min-h-[450px] hover:bg-surface-container transition-all duration-1000 ease-in-out rounded-md">
+<div class="relative z-10">
+<span class="font-sans text-[10px] uppercase tracking-[0.4em] text-[#C4522A] mb-4 block">VITALITY</span>
+<h2 class="font-serif italic text-5xl text-on-surface group-hover:text-primary transition-colors duration-700">Energy</h2>
+</div>
+<div class="relative z-10">
+<p class="font-sans font-light text-on-surface-variant mb-6">Oxygenate the blood. A sharp, rhythmic fire to ignite the morning or banish fatigue.</p>
+<div class="flex items-baseline gap-2">
+<span class="font-serif italic text-2xl text-[#C4522A]">08</span>
+<span class="font-sans text-[10px] uppercase tracking-widest text-outline">minutes</span>
+</div>
+</div>
+</button>
+<!-- Performance Mode -->
+<button class="md:col-span-8 group relative bg-surface-container-high p-12 text-left flex flex-col justify-between min-h-[450px] hover:bg-surface-bright transition-all duration-1000 ease-in-out overflow-hidden rounded-md">
+<div class="relative z-10">
+<span class="font-sans text-[10px] uppercase tracking-[0.4em] text-[#C4522A] mb-4 block">FLOW STATE</span>
+<h2 class="font-serif italic text-5xl text-on-surface group-hover:text-primary transition-colors duration-700">Performance</h2>
+</div>
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-end gap-8">
+<p class="font-sans font-light text-on-surface-variant max-w-sm">The athlete's cadence. Balancing CO2 tolerance and mental focus for high-stakes execution.</p>
+<div class="flex items-baseline gap-2 shrink-0">
+<span class="font-serif italic text-4xl text-[#C4522A]">15</span>
+<span class="font-sans text-[10px] uppercase tracking-widest text-outline">minutes</span>
+</div>
+</div>
+<div class="absolute right-0 top-0 w-1/3 h-full opacity-20 group-hover:opacity-40 transition-opacity duration-1000 pointer-events-none">
+<div class="w-full h-full bg-gradient-to-l from-[#C4522A]/30 to-transparent"></div>
+</div>
+</button>
+<!-- Natural High Mode -->
+<button class="md:col-span-12 group relative bg-surface-container-low p-12 text-left flex flex-col md:flex-row justify-between items-center min-h-[300px] hover:bg-surface-container transition-all duration-1000 ease-in-out border-t border-outline-variant/10 rounded-md">
+<div class="flex flex-col gap-2">
+<span class="font-sans text-[10px] uppercase tracking-[0.4em] text-[#C4522A]">EXPANSION</span>
+<h2 class="font-serif italic text-6xl text-on-surface group-hover:text-primary transition-colors duration-700">Natural High</h2>
+</div>
+<div class="max-w-md text-right md:text-left">
+<p class="font-sans font-light text-on-surface-variant mb-6">Controlled hyperventilation and breath retention to access altered states of consciousness naturally.</p>
+<div class="flex items-baseline justify-end md:justify-start gap-2">
+<span class="font-serif italic text-2xl text-[#C4522A]">30</span>
+<span class="font-sans text-[10px] uppercase tracking-widest text-outline">minutes</span>
+</div>
+</div>
+</button>
+</div>
+<!-- Footer Call to Action / Quote -->
+<section class="mt-32 mb-24 text-center">
+<p class="font-serif italic text-2xl text-outline-variant max-w-2xl mx-auto leading-relaxed">
+                "The breath is the only part of the autonomic nervous system that we can control. By changing the breath, we change the mind."
+            </p>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#110E0B]/80 backdrop-blur-xl shadow-[0px_-10px_30px_rgba(132,38,0,0.08)] rounded-t-[32px]">
+<button class="flex flex-col items-center justify-center text-[#FFB59D] bg-gradient-to-br from-[#C4522A] to-[#842600] rounded-full px-5 py-1 scale-110 transition-all duration-200 active:scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">air</span>
+<span class="font-['Manrope'] text-[10px] uppercase tracking-[0.05em] font-medium">Breathe</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#E9E1DC]/60 hover:text-[#FFB59D] transition-all duration-200 active:scale-90">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="font-['Manrope'] text-[10px] uppercase tracking-[0.05em] font-medium">Library</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#E9E1DC]/60 hover:text-[#FFB59D] transition-all duration-200 active:scale-90">
+<span class="material-symbols-outlined">local_fire_department</span>
+<span class="font-['Manrope'] text-[10px] uppercase tracking-[0.05em] font-medium">Rituals</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#E9E1DC]/60 hover:text-[#FFB59D] transition-all duration-200 active:scale-90">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-['Manrope'] text-[10px] uppercase tracking-[0.05em] font-medium">Stats</span>
+</button>
+</nav>
+<!-- Footer -->
+<footer class="bg-[#110e0b] w-full py-16 flex flex-col items-center justify-center space-y-8 border-t border-[#1e1b18]/15 mb-24">
+<div class="text-lg font-serif italic text-[#C4522A]">ARAMZOR. THE ANCIENT MODERNIST.</div>
+<div class="flex gap-12 font-sans text-[11px] tracking-widest Manrope text-[#383431]">
+<a class="hover:text-[#C4522A] transition-colors" href="#">PRIVACY</a>
+<a class="hover:text-[#C4522A] transition-colors" href="#">TERMS</a>
+<a class="hover:text-[#C4522A] transition-colors" href="#">RESEARCH</a>
+</div>
+<p class="font-sans text-[11px] tracking-widest Manrope text-[#383431] opacity-50">
+            © 2024 ARAMZOR. THE ANCIENT MODERNIST.
+        </p>
+</footer>
+</body></html>

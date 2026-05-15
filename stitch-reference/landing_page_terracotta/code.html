@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-error": "#690005",
+                "surface-container-highest": "#383431",
+                "surface-container-lowest": "#110e0b",
+                "on-background": "#e9e1dc",
+                "outline-variant": "#524437",
+                "on-secondary-fixed-variant": "#624000",
+                "inverse-surface": "#e9e1dc",
+                "error": "#ffb4ab",
+                "secondary": "#C4522A",
+                "tertiary": "#cbc6bd",
+                "on-tertiary-container": "#2d2a25",
+                "on-tertiary-fixed-variant": "#494640",
+                "surface": "#161310",
+                "surface-container-high": "#2d2927",
+                "on-tertiary": "#32302a",
+                "primary": "#C4522A",
+                "primary-fixed": "#ffddbb",
+                "tertiary-fixed": "#e7e2d9",
+                "secondary-fixed-dim": "#C4522A",
+                "secondary-fixed": "#ffddb3",
+                "on-surface-variant": "#d7c3b1",
+                "surface-bright": "#3d3835",
+                "on-primary-fixed": "#2b1700",
+                "error-container": "#93000a",
+                "on-primary-fixed-variant": "#673d00",
+                "surface-container": "#231f1c",
+                "tertiary-container": "#95918a",
+                "on-primary-container": "#110e0b",
+                "on-tertiary-fixed": "#1d1b16",
+                "inverse-primary": "#885200",
+                "primary-fixed-dim": "#C4522A",
+                "background": "#161310",
+                "on-error-container": "#ffdad6",
+                "on-secondary": "#110e0b",
+                "surface-dim": "#161310",
+                "on-secondary-fixed": "#291800",
+                "surface-container-low": "#1e1b18",
+                "secondary-container": "#C4522A",
+                "inverse-on-surface": "#34302d",
+                "outline": "#9f8e7d",
+                "on-secondary-container": "#fff2e6",
+                "on-primary": "#110e0b",
+                "surface-variant": "#383431",
+                "primary-container": "#C4522A",
+                "on-surface": "#e9e1dc",
+                "surface-tint": "#C4522A",
+                "tertiary-fixed-dim": "#cbc6bd"
+            },
+            "borderRadius": {
+                "DEFAULT": "4px",
+                "lg": "4px",
+                "xl": "8px",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline": ["Newsreader", "serif"],
+                "body": ["Manrope", "sans-serif"],
+                "label": ["Manrope", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #110e0b;
+            color: #e9e1dc;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .font-serif { font-family: 'Newsreader', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-[#161310] dark:bg-[#161310] flex justify-between items-center w-full px-8 py-6 sticky top-0 z-50 transition-colors duration-700 bg-gradient-to-b from-[#161310] to-transparent">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#C4522A]">menu</span>
+<span class="text-2xl font-bold tracking-widest text-[#C4522A] uppercase font-serif italic">ARAMZOR</span>
+</div>
+<nav class="hidden md:flex gap-12">
+<a class="text-[#C4522A] font-bold tracking-widest text-[11px] uppercase transition-colors duration-700" href="#">JOURNAL</a>
+<a class="text-[#383431] hover:text-[#C4522A] tracking-widest text-[11px] uppercase transition-colors duration-700" href="#">PRACTICE</a>
+<a class="text-[#383431] hover:text-[#C4522A] tracking-widest text-[11px] uppercase transition-colors duration-700" href="#">RITUALS</a>
+</nav>
+<div class="flex items-center">
+<button class="text-[#C4522A] material-symbols-outlined">person</button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-[795px] flex flex-col justify-center items-start px-8 md:px-24 overflow-hidden">
+<div class="absolute inset-0 z-0 opacity-40">
+<div class="w-full h-full bg-cover bg-center" data-alt="dramatic close-up of dark amber resin with internal fractures and soft light passing through textured organic glass" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDX32CX3CJWMYHrLnUUAi5imP9NqcpRUms-ZfrXAMeo8tQahgjonueN4jmsIf3tggux8W3K7nlBOblaqmVySFenxZNm0TKNvK1zl15HGgI6UN-rcgwnsjKjp_2xWMBu_jby5YqLWjxiCTnpeopJiWtTRU5waBfFgpm7_3cHE_NgRKFv73OZCtnTEWrrRteJVYEklFLfjFk_V28hxRKyAZ9nikz8Mh8ZwklBiJ4-Pm_rDn6W2cREPU_xBD3GuPjlLpURLdgEV320_34')"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest via-surface-container-lowest/80 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-4xl">
+<h1 class="font-serif italic text-7xl md:text-[10rem] font-bold leading-none tracking-tight mb-8">
+                    Force in.<br/>Peace out.
+                </h1>
+<p class="font-body font-light text-xl md:text-3xl text-on-surface-variant max-w-2xl mb-12 tracking-wide">
+                    The breathwork that earns your calm.
+                </p>
+<button class="bg-[#C4522A] text-on-primary-container px-12 py-6 text-lg font-bold tracking-[0.2em] uppercase hover:bg-opacity-90 transition-all duration-500 shadow-2xl shadow-black/50 rounded-[4px]">
+                    Begin your Aramzor — $8/month
+                </button>
+</div>
+<!-- Decoration -->
+<div class="absolute bottom-0 right-0 w-1/3 h-1 bg-[#C4522A]/20"></div>
+</section>
+<!-- Social Proof Strip -->
+<section class="bg-surface-container-low py-12 flex justify-center items-center px-8 text-center">
+<p class="font-label uppercase tracking-[0.4em] text-xs text-outline opacity-70">
+                Used by people who are done with meditation fluff
+            </p>
+</section>
+<!-- Three Pillars -->
+<section class="py-32 px-8 md:px-24 bg-surface">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8">
+<!-- Pillar 1 -->
+<div class="md:col-span-4 flex flex-col gap-8 pt-12">
+<span class="text-[#C4522A] font-serif italic text-4xl">01</span>
+<h2 class="font-serif text-5xl font-bold">The Zor</h2>
+<p class="font-body text-on-surface-variant leading-relaxed text-lg font-light">
+                        Force is required. The Zor represents the rigorous physical activation of the nervous system. We do not whisper to your stress; we command it to exit through structural respiratory mechanics.
+                    </p>
+</div>
+<!-- Pillar 2 -->
+<div class="md:col-span-4 flex flex-col gap-8 md:mt-24">
+<span class="text-[#C4522A] font-serif italic text-4xl">02</span>
+<h2 class="font-serif text-5xl font-bold">The Threshold</h2>
+<p class="font-body text-on-surface-variant leading-relaxed text-lg font-light">
+                        Where modern biology meets ancient stillness. The Threshold is the precise moment of carbon dioxide tolerance expansion, where the mind learns to remain unshakeable under physical pressure.
+                    </p>
+</div>
+<!-- Pillar 3 -->
+<div class="md:col-span-4 flex flex-col gap-8 pt-32">
+<span class="text-[#C4522A] font-serif italic text-4xl">03</span>
+<h2 class="font-serif text-5xl font-bold">The Aram</h2>
+<p class="font-body text-on-surface-variant leading-relaxed text-lg font-light">
+                        The resolution. Peace is not found; it is synthesized. Following the intensity, The Aram provides the deep, resinous resonance of a nervous system that has been recalibrated for true depth.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Pricing Tectonic Section -->
+<section class="py-40 px-8 md:px-24 bg-surface-container-lowest relative">
+<div class="max-w-6xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-baseline mb-24 gap-8">
+<h2 class="font-serif italic text-6xl md:text-8xl font-bold">The Market<br/>of Noise</h2>
+<p class="font-body text-outline max-w-sm text-lg uppercase tracking-widest leading-loose">
+                        WE ARE NOT A TOY. WE ARE A UTILITY. THE COST REFLECTS THE DISCIPLINE.
+                    </p>
+</div>
+<div class="flex flex-col border-t border-outline-variant/20">
+<!-- Row 1 -->
+<div class="flex justify-between items-center py-10 border-b border-outline-variant/10 group hover:bg-surface-container-low px-4 transition-colors duration-500">
+<span class="font-serif text-3xl text-on-surface-variant opacity-50">Othership</span>
+<span class="font-body text-xl text-on-surface-variant opacity-50">$17.99</span>
+</div>
+<!-- Row 2 -->
+<div class="flex justify-between items-center py-10 border-b border-outline-variant/10 group hover:bg-surface-container-low px-4 transition-colors duration-500">
+<span class="font-serif text-3xl text-on-surface-variant opacity-50">Headspace</span>
+<span class="font-body text-xl text-on-surface-variant opacity-50">$12.99</span>
+</div>
+<!-- Row 3 -->
+<div class="flex justify-between items-center py-10 border-b border-outline-variant/10 group hover:bg-surface-container-low px-4 transition-colors duration-500">
+<span class="font-serif text-3xl text-on-surface-variant opacity-50">Calm</span>
+<span class="font-body text-xl text-on-surface-variant opacity-50">$8.99</span>
+</div>
+<!-- Aramzor Row -->
+<div class="flex justify-between items-center py-16 px-8 bg-surface-container-high border-l-8 border-[#C4522A] shadow-2xl relative z-10 -mx-4 md:-mx-8 my-4 rounded-r-[4px]">
+<div class="flex flex-col">
+<span class="font-serif text-5xl font-bold text-[#C4522A] italic">ARAMZOR</span>
+<span class="font-label uppercase tracking-widest text-[10px] text-[#C4522A] mt-2">The serious choice</span>
+</div>
+<div class="text-right">
+<span class="font-body text-4xl font-bold text-[#C4522A]">$8.00</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final Intent Section -->
+<section class="py-40 px-8 md:px-24 flex flex-col items-center text-center">
+<div class="w-24 h-[1px] bg-[#C4522A] mb-16"></div>
+<h3 class="font-serif text-5xl md:text-7xl font-bold mb-12 max-w-4xl">Breath is the only tool you cannot leave at home.</h3>
+<button class="border border-[#C4522A]/40 px-16 py-8 text-on-surface font-body font-bold tracking-[0.3em] uppercase hover:bg-surface-container-high transition-all duration-700 rounded-[4px]">
+                PRACTICE NOW
+            </button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#110e0b] w-full py-16 flex flex-col items-center justify-center space-y-8 border-t border-[#1e1b18]/15">
+<div class="text-lg font-serif italic text-[#C4522A]">ARAMZOR</div>
+<div class="flex space-x-12">
+<a class="text-[#383431] hover:text-[#C4522A] font-sans text-[11px] tracking-widest uppercase transition-all duration-500" href="#">PRIVACY</a>
+<a class="text-[#383431] hover:text-[#C4522A] font-sans text-[11px] tracking-widest uppercase transition-all duration-500" href="#">TERMS</a>
+<a class="text-[#383431] hover:text-[#C4522A] font-sans text-[11px] tracking-widest uppercase transition-all duration-500" href="#">RESEARCH</a>
+</div>
+<div class="text-[#383431] font-sans text-[11px] tracking-widest uppercase">
+            © 2024 ARAMZOR. THE ANCIENT MODERNIST.
+        </div>
+<div class="max-w-md text-center opacity-30 text-[9px] uppercase tracking-widest leading-loose px-8">
+            Disclaimer: Aramzor is a performance breathwork utility. Consult a physician before engaging in high-intensity CO2 tolerance training.
+        </div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-[#110E0B]/80 backdrop-blur-xl fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 z-50 rounded-t-[32px] shadow-[0px_-10px_30px_rgba(132,38,0,0.08)]">
+<a class="flex flex-col items-center justify-center text-[#FFB59D] bg-gradient-to-br from-[#C4522A] to-[#842600] rounded-full px-5 py-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">air</span>
+<span class="text-[10px] uppercase font-['Work_Sans'] tracking-[0.05em] mt-0.5">Breathe</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E9E1DC]/60 hover:text-[#FFB59D]" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="text-[10px] uppercase font-['Work_Sans'] tracking-[0.05em] mt-0.5">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E9E1DC]/60 hover:text-[#FFB59D]" href="#">
+<span class="material-symbols-outlined">local_fire_department</span>
+<span class="text-[10px] uppercase font-['Work_Sans'] tracking-[0.05em] mt-0.5">Rituals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E9E1DC]/60 hover:text-[#FFB59D]" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-[10px] uppercase font-['Work_Sans'] tracking-[0.05em] mt-0.5">Stats</span>
+</a>
+</nav>
+</body></html>

@@ -27,7 +27,7 @@ Treat the UI as a series of physical layers. Use the `surface-container` tiers t
 ### The "Glass & Gradient" Rule
 To add soul to the interface, floating elements (modals, dropdowns) should utilize **Glassmorphism**:
 *   Use semi-transparent surface colors with a `32px` backdrop-blur.
-*   Apply a subtle gradient to main CTAs transitioning from `primary_container` (#c4522a) to `primary` (#ffb59d) to mimic the flickering depth of a live flame.
+*   Apply a subtle gradient to main CTAs transitioning from `primary_container` (#c4522a) to `primary` (#D4603A) to mimic the flickering depth of a live flame.
 
 ## 3. Typography
 The typography is a dialogue between the literary weight of **Newsreader** and the modernist clarity of **Work Sans**.
@@ -49,7 +49,7 @@ In "The Nocturnal Archive," depth is felt, not seen.
 ### Buttons
 *   **Primary:** Filled with the `primary_container` (#c4522a) color. Type should be `label-md` (Work Sans) in all-caps with 0.05em tracking for a premium feel.
 *   **Secondary:** Ghost-style but utilizing the "Ghost Border" (15% opacity `outline-variant`). No fill.
-*   **Tertiary:** Text-only, using the `primary` (#ffb59d) color with a subtle 1px underline that only appears on hover.
+*   **Tertiary:** Text-only, using the `primary` (#D4603A) color with a subtle 1px underline that only appears on hover.
 
 ### Cards & Lists
 *   **Forbid Dividers:** Do not use lines to separate list items. Use 16px–24px of vertical padding and a subtle `surface-container` shift on hover to indicate interactivity.
@@ -57,10 +57,10 @@ In "The Nocturnal Archive," depth is felt, not seen.
 
 ### Input Fields
 *   **State:** The default state is a filled container (`surface_container_high`). 
-*   **Focus:** Upon focus, the background transitions to `surface_container_highest` and a subtle "Ghost Border" of `primary` (#ffb59d) at 30% opacity appears.
+*   **Focus:** Upon focus, the background transitions to `surface_container_highest` and a subtle "Ghost Border" of `primary` (#D4603A) at 30% opacity appears.
 
 ### Signature Component: The "Ember" Badge
-Used for high-priority status or featured categories. A small, pill-shaped chip using a radial gradient of `primary_container` (#c4522a) to a deep `#842600`, with `on_primary_container` (#fffeff) text.
+Used for high-priority status or featured categories. A small, pill-shaped chip using a radial gradient of `primary_container` (#c4522a) to a deep `#842600`, with `on_primary_container` (#F5EFE6) text.
 
 ## 6. Do's and Don'ts
 

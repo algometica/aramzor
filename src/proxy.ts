@@ -19,37 +19,26 @@ export default auth(async (req) => {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  const userRows = await db
+  const [user] = await db
     .select({ id: users.id })
     .from(users)
     .where(eq(users.email, email))
     .limit(1);
 
-  const user = userRows[0];
   if (!user) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  const [sessionCount] = await db
-    .select({ value: count() })
-    .from(breathSessions)
-    .where(eq(breathSessions.userId, user.id));
+  // Fetch session count and subscription status in parallel - one round trip each, simultaneous
+  const [[sessionCount], [subRow]] = await Promise.all([
+    db.select({ value: count() }).from(breathSessions).where(eq(breathSessions.userId, user.id)),
+    db.select({ status: subscriptions.status }).from(subscriptions).where(eq(subscriptions.userId, user.id)).limit(1),
+  ]);
 
   const sessionsUsed = sessionCount?.value ?? 0;
+  const isActive = subRow?.status === "active";
 
-  if (sessionsUsed < FREE_SESSION_LIMIT) {
-    return NextResponse.next();
-  }
-
-  const subRows = await db
-    .select({ status: subscriptions.status })
-    .from(subscriptions)
-    .where(eq(subscriptions.userId, user.id))
-    .limit(1);
-
-  const isActive = subRows[0]?.status === "active";
-
-  if (!isActive) {
+  if (sessionsUsed >= FREE_SESSION_LIMIT && !isActive) {
     return NextResponse.redirect(new URL("/subscribe", req.url));
   }
 

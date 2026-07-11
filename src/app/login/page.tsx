@@ -17,18 +17,18 @@ export default async function LoginPage({
 
       <main className="flex-1 flex items-center justify-center px-8">
         <div className="w-full max-w-md">
-          <h1 className="font-display italic text-5xl md:text-6xl font-light text-text mb-4 tracking-tight">
-            Welcome.
+          <h1 className="font-display italic font-bold text-5xl md:text-6xl text-text mb-4 tracking-tight">
+            Enter.
           </h1>
-          <p className="text-text-muted mb-12 text-lg leading-relaxed">
-            Enter your email. We&apos;ll send you a <span className="text-text font-semibold">magic link</span>.
+          <p className="text-text-muted mb-12 text-base leading-relaxed font-light">
+            Your email. We send a link. No password.
           </p>
 
           <form action={login} className="space-y-6">
             <div>
               <label
                 htmlFor="email"
-                className="caps-tight text-xs text-text-muted block mb-3"
+                className="caps-tight text-[10px] text-text-muted block mb-3"
               >
                 Email
               </label>
@@ -39,7 +39,7 @@ export default async function LoginPage({
                 required
                 autoComplete="email"
                 placeholder="you@example.com"
-                className="w-full bg-surface-high text-text px-4 py-4 focus:bg-surface-highest focus:outline-none transition-colors rounded-sm placeholder:text-text-dim"
+                className="w-full bg-surface-high text-text px-4 py-4 focus:bg-surface-highest focus:outline-none transition-colors placeholder:text-text-dim"
               />
             </div>
             {callbackUrl ? (
@@ -47,7 +47,7 @@ export default async function LoginPage({
             ) : null}
             <button
               type="submit"
-              className="w-full bg-ember hover:bg-ember-hover text-text caps-tight text-sm font-semibold py-4 transition-colors rounded-sm"
+              className="w-full bg-ember hover:bg-ember-hover text-text caps-tight text-sm font-semibold py-4 transition-colors duration-300"
             >
               Send Link
             </button>

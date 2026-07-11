@@ -8,15 +8,15 @@ export function Wordmark({
   size?: "sm" | "md" | "lg";
 }) {
   const sizeClass = {
-    sm: "text-xl",
-    md: "text-2xl",
-    lg: "text-3xl",
+    sm: "text-base",
+    md: "text-lg",
+    lg: "text-2xl",
   }[size];
 
   return (
     <Link
       href={href}
-      className={`font-display italic font-bold tracking-widest text-ember uppercase ${sizeClass}`}
+      className={`font-label font-bold tracking-[0.22em] text-ember uppercase ${sizeClass}`}
     >
       ARAMZOR
     </Link>

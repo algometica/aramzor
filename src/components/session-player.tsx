@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { logCompletedSession } from "@/app/session/[mode]/actions";
 import {
@@ -26,10 +26,10 @@ function scaleFor(action: Beat["action"], intensity?: Beat["intensity"]): number
 type GlowConfig = { color: string; opacity: number; shadow: number };
 
 function glowFor(phase: Beat["phase"]): GlowConfig {
-  if (phase === "zor") return { color: "#C4522A", opacity: 0.30, shadow: 0.25 };
-  if (phase === "threshold") return { color: "#8B3A1E", opacity: 0.14, shadow: 0.10 };
-  if (phase === "return") return { color: "#D4603A", opacity: 0.44, shadow: 0.38 };
-  return { color: "#A34525", opacity: 0.18, shadow: 0.14 };
+  if (phase === "zor") return { color: "#C4522A", opacity: 0.32, shadow: 0.28 };
+  if (phase === "threshold") return { color: "#7A3018", opacity: 0.12, shadow: 0.08 };
+  if (phase === "return") return { color: "#E8703A", opacity: 0.62, shadow: 0.55 };
+  return { color: "#A34525", opacity: 0.20, shadow: 0.16 };
 }
 
 function phaseCounterFor(
@@ -148,7 +148,8 @@ export function SessionPlayer({
   const glowOpacity = isPaused ? glow.opacity * 0.25 : glow.opacity;
   const shadowOpacity = isPaused ? 0.06 : glow.shadow;
   const progressPct = Math.round((idx / beats.length) * 100);
-  const counter = phaseCounterFor(beats, idx);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const counter = useMemo(() => phaseCounterFor(beats, idx), [idx]);
   const positionHint = POSITION_HINT[modeId];
   const showBuildHint =
     !isPaused &&
@@ -176,85 +177,143 @@ export function SessionPlayer({
         />
       </div>
 
-      <main className="flex-1 flex flex-col items-center justify-center px-6 py-8 relative">
-        {/* Phase label - fixed at top */}
-        <div className="absolute top-8 text-center">
-          <p className="caps-wide text-[11px] text-ember tracking-[0.38em] font-semibold">
+      <main className="flex-1 relative flex flex-col bg-bg-deep px-6 py-8">
+        {/* Top section - phase info, fixed height */}
+        <div className="h-24 flex flex-col items-center justify-center">
+          <p className="caps-wide text-[10px] text-ember/60 tracking-[0.4em] font-semibold">
             {PHASE_SUBTITLE[beat.phase]}
           </p>
-          <h2 className="font-display italic font-bold text-6xl md:text-7xl tracking-wider text-text uppercase">
+          <h2 className="font-display italic font-bold text-5xl md:text-6xl tracking-widest text-text mt-1">
             {PHASE_LABEL[beat.phase]}
           </h2>
         </div>
 
-        {/* Breathing circle - locked in center, never moves */}
+        {/* Breathing circle - absolutely centered, never moves */}
         <div
-          className="relative flex items-center justify-center shrink-0 rounded-2xl"
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
           style={{
-            width: 380,
-            height: 380,
-            backgroundColor: `rgba(${glow.color === "#C4522A" ? "196, 82, 42" : glow.color === "#8B3A1E" ? "139, 58, 30" : glow.color === "#D4603A" ? "212, 96, 58" : "163, 69, 37"}, 0.08)`,
-            transition: "background-color 1000ms ease",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
           }}
         >
-          {/* Main sphere */}
           <div
-            className="absolute rounded-full"
+            className="relative flex items-center justify-center shrink-0"
             style={{
-              width: 300,
-              height: 300,
-              background:
-                "radial-gradient(circle at 34% 30%, #DE6840 0%, #C4522A 35%, #8B3A1E 70%, #4A1C0A 100%)",
-              boxShadow: `0 0 60px 10px rgba(196, 82, 42, ${shadowOpacity})`,
-              transform: `scale(${targetScale})`,
-              transition: `transform ${transitionMs}ms ease-in-out, box-shadow 900ms ease`,
+              width: 380,
+              height: 380,
             }}
-          />
-          {/* Inner glass ring */}
-          <div
-            className="absolute rounded-full"
-            style={{
-              width: 222,
-              height: 222,
-              border: "1px solid rgba(255,255,255,0.04)",
-              transform: `scale(${targetScale * 0.9})`,
-              transition: `transform ${transitionMs}ms ease-in-out`,
-            }}
-          />
+          >
+            {/* Outer ambient bloom */}
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: 500,
+                height: 500,
+                backgroundColor: glow.color,
+                opacity: glowOpacity * 0.22,
+                filter: "blur(80px)",
+                transform: `scale(${targetScale * 1.15})`,
+                transition: `transform ${transitionMs}ms ease-in-out, opacity 1200ms ease`,
+              }}
+            />
+
+            {/* Mid glow ring */}
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: 400,
+                height: 400,
+                backgroundColor: glow.color,
+                opacity: glowOpacity * 0.30,
+                filter: "blur(40px)",
+                transform: `scale(${targetScale * 1.05})`,
+                transition: `transform ${transitionMs}ms ease-in-out, opacity 1000ms ease`,
+              }}
+            />
+
+            {/* Main sphere */}
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: 320,
+                height: 320,
+                background:
+                  "radial-gradient(circle at 34% 30%, #E87048 0%, #C4522A 38%, #8B3A1E 68%, #3E1608 100%)",
+                boxShadow: `0 0 100px 30px rgba(196, 82, 42, ${shadowOpacity}), inset 0 2px 6px rgba(255,255,255,0.08)`,
+                transform: `scale(${targetScale})`,
+                transition: `transform ${transitionMs}ms ease-in-out, box-shadow 900ms ease`,
+              }}
+            />
+
+            {/* Inner glass ring */}
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: 240,
+                height: 240,
+                border: "1px solid rgba(255,255,255,0.05)",
+                transform: `scale(${targetScale * 0.88})`,
+                transition: `transform ${transitionMs}ms ease-in-out`,
+              }}
+            />
+
+            {/* Outer ring - barely visible structural detail */}
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: 338,
+                height: 338,
+                border: "1px solid rgba(255,255,255,0.03)",
+                transform: `scale(${targetScale})`,
+                transition: `transform ${transitionMs}ms ease-in-out`,
+              }}
+            />
+          </div>
         </div>
 
-        {/* Instructions - fixed at bottom, never moves */}
-        <div
-          key={idx}
-          className="absolute bottom-24 md:bottom-32 fade-up text-center flex flex-col items-center gap-4 w-full px-6"
-        >
-          <p className="font-display text-2xl md:text-3xl text-text font-bold leading-relaxed uppercase tracking-wide">
-            {isPaused ? "Paused" : beat.instruction}
-          </p>
-
-          {showBuildHint && (
-            <p className="caps-tight text-[11px] text-ember font-semibold">
-              Build to full intensity
+        {/* Bottom section - instructions, fixed height, positioned at bottom */}
+        <div className="relative mt-auto">
+          <div
+            key={idx}
+            className="fade-up text-center flex flex-col items-center gap-6 py-8 w-full"
+          >
+            <p
+              className="font-display italic font-normal text-3xl md:text-4xl leading-snug max-w-2xl text-center"
+              style={{
+                color: isPaused
+                  ? "#9E9189"
+                  : beat.action === "inhale"
+                    ? "#D4603A"
+                    : beat.action === "exhale"
+                      ? "#F5EFE6"
+                      : "#9E9189",
+              }}
+            >
+              {isPaused ? "Paused" : beat.instruction}
             </p>
-          )}
 
-          {!isPaused && beat.phase === "threshold" && (
-            <p className={`caps-tight text-[15px] text-ember tabular-nums font-semibold ${stage === "running" ? "tick-pulse" : ""}`}>
-              {fmtSec(elapsedSec)}
-            </p>
-          )}
+            {showBuildHint && (
+              <p className="caps-wide text-[10px] text-ember/70 tracking-[0.35em] font-semibold">
+                Build to full intensity
+              </p>
+            )}
 
-          {!isPaused && counter && beat.phase === "zor" && (
-            <p className="caps-tight text-[12px] text-text-muted font-semibold">
-              Breath {counter.current} of {counter.total}
-            </p>
-          )}
+            <div className="flex flex-col items-center gap-3">
+              {!isPaused && beat.phase === "threshold" && (
+                <p className={`font-display text-3xl md:text-4xl text-ember tabular-nums font-bold ${stage === "running" ? "tick-pulse" : ""}`}>
+                  {fmtSec(elapsedSec)}
+                </p>
+              )}
 
-          {!isPaused && counter && beat.phase === "aram" && (
-            <p className="caps-tight text-[12px] text-text-muted font-semibold">
-              Cycle {counter.current} of {counter.total}
-            </p>
-          )}
+              {!isPaused && counter && (beat.phase === "zor" || beat.phase === "aram") && (
+                <p className="caps-tight text-[11px] text-text-muted/70 tracking-[0.25em] font-semibold">
+                  {beat.phase === "zor" ? `Breath ${counter.current} of ${counter.total}` : `Cycle ${counter.current} of ${counter.total}`}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </main>
 

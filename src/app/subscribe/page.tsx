@@ -22,28 +22,28 @@ export default function SubscribePage() {
         </Link>
       </header>
 
-      <main className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-        <div className="max-w-lg w-full space-y-10">
+      <main className="flex-1 flex flex-col justify-center px-6 md:px-24 py-16 max-w-4xl mx-auto w-full">
+        <div className="space-y-12">
           <div className="space-y-4">
-            <p className="caps-wide text-[9px] text-ember tracking-[0.38em]">
+            <p className="caps-wide text-[11px] text-ember tracking-[0.38em]">
               Full Access
             </p>
-            <h1 className="font-display italic text-5xl md:text-7xl font-light leading-[0.95] tracking-tight text-text">
+            <h1 className="font-display italic font-bold text-5xl md:text-7xl leading-[0.92] tracking-tight text-text">
               Full Aramzor.
             </h1>
           </div>
 
-          <div className="space-y-3">
-            <p className="font-display text-4xl md:text-5xl font-light text-text">
+          <div className="space-y-2">
+            <p className="font-display font-bold text-5xl md:text-6xl text-text leading-none">
               $8
-              <span className="text-xl text-text-muted font-light">/month</span>
+              <span className="font-light text-2xl text-text-muted">/month</span>
             </p>
-            <p className="caps-wide text-[9px] text-text-dim tracking-[0.3em]">
-              No fluff. Cancel anytime.
+            <p className="caps-wide text-[11px] text-text-dim tracking-[0.3em]">
+              Cancel anytime.
             </p>
           </div>
 
-          <div className="space-y-4 text-left max-w-xs mx-auto">
+          <div className="space-y-4 max-w-xs">
             {[
               "All five modes",
               "Unlimited sessions",
@@ -52,7 +52,7 @@ export default function SubscribePage() {
               "No ads. No newsletter. Dark.",
             ].map((line) => (
               <div key={line} className="flex items-start gap-3">
-                <span className="text-ember mt-0.5 shrink-0">-</span>
+                <span className="text-ember mt-0.5 shrink-0 font-bold">-</span>
                 <p className="text-text-muted text-sm leading-relaxed font-light">
                   {line}
                 </p>
@@ -62,7 +62,7 @@ export default function SubscribePage() {
 
           <a
             href={checkoutUrl}
-            className="inline-block bg-ember hover:bg-ember-hover text-text caps-tight text-sm px-16 py-5 transition-all duration-500 rounded-sm"
+            className="inline-block bg-ember hover:bg-ember-hover text-text caps-tight text-sm px-16 py-5 transition-all duration-300"
           >
             Begin - $8/month
           </a>

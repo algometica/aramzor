@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { desc, eq } from "drizzle-orm";
+import { count, desc, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
@@ -47,19 +47,25 @@ export default async function ProfilePage() {
 
   if (!user) redirect("/login");
 
-  const allSessions = await db
-    .select()
-    .from(breathSessions)
-    .where(eq(breathSessions.userId, user.id))
-    .orderBy(desc(breathSessions.completedAt));
+  const [recentSessions, [sessionCountRow], [sub]] = await Promise.all([
+    db
+      .select()
+      .from(breathSessions)
+      .where(eq(breathSessions.userId, user.id))
+      .orderBy(desc(breathSessions.completedAt))
+      .limit(8),
+    db
+      .select({ value: count() })
+      .from(breathSessions)
+      .where(eq(breathSessions.userId, user.id)),
+    db
+      .select()
+      .from(subscriptions)
+      .where(eq(subscriptions.userId, user.id))
+      .limit(1),
+  ]);
 
-  const recentSessions = allSessions.slice(0, 8);
-  const totalSessions = allSessions.length;
-
-  const [sub] = await db
-    .select()
-    .from(subscriptions)
-    .where(eq(subscriptions.userId, user.id));
+  const totalSessions = sessionCountRow?.value ?? 0;
 
   const isActive = sub?.status === "active";
 
@@ -68,9 +74,9 @@ export default async function ProfilePage() {
       <section className="px-6 md:px-10 pt-12 md:pt-20 pb-24 max-w-3xl mx-auto w-full">
 
         <header className="mb-16 md:mb-20">
-          <p className="caps-wide text-[9px] text-ember tracking-[0.38em] mb-4">Your Archive</p>
-          <h1 className="font-display italic text-5xl md:text-6xl font-light text-text leading-none tracking-tight">
-            {totalSessions} {totalSessions === 1 ? "Aramzor" : "Aramzors"}.
+          <p className="caps-wide text-[11px] text-ember tracking-[0.38em] mb-4">Your Archive</p>
+          <h1 className="font-display italic font-bold text-5xl md:text-6xl text-text leading-none tracking-tight">
+            {totalSessions} {totalSessions === 1 ? "Breath" : "Breaths"}.
           </h1>
           <p className="text-text-muted text-sm mt-4 font-light">{user.email}</p>
           {user.createdAt && (
@@ -82,8 +88,8 @@ export default async function ProfilePage() {
 
         {/* Subscription */}
         <div className="mb-16">
-          <p className="caps-wide text-[9px] text-text-dim tracking-[0.32em] mb-6">Subscription</p>
-          <div className="bg-surface-low p-6 md:p-8 rounded-sm flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <p className="caps-wide text-[11px] text-text-dim tracking-[0.32em] mb-6">Subscription</p>
+          <div className="bg-surface-low p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div className="space-y-1">
               {sub ? (
                 <>
@@ -116,7 +122,7 @@ export default async function ProfilePage() {
               {!sub && (
                 <Link
                   href="/subscribe"
-                  className="caps-tight text-[11px] bg-ember hover:bg-ember-hover text-text px-6 py-3 transition-colors rounded-sm"
+                  className="caps-tight text-[11px] bg-ember hover:bg-ember-hover text-text px-6 py-3 transition-colors duration-300"
                 >
                   Subscribe - $8/month
                 </Link>
@@ -137,7 +143,7 @@ export default async function ProfilePage() {
 
         {/* Session history */}
         <div>
-          <p className="caps-wide text-[9px] text-text-dim tracking-[0.32em] mb-6">Recent Sessions</p>
+          <p className="caps-wide text-[11px] text-text-dim tracking-[0.32em] mb-6">Recent Sessions</p>
 
           {recentSessions.length === 0 ? (
             <p className="text-text-muted text-sm font-light">

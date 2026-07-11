@@ -3,9 +3,20 @@ import Link from "next/link";
 import { Wordmark } from "@/components/wordmark";
 
 export const metadata = {
-  title: "The Science - Aramzor",
+  title: "The Science Behind Breathwork for Anxiety and Stress Relief",
   description:
-    "The Aramzor Method draws from Tibetan Tummo, Kundalini pranayama, Shaivite tantric breathwork, and modern HRV and neuroscience research. Combined, not owned.",
+    "The Aramzor Method synthesizes Tibetan Tummo, Kundalini pranayama, Stanford HRV research, and HeartMath coherence breathing. Science citations included. Combined, not owned.",
+  keywords: [
+    "breathwork science",
+    "breathing exercises anxiety science",
+    "Wim Hof science",
+    "Tummo breathing Harvard",
+    "Huberman breathing",
+    "HRV breathing",
+    "coherence breathing HeartMath",
+    "physiological sigh research",
+    "pranayama neuroscience",
+  ],
 };
 
 const LINEAGE = [
@@ -133,7 +144,7 @@ export default function SciencePage() {
 
         {/* Hero */}
         <p className="caps-wide text-xs text-ember mb-6">Lineage + Mechanism</p>
-        <h1 className="font-display italic text-5xl md:text-7xl font-light leading-[0.95] tracking-tight mb-12">
+        <h1 className="font-display italic font-bold text-5xl md:text-7xl leading-[0.92] tracking-tight mb-12">
           Combined,
           <br />
           not owned.
@@ -146,14 +157,14 @@ export default function SciencePage() {
 
         {/* Lineage table */}
         <section className="mb-28">
-          <p className="caps-wide text-[9px] text-text-dim tracking-[0.38em] mb-8">Source traditions</p>
+          <p className="caps-wide text-[11px] text-text-dim tracking-[0.38em] mb-8">Source traditions</p>
           <div className="space-y-px">
             {LINEAGE.map((row) => (
               <div
                 key={row.name}
                 className="flex flex-col md:flex-row md:items-baseline justify-between py-5 px-4 hover:bg-surface-low transition-colors duration-500 gap-2 border-b border-text-dim/8 first:border-t"
               >
-                <span className="font-display text-xl md:text-2xl font-light text-text">
+                <span className="font-display font-normal text-2xl md:text-3xl text-text">
                   {row.name}
                 </span>
                 <span className="text-sm text-text-muted font-light">{row.detail}</span>
@@ -164,16 +175,16 @@ export default function SciencePage() {
 
         {/* Mechanism */}
         <section className="mb-28">
-          <p className="caps-wide text-[9px] text-text-dim tracking-[0.38em] mb-8">What is happening in your body</p>
+          <p className="caps-wide text-[11px] text-text-dim tracking-[0.38em] mb-8">What is happening in your body</p>
           <div className="space-y-16">
             {MECHANISM.map((m) => (
               <div key={m.beat} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
                 <div className="md:col-span-4 flex flex-col gap-2">
                   <span className="font-display italic text-3xl text-ember/40">{m.number}</span>
-                  <h2 className="font-display italic text-3xl md:text-4xl font-light text-text">
+                  <h2 className="font-display italic font-bold text-4xl md:text-5xl text-text leading-tight">
                     {m.beat}
                   </h2>
-                  <p className="caps-wide text-[9px] text-ember/70 tracking-[0.3em] mt-1">
+                  <p className="caps-wide text-[11px] text-ember/70 tracking-[0.3em] mt-1">
                     {m.subtitle}
                   </p>
                 </div>
@@ -181,7 +192,7 @@ export default function SciencePage() {
                   <p className="text-text-muted leading-relaxed font-light">
                     {m.body}
                   </p>
-                  <p className="caps-wide text-[9px] text-text-dim tracking-[0.28em] leading-loose">
+                  <p className="caps-wide text-[11px] text-text-dim tracking-[0.28em] leading-loose">
                     {m.mechanism}
                   </p>
                 </div>
@@ -192,7 +203,7 @@ export default function SciencePage() {
 
         {/* Studies */}
         <section className="mb-24">
-          <p className="caps-wide text-[9px] text-text-dim tracking-[0.38em] mb-8">Key research</p>
+          <p className="caps-wide text-[11px] text-text-dim tracking-[0.38em] mb-8">Key research</p>
           <div className="space-y-px">
             {STUDIES.map((s) => (
               <div
@@ -200,7 +211,7 @@ export default function SciencePage() {
                 className="py-8 px-4 border-b border-text-dim/8 first:border-t hover:bg-surface-low transition-colors duration-500"
               >
                 <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-3">
-                  <span className="font-display italic text-lg text-text font-light">
+                  <span className="font-display italic font-bold text-2xl md:text-3xl text-text">
                     {s.authors}
                   </span>
                   <span className="caps-tight text-[10px] text-ember/60">{s.venue}</span>
@@ -228,7 +239,7 @@ export default function SciencePage() {
 
         <Link
           href="/login"
-          className="inline-block border border-ember/40 hover:border-ember hover:bg-surface px-12 py-6 caps-wide text-xs md:text-sm transition-all duration-700 rounded-sm"
+          className="inline-block border border-ember/40 hover:border-ember hover:bg-surface px-12 py-6 caps-wide text-xs md:text-sm transition-all duration-500"
         >
           Begin Practice
         </Link>

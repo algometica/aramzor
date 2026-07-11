@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm";
 import {
   boolean,
+  index,
   integer,
   pgTable,
   primaryKey,
@@ -60,21 +61,32 @@ export const verificationTokens = pgTable(
   (vt) => [primaryKey({ columns: [vt.identifier, vt.token] })],
 );
 
-export const subscriptions = pgTable("subscriptions", {
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
-  userId: uuid("user_id").references(() => users.id),
-  lsSubscriptionId: text("ls_subscription_id").unique(),
-  status: text("status"),
-  plan: text("plan"),
-  currentPeriodEnd: timestamp("current_period_end"),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
-});
+export const subscriptions = pgTable(
+  "subscriptions",
+  {
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    userId: uuid("user_id").references(() => users.id),
+    lsSubscriptionId: text("ls_subscription_id").unique(),
+    status: text("status"),
+    plan: text("plan"),
+    currentPeriodEnd: timestamp("current_period_end"),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").defaultNow(),
+  },
+  (t) => [index("idx_subscriptions_user_id").on(t.userId)],
+);
 
-export const breathSessions = pgTable("breath_sessions", {
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
-  userId: uuid("user_id").references(() => users.id),
-  protocolId: text("protocol_id").references(() => protocols.id),
-  durationSec: integer("duration_sec"),
-  completedAt: timestamp("completed_at").defaultNow(),
-});
+export const breathSessions = pgTable(
+  "breath_sessions",
+  {
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    userId: uuid("user_id").references(() => users.id),
+    protocolId: text("protocol_id").references(() => protocols.id),
+    durationSec: integer("duration_sec"),
+    completedAt: timestamp("completed_at").defaultNow(),
+  },
+  (t) => [
+    index("idx_breath_sessions_user_id").on(t.userId),
+    index("idx_breath_sessions_user_completed_at").on(t.userId, t.completedAt),
+  ],
+);

@@ -53,7 +53,7 @@ export default function LandingPage() {
               href="/login"
               className="inline-block border border-ember text-ember hover:bg-ember hover:text-text px-10 md:px-12 py-5 md:py-6 caps-wide text-xs md:text-sm transition-all duration-500"
             >
-              Begin your Aramzor - $8/month
+              Earn your calm
             </Link>
           </div>
           <div className="absolute bottom-0 right-0 w-1/3 h-px bg-ember/15" />
@@ -127,7 +127,7 @@ export default function LandingPage() {
                 Practice Now
               </Link>
               <p className="text-text-muted font-light text-sm self-center">
-                <span className="text-text font-medium">Three free sessions.</span> No card required.
+                <span className="text-text font-medium">Three free sessions.</span> <span className="text-text">$8/month</span> after. No card required.
               </p>
             </div>
           </div>

@@ -86,19 +86,19 @@ export default function LandingPage() {
               Aramzor
             </p>
             <h1 className="hero-fade hero-fade-delay-1 font-display font-semibold text-[48px] sm:text-[72px] md:text-[92px] leading-[0.96] tracking-[-0.045em] mb-4 sm:mb-5 text-text">
-              Force in.
+              Peace in.
               <br />
-              Peace out.
+              Stress out.
             </h1>
             <p className="hero-fade hero-fade-delay-2 text-[16px] sm:text-[18px] md:text-[20px] text-text-muted max-w-md mb-7 sm:mb-9 leading-relaxed">
-              The breathwork that earns your calm.
+              When panic hits, start with one breath.
             </p>
             <div className="hero-fade hero-fade-delay-3 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
               <Link
                 href="/login"
                 className="inline-flex items-center justify-center rounded-full bg-text text-bg hover:opacity-90 w-full sm:w-auto px-8 py-3.5 min-h-12 text-[15px] font-medium transition-opacity"
               >
-                Earn your calm
+                Breathe in calm
               </Link>
               <p className="text-[13px] font-medium text-text-dim text-center sm:text-left">
                 Three free sessions. No card required.
@@ -117,17 +117,17 @@ export default function LandingPage() {
                 {
                   n: "01",
                   title: "The Zor",
-                  body: "Force is required. Activate the nervous system so stress has somewhere to go.",
+                  body: "Wake the body up. Give the stress a clear path out instead of trapping it in your chest.",
                 },
                 {
                   n: "02",
                   title: "The Threshold",
-                  body: "Hold on empty lungs. Stay steady while carbon dioxide rises and the mind wants to flee.",
+                  body: "Hold on empty lungs. Stay with the wave while the urge to flee rises - then let it pass.",
                 },
                 {
                   n: "03",
                   title: "The Aram",
-                  body: "Land with extended exhales. Calm that feels earned - not whispered into existence.",
+                  body: "Long, slow exhales. Land in a calm your nervous system can actually hold.",
                 },
               ].map((item) => (
                 <div key={item.n} className="flex flex-col gap-3">
@@ -154,7 +154,7 @@ export default function LandingPage() {
               <span className="text-text-muted">Zor means force.</span>
             </p>
             <p className="text-text-muted text-[16px] sm:text-[18px] max-w-lg leading-relaxed mb-4">
-              The name is the protocol. You already know what to do.
+              Peace in. Stress out. The name is the method.
             </p>
             <p className="text-[13px] font-medium text-text-dim">
               $8 / month - Calm and Sleep free to start
@@ -165,14 +165,14 @@ export default function LandingPage() {
         <section className="py-20 sm:py-28 md:py-32 px-5 sm:px-6 md:px-16 border-t border-white/[0.06] pb-[max(5rem,env(safe-area-inset-bottom))]">
           <div className="max-w-3xl flex flex-col gap-7 sm:gap-8">
             <h3 className="font-display font-semibold text-[30px] sm:text-[36px] md:text-[52px] text-text leading-[1.08] tracking-[-0.04em]">
-              Breath is the only tool you cannot leave at home.
+              When your chest is tight, your breath is still with you.
             </h3>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4 sm:gap-5">
               <Link
                 href="/login"
                 className="inline-flex items-center justify-center rounded-full bg-text text-bg hover:opacity-90 w-full sm:w-auto px-8 py-3.5 min-h-12 text-[15px] font-medium transition-opacity"
               >
-                Practice now
+                Breathe in calm
               </Link>
               <p className="text-text-muted text-[14px] sm:text-[15px] self-center text-center sm:text-left">
                 Three free sessions. $8/month after.

@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Aramzor",
     short_name: "Aramzor",
     description:
-      "Science-backed breathwork for anxiety, sleep, and energy. Force in. Peace out.",
+      "Science-backed breathwork for anxiety, sleep, and energy. Peace in. Stress out.",
     start_url: "/",
     scope: "/",
     display: "standalone",

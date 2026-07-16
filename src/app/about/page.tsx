@@ -85,9 +85,9 @@ export default function AboutPage() {
         <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-6">The Ancient Modernist</p>
 
         <h1 className="font-display font-semibold text-6xl md:text-8xl leading-[0.92] tracking-tight mb-16 text-text">
-          Force in.
+          Peace in.
           <br />
-          Peace out.
+          Stress out.
         </h1>
 
         {/* The name */}

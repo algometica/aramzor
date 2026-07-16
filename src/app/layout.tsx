@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Aramzor",
   },
   description:
-    "Science-backed breathing exercises for anxiety relief, better sleep, and natural energy. The Aramzor Method combines Tibetan Tummo, Kundalini pranayama, and Stanford HRV research into one proprietary protocol. Free trial. $8/month.",
+    "When panic hits, start with one breath. Science-backed breathwork for anxiety, sleep, and energy. Peace in. Stress out. Free trial. $8/month.",
   applicationName: "Aramzor",
   appleWebApp: {
     capable: true,
@@ -70,13 +70,13 @@ export const metadata: Metadata = {
     siteName: "Aramzor",
     title: "Aramzor - Breathwork for Anxiety, Sleep & Natural Energy",
     description:
-      "Science-backed breathing exercises that earn your calm. One proprietary method. Five modes. Combines Tibetan Tummo, Kundalini pranayama, and Stanford HRV research. Free trial.",
+      "When panic hits, start with one breath. One proprietary method. Five modes. Combines Tibetan Tummo, Kundalini pranayama, and Stanford HRV research. Free trial.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Aramzor - Force in. Peace out.",
+        alt: "Aramzor - Peace in. Stress out.",
       },
     ],
   },
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Aramzor - Breathwork for Anxiety, Sleep & Natural Energy",
     description:
-      "Science-backed breathing exercises that earn your calm. One method. Five modes. $8/month.",
+      "When panic hits, start with one breath. One method. Five modes. $8/month.",
     images: ["/og-image.png"],
   },
   robots: {

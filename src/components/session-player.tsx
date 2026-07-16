@@ -130,6 +130,10 @@ export function SessionPlayer({
     }
   }, [stage]);
 
+  // All hooks must be declared before any conditional returns
+  const progressPct = Math.round((idx / beats.length) * 100);
+  const counter = useMemo(() => phaseCounterFor(beats, idx), [beats, idx]);
+
   if (stage === "safety") return <SafetyGate onEnter={() => setStage("running")} />;
 
   if (stage === "completing" || !beat) {
@@ -147,9 +151,6 @@ export function SessionPlayer({
   const glow = glowFor(beat.phase);
   const glowOpacity = isPaused ? glow.opacity * 0.25 : glow.opacity;
   const shadowOpacity = isPaused ? 0.06 : glow.shadow;
-  const progressPct = Math.round((idx / beats.length) * 100);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const counter = useMemo(() => phaseCounterFor(beats, idx), [idx]);
   const positionHint = POSITION_HINT[modeId];
   const showBuildHint =
     !isPaused &&

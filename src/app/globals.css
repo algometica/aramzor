@@ -1,70 +1,100 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #161310;
-  --color-bg-deep: #110e0b;
-  --color-surface-low: #1e1b18;
-  --color-surface: #252220;
-  --color-surface-high: #2d2927;
-  --color-surface-highest: #342f2c;
-  --color-text: #F5EFE6;
-  --color-text-muted: #9E9189;
-  --color-text-dim: #57423b;
-  --color-ember: #C4522A;
-  --color-ember-hover: #D4603A;
-  --color-ember-deep: #8B3A1E;
-  --color-error: #ffb4ab;
+  --color-bg: #000000;
+  --color-bg-deep: #000000;
+  --color-surface-low: #1d1d1f;
+  --color-surface: #2c2c2e;
+  --color-surface-high: #3a3a3c;
+  --color-surface-highest: #48484a;
+  --color-text: #f5f5f7;
+  --color-text-muted: #86868b;
+  --color-text-dim: #6e6e73;
+  --color-accent: #2997ff;
+  --color-accent-hover: #0077ed;
+  --color-error: #ff453a;
 
-  --font-display: var(--font-newsreader), Georgia, serif;
-  --font-body: var(--font-newsreader), Georgia, serif;
-  --font-label: var(--font-work-sans), system-ui, sans-serif;
+  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-label: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
 
-  --shadow-ambient: 0px 20px 40px rgba(132, 38, 0, 0.08);
+  --shadow-ambient: 0px 20px 40px rgba(0, 0, 0, 0.35);
 }
 
-html,
-body {
+html {
   background: var(--color-bg);
   color: var(--color-text);
+  /* Smooth scrolling only outside immersive session screens */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
 }
 
+/* Better tap targets on phones */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
 
 ::selection {
-  background: var(--color-ember);
+  background: rgba(41, 151, 255, 0.35);
   color: var(--color-text);
 }
 
 @utility font-label {
   font-family: var(--font-label);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 @utility font-display {
   font-family: var(--font-display);
+  letter-spacing: -0.03em;
 }
 
 @utility caps-wide {
   font-family: var(--font-label);
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.12em;
 }
 
 @utility caps-tight {
   font-family: var(--font-label);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* Notch / home-indicator safe areas */
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@utility px-safe {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
 }
 
 @keyframes threshold-tick {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .tick-pulse {
@@ -72,10 +102,91 @@ body {
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .fade-up {
-  animation: fade-up 0.3s ease-out forwards;
+  animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes soft-breathe {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+}
+
+.soft-breathe {
+  animation: soft-breathe 5.5s ease-in-out infinite;
+}
+
+@keyframes hero-orb {
+  0%,
+  100% {
+    transform: scale(0.42);
+  }
+  45% {
+    transform: scale(1);
+  }
+  55% {
+    transform: scale(1);
+  }
+}
+
+.hero-orb-core {
+  animation: hero-orb 7.2s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-fade {
+  animation: hero-fade 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-fade-delay-1 {
+  animation-delay: 0.12s;
+}
+
+.hero-fade-delay-2 {
+  animation-delay: 0.24s;
+}
+
+.hero-fade-delay-3 {
+  animation-delay: 0.36s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .soft-breathe,
+  .hero-orb-core,
+  .hero-fade,
+  .fade-up,
+  .tick-pulse {
+    animation: none !important;
+  }
+
+  .hero-orb-core {
+    transform: scale(0.85);
+  }
 }

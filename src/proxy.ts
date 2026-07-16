@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { breathSessions, subscriptions, users } from "@/db/schema";
+import { isPremiumMode } from "@/lib/access";
 
 const FREE_SESSION_LIMIT = 3;
 
@@ -30,7 +31,6 @@ export default auth(async (req) => {
       return NextResponse.redirect(new URL("/login", req.url));
     }
 
-    // Fetch session count and subscription status in parallel
     const [[sessionCount], [subRow]] = await Promise.all([
       db
         .select({ value: count() })
@@ -46,12 +46,20 @@ export default auth(async (req) => {
     const sessionsUsed = sessionCount?.value ?? 0;
     const isActive = subRow?.status === "active";
 
+    const pathname = req.nextUrl.pathname;
+    const sessionMatch = pathname.match(/^\/session\/([^/]+)/);
+    const modeId = sessionMatch?.[1];
+
+    // Premium modes (Natural High + Performance + Energy) always require subscription.
+    if (modeId && modeId !== "complete" && isPremiumMode(modeId) && !isActive) {
+      return NextResponse.redirect(new URL("/subscribe", req.url));
+    }
+
     if (sessionsUsed >= FREE_SESSION_LIMIT && !isActive) {
       return NextResponse.redirect(new URL("/subscribe", req.url));
     }
   } catch {
     // If DB is unreachable, let the page render - it will handle auth itself
-    // rather than blocking the user with a middleware crash
   }
 
   return NextResponse.next();

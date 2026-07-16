@@ -9,7 +9,7 @@ export default function VerifyPage() {
 
       <main className="flex-1 flex items-center justify-center px-8">
         <div className="w-full max-w-md text-center">
-          <h1 className="font-display italic font-bold text-5xl md:text-6xl text-text mb-6 tracking-tight">
+          <h1 className="font-display font-semibold text-5xl md:text-6xl text-text mb-6 tracking-tight">
             Check your email.
           </h1>
           <p className="text-text-muted text-base leading-relaxed font-light">

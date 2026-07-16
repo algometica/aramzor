@@ -1,76 +1,84 @@
-# Design System Specification: The Ember Editorial
+# Design System Specification: Quiet Precision
 
 ## 1. Overview & Creative North Star
-The Creative North Star for this design system is **"The Nocturnal Archive."** 
+The Creative North Star is **"Quiet Precision."**
 
-This system moves away from the sterile, brightly-lit interfaces of SaaS and toward a high-end, editorial experience that feels curated, heavy, and permanent. It is inspired by the warmth of a study at midnight—think leather-bound volumes, resinous textures, and the soft glow of embers against obsidian. 
+Aramzor should feel like a first-party Apple product page at night: calm, exact, and confident. No editorial theatrics. No warm terracotta. No serif display drama. The interface gets out of the way so the practice can dominate.
 
-To achieve this, we break the "template" look through:
-*   **Intentional Asymmetry:** Avoid perfectly centered grids. Use off-kilter text alignments and overlapping containers to create a sense of motion.
-*   **High-Contrast Typography:** Drastic scaling between the Newsreader displays and functional Work Sans labels.
-*   **Tonal Depth:** Rather than using lines to separate ideas, we use the "resinous" dark backgrounds to create a physical sense of space.
+To achieve this:
+* **System typography first.** Prefer SF Pro via the Apple system stack. One sans family for display, body, and labels.
+* **Restraint over ornament.** Large type, generous space, soft contrast. Hierarchy comes from size and weight, not color shouting.
+* **Cool black surfaces.** Near-black bases with cool gray elevations. Accent is used sparingly for links and status, never as the default text color.
 
 ## 2. Colors & Surface Philosophy
-The palette is anchored by deep, ink-like neutrals and accented by a rich, burnt coral/terracotta. This "ember" tone provides a sophisticated warmth that cuts through the dark backgrounds without the clinical feel of standard "brand colors."
+Palette is cool black and soft silver, with a single blue accent for interactive emphasis.
 
-### The "No-Line" Rule
-**Explicit Instruction:** Designers are prohibited from using 1px solid borders for sectioning or containment. Boundaries must be defined solely through:
-*   **Background Shifts:** e.g., a `surface-container-low` (#1e1b18) section sitting on a `background` (#161310) base.
-*   **Negative Space:** Using the spacing scale to create clear psychological boundaries without physical lines.
+| Token | Hex | Role |
+|---|---|---|
+| `bg` | `#000000` | Page base |
+| `bg-deep` | `#000000` | Immersive session base |
+| `surface-low` | `#1d1d1f` | Elevated panels |
+| `surface` | `#2c2c2e` | Hover / secondary surfaces |
+| `surface-high` | `#3a3a3c` | Inputs / active surfaces |
+| `surface-highest` | `#48484a` | Focused inputs |
+| `text` | `#f5f5f7` | Primary reading |
+| `text-muted` | `#86868b` | Secondary copy |
+| `text-dim` | `#6e6e73` | Meta / captions |
+| `accent` | `#2997ff` | Links, focus, status |
+| `accent-hover` | `#0077ed` | Hover for accent |
+| `error` | `#ff453a` | Alerts only |
 
-### Surface Hierarchy & Nesting
-Treat the UI as a series of physical layers. Use the `surface-container` tiers to create depth:
-*   **Base:** `surface` (#161310) or `surface_container_lowest` (#110e0b).
-*   **Elevated Containers:** Use `surface_container_high` (#2d2927) for cards or panels that need to draw attention.
-*   **Nested Content:** If a card contains a sub-section, use a slightly lower tier (like `surface_container_low`) to "carve out" space within the container.
-
-### The "Glass & Gradient" Rule
-To add soul to the interface, floating elements (modals, dropdowns) should utilize **Glassmorphism**:
-*   Use semi-transparent surface colors with a `32px` backdrop-blur.
-*   Apply a subtle gradient to main CTAs transitioning from `primary_container` (#c4522a) to `primary` (#D4603A) to mimic the flickering depth of a live flame.
-
-## 3. Typography
-The typography is a dialogue between the literary weight of **Newsreader** and the modernist clarity of **Work Sans**.
-
-*   **Display & Headlines (Newsreader):** These are the voice of the system. Large scale displays (`display-lg` at 3.5rem) should use tight letter-spacing and feel authoritative. Use these for editorial moments and brand-heavy statements.
-*   **Body (Newsreader):** Unlike many systems that use sans-serifs for body text, we use Newsreader at `body-lg` (1rem) to maintain an artisanal, "long-form" feel.
-*   **Functional Labels (Work Sans):** Use Work Sans exclusively for `label-md` and `label-sm`. This creates a clear distinction between "Content" (Serif) and "Utility" (Sans).
-
-## 4. Elevation & Depth
-In "The Nocturnal Archive," depth is felt, not seen.
-
-*   **Tonal Layering:** Avoid shadows for static elements. Stacking a `surface-container-highest` card on a `surface` background creates a soft, natural lift.
-*   **Ambient Shadows:** For floating elements, use extra-diffused shadows. 
-    *   *Formula:* `0px 20px 40px rgba(132, 38, 0, 0.08)`. Note the tint: the shadow uses a low-opacity version of the terracotta-on-primary color to mimic real-world light refraction.
-*   **The "Ghost Border" Fallback:** If a boundary is strictly required for accessibility, use the `outline-variant` (#57423b) at 15% opacity. Never use 100% opaque borders.
-
-## 5. Components
+### Surface Rules
+* Prefer tonal shifts over borders.
+* If a border is required, use white at 8-12% opacity.
+* Do not use warm browns, terracotta, or orange anywhere.
 
 ### Buttons
-*   **Primary:** Filled with the `primary_container` (#c4522a) color. Type should be `label-md` (Work Sans) in all-caps with 0.05em tracking for a premium feel.
-*   **Secondary:** Ghost-style but utilizing the "Ghost Border" (15% opacity `outline-variant`). No fill.
-*   **Tertiary:** Text-only, using the `primary` (#D4603A) color with a subtle 1px underline that only appears on hover.
+* **Primary:** Solid white (`#f5f5f7`) fill, black text, medium weight, slight radius (`9999px` or `12px` for forms).
+* **Secondary:** Transparent with a light ghost border (`rgba(255,255,255,0.18)`).
+* **Tertiary:** Text only in `text-muted`, `text` on hover. Accent blue only for true links.
 
-### Cards & Lists
-*   **Forbid Dividers:** Do not use lines to separate list items. Use 16px–24px of vertical padding and a subtle `surface-container` shift on hover to indicate interactivity.
-*   **Image Handling:** Images should have a subtle `0.25rem` (sm) radius. In dark mode, apply a very subtle 5% darkening overlay to images so they don't "pop" too aggressively against the resinous backgrounds.
+## 3. Typography
+Use **Sora** (Google Font) for display, body, and labels. One family, clear hierarchy through weight and size.
 
-### Input Fields
-*   **State:** The default state is a filled container (`surface_container_high`). 
-*   **Focus:** Upon focus, the background transitions to `surface_container_highest` and a subtle "Ghost Border" of `primary` (#D4603A) at 30% opacity appears.
+Sora is geometric but warmer than a system stack - distinctive enough to feel like a product, calm enough for breathwork. Do not fall back to Inter, Arial, or raw system UI fonts as the primary face.
 
-### Signature Component: The "Ember" Badge
-Used for high-priority status or featured categories. A small, pill-shaped chip using a radial gradient of `primary_container` (#c4522a) to a deep `#842600`, with `on_primary_container` (#F5EFE6) text.
+* **Display:** Large, semibold (600), tight tracking (`-0.03em` to `-0.045em`). Never italic by default.
+* **Body:** Regular / medium, comfortable leading (`1.5-1.6`), `text` / `text-muted`.
+* **Labels:** Smaller, medium weight, normal case preferred.
 
-## 6. Do's and Don'ts
+Avoid Newsreader, Work Sans, Inter, and any warm editorial serif pairing.
+
+## 4. Elevation & Depth
+* Static lift comes from surface steps (`#000` -> `#1d1d1f` -> `#2c2c2e`).
+* Shadows are soft and cool: `0 20px 40px rgba(0,0,0,0.35)`.
+* No colored ambient glows on marketing surfaces. Session visuals may use a soft cool bloom tied to the breath circle only.
+
+## 5. Signature Experience: Session Player
+The session screen is the product.
+
+* Full black canvas.
+* One large breathing orb (dominant, ~min(72vw, 440px)). Cool silver core with soft radial bloom - never CSS `filter: blur` glows (they paint a square).
+* SVG ring around the orb shows beat progress explicitly.
+* Phase stepper (Zor / Threshold / Return / Aram) shows journey through the method.
+* Phase name and instruction in clean sans - clear, large.
+* Thin session progress bar at top.
+* Controls are quiet and thumb-friendly.
+
+## 6. Paywall Presentation
+Premium modes show a small lock affordance and route unpaid users to `/subscribe`.
+Never tease Natural High as free content. Free trial sessions may only access free modes.
+
+## 7. Do's and Don'ts
 
 ### Do
-*   **Do** embrace the dark. Use the highest contrast text (#e9e1dc) only for primary reading; dim secondary information using `on_surface_variant`.
-*   **Do** use asymmetrical layouts. Let a headline hang 10% further left than the body copy below it.
-*   **Do** use Newsreader for any text that is meant to be "read" as a narrative.
+* Keep black.
+* Use white primary CTAs and blue only for links/status.
+* Let whitespace and type scale carry the brand.
+* Make session UI calmer than marketing UI.
 
 ### Don't
-*   **Don't** use pure black (#000000). The darkest depth should be `surface_container_lowest` (#110e0b).
-*   **Don't** use hard-edged shadows or high-contrast borders.
-*   **Don't** use Work Sans for anything other than labels and small buttons. Using it for body copy destroys the editorial aesthetic.
-*   **Don't** use the terracotta color for "Error" states. Reserve `primary` for brand moments and use the designated `error` (#ffb4ab) tokens for alerts.
+* Don't use terracotta, ember orange, or cream text.
+* Don't use italic display serifs.
+* Don't fill the first viewport with cards, stats, or badge clusters.
+* Don't paint instructional text in accent orange.

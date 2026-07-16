@@ -4,153 +4,203 @@ import { Wordmark } from "@/components/wordmark";
 
 export const dynamic = "force-static";
 
+function HeroOrb({ className = "" }: { className?: string }) {
+  return (
+    <div className={`relative ${className}`}>
+      <div
+        className="absolute inset-[-12%] soft-breathe"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 50%, rgba(41,151,255,0.26) 0%, rgba(41,151,255,0.1) 30%, transparent 64%)",
+        }}
+      />
+      <div
+        className="absolute inset-[16%] rounded-full hero-orb-core"
+        style={{
+          background:
+            "radial-gradient(circle at 38% 32%, #ffffff 0%, #e8e8ed 22%, #9a9aa1 55%, #3a3a3c 78%, #0a0a0a 100%)",
+          boxShadow: "0 0 48px 6px rgba(255,255,255,0.08)",
+        }}
+      />
+      <div
+        className="absolute inset-[27%] rounded-full border border-white/10"
+        style={{ opacity: 0.55 }}
+      />
+    </div>
+  );
+}
+
 export default function LandingPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-bg-deep">
-      <header className="sticky top-0 z-50 px-6 md:px-10 py-6 flex justify-between items-center bg-gradient-to-b from-bg-deep to-transparent backdrop-blur-sm">
-        <Wordmark size="md" />
-        <nav className="hidden md:flex gap-12">
-          <Link
-            href="/science"
-            className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors"
-          >
-            Science
-          </Link>
-          <Link
-            href="/about"
-            className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors"
-          >
-            About
-          </Link>
+    <div className="min-h-dvh flex flex-col bg-bg">
+      <header className="sticky top-0 z-50 px-5 sm:px-6 md:px-10 pt-safe flex justify-between items-center bg-bg/75 backdrop-blur-xl">
+        <div className="py-4 w-full flex justify-between items-center">
+          <Wordmark size="md" />
+          <nav className="hidden md:flex items-center gap-8">
+            <Link
+              href="/science"
+              className="text-[13px] font-medium text-text-muted hover:text-text transition-colors"
+            >
+              Science
+            </Link>
+            <Link
+              href="/about"
+              className="text-[13px] font-medium text-text-muted hover:text-text transition-colors"
+            >
+              About
+            </Link>
+            <Link
+              href="/login"
+              className="text-[13px] font-medium text-accent hover:text-accent-hover transition-colors"
+            >
+              Sign In
+            </Link>
+          </nav>
           <Link
             href="/login"
-            className="caps-tight text-[11px] text-ember hover:text-ember-hover transition-colors"
+            className="md:hidden inline-flex items-center min-h-11 text-[14px] font-medium text-accent"
           >
             Sign In
           </Link>
-        </nav>
-        <Link href="/login" className="md:hidden caps-tight text-[11px] text-ember">
-          Sign In
-        </Link>
+        </div>
       </header>
 
       <main>
-        {/* Hero */}
-        <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col justify-center items-start px-6 md:px-24 overflow-hidden">
-          <div className="absolute inset-0 z-0 pointer-events-none">
-            <div className="absolute -top-60 -left-60 w-[900px] h-[900px] bg-ember rounded-full blur-[280px] opacity-[0.08]" />
+        {/*
+          Mobile: orb sits above copy in a stacked first viewport.
+          Desktop: cinematic full-bleed orb with copy overlaid lower-left.
+        */}
+        <section className="relative min-h-[100dvh] min-h-[100svh] flex flex-col md:justify-center overflow-hidden">
+          {/* Mobile orb zone */}
+          <div className="md:hidden relative flex-1 flex items-center justify-center px-4 min-h-[42dvh]">
+            <HeroOrb className="w-[min(78vw,340px)] h-[min(78vw,340px)]" />
           </div>
-          <div className="relative z-10 max-w-5xl">
-            <h1 className="font-display italic text-7xl md:text-[10rem] font-bold leading-[0.92] tracking-tight mb-8 text-text">
+
+          {/* Desktop full-bleed orb */}
+          <div className="hidden md:flex absolute inset-0 z-0 pointer-events-none items-center justify-center">
+            <HeroOrb className="w-[min(70vw,720px)] h-[min(70vw,720px)]" />
+          </div>
+
+          <div className="relative z-10 px-5 sm:px-6 md:px-16 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:pb-24 pt-2 md:pt-0 max-w-3xl">
+            <p className="hero-fade text-[12px] sm:text-[13px] font-medium text-text-dim tracking-[0.14em] uppercase mb-3 sm:mb-5">
+              Aramzor
+            </p>
+            <h1 className="hero-fade hero-fade-delay-1 font-display font-semibold text-[48px] sm:text-[72px] md:text-[92px] leading-[0.96] tracking-[-0.045em] mb-4 sm:mb-5 text-text">
               Force in.
               <br />
               Peace out.
             </h1>
-            <p className="font-label text-sm md:text-base text-text-muted max-w-lg mb-12 leading-loose tracking-widest uppercase">
+            <p className="hero-fade hero-fade-delay-2 text-[16px] sm:text-[18px] md:text-[20px] text-text-muted max-w-md mb-7 sm:mb-9 leading-relaxed">
               The breathwork that earns your calm.
             </p>
-            <Link
-              href="/login"
-              className="inline-block border border-ember text-ember hover:bg-ember hover:text-text px-10 md:px-12 py-5 md:py-6 caps-wide text-xs md:text-sm transition-all duration-500"
-            >
-              Earn your calm
-            </Link>
-          </div>
-          <div className="absolute bottom-0 right-0 w-1/3 h-px bg-ember/15" />
-        </section>
-
-        {/* Three beats */}
-        <section className="py-24 md:py-32 px-6 md:px-24 bg-bg">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 max-w-7xl mx-auto">
-            <div className="md:col-span-4 flex flex-col gap-6 md:pt-12">
-              <span className="font-display italic text-4xl text-ember/40 font-bold">01</span>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-text leading-tight">
-                The Zor
-              </h2>
-              <p className="text-text-muted leading-relaxed text-base font-light">
-                <span className="text-text font-medium">Force is required.</span> The Zor represents the rigorous physical activation of the nervous system. We do not whisper to your stress; we <span className="text-text font-medium">command it to exit</span> through structural respiratory mechanics.
-              </p>
-            </div>
-            <div className="md:col-span-4 flex flex-col gap-6 md:mt-24">
-              <span className="font-display italic text-4xl text-ember/40 font-bold">02</span>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-text leading-tight">
-                The Threshold
-              </h2>
-              <p className="text-text-muted leading-relaxed text-base font-light">
-                <span className="text-text font-medium">Where modern biology meets ancient stillness.</span> The precise moment of carbon dioxide tolerance expansion, where the mind learns to <span className="text-text font-medium">remain unshakeable</span> under physical pressure.
-              </p>
-            </div>
-            <div className="md:col-span-4 flex flex-col gap-6 md:pt-32">
-              <span className="font-display italic text-4xl text-ember/40 font-bold">03</span>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-text leading-tight">
-                The Aram
-              </h2>
-              <p className="text-text-muted leading-relaxed text-base font-light">
-                <span className="text-text font-medium">Peace is not found; it is synthesized.</span> The Aram provides the deep, resinous resonance of a nervous system that has been <span className="text-text font-medium">recalibrated for true depth.</span>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Method statement */}
-        <section className="py-48 md:py-64 px-6 md:px-24 bg-bg-deep">
-          <div className="max-w-4xl mx-auto flex flex-col gap-12">
-            <p className="font-display italic font-bold text-5xl md:text-8xl text-text leading-[0.9]">
-              One method.
-              <br />
-              <span className="text-text-muted font-light">No substitutes.</span>
-            </p>
-            <p className="text-text-muted font-light text-lg md:text-xl max-w-lg leading-relaxed">
-              Aram means rest. Zor means force.
-              The name is the protocol.
-              You already know what to do.
-            </p>
-            <p className="caps-wide text-[11px] text-text-dim tracking-[0.4em]">
-              $8 / month - Three sessions free
-            </p>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="py-32 md:py-40 px-6 md:px-24 bg-bg">
-          <div className="max-w-4xl mx-auto flex flex-col gap-10">
-            <h3 className="font-display font-bold text-5xl md:text-7xl text-text leading-[0.92]">
-              Breath is the only tool
-              <br />
-              <span className="italic font-light text-text-muted">you cannot leave at home.</span>
-            </h3>
-            <div className="flex flex-col sm:flex-row items-start gap-6">
+            <div className="hero-fade hero-fade-delay-3 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
               <Link
                 href="/login"
-                className="inline-block bg-ember hover:bg-ember-hover text-text px-12 py-5 caps-wide text-xs md:text-sm transition-all duration-300"
+                className="inline-flex items-center justify-center rounded-full bg-text text-bg hover:opacity-90 w-full sm:w-auto px-8 py-3.5 min-h-12 text-[15px] font-medium transition-opacity"
               >
-                Practice Now
+                Earn your calm
               </Link>
-              <p className="text-text-muted font-light text-sm self-center">
-                <span className="text-text font-medium">Three free sessions.</span> <span className="text-text">$8/month</span> after. No card required.
+              <p className="text-[13px] font-medium text-text-dim text-center sm:text-left">
+                Three free sessions. No card required.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-16 border-t border-white/[0.06]">
+          <div className="max-w-6xl mx-auto">
+            <p className="text-[12px] sm:text-[13px] font-medium text-text-dim tracking-[0.12em] uppercase mb-10 sm:mb-14">
+              One method. Four beats.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-14 md:gap-12">
+              {[
+                {
+                  n: "01",
+                  title: "The Zor",
+                  body: "Force is required. Activate the nervous system so stress has somewhere to go.",
+                },
+                {
+                  n: "02",
+                  title: "The Threshold",
+                  body: "Hold on empty lungs. Stay steady while carbon dioxide rises and the mind wants to flee.",
+                },
+                {
+                  n: "03",
+                  title: "The Aram",
+                  body: "Land with extended exhales. Calm that feels earned - not whispered into existence.",
+                },
+              ].map((item) => (
+                <div key={item.n} className="flex flex-col gap-3">
+                  <span className="text-[12px] font-medium text-accent tracking-[0.08em]">
+                    {item.n}
+                  </span>
+                  <h2 className="font-display font-semibold text-[26px] sm:text-[28px] md:text-[32px] text-text tracking-[-0.03em]">
+                    {item.title}
+                  </h2>
+                  <p className="text-text-muted leading-relaxed text-[16px] md:text-[17px]">
+                    {item.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-24 sm:py-32 md:py-40 px-5 sm:px-6 md:px-16">
+          <div className="max-w-3xl">
+            <p className="font-display font-semibold text-[34px] sm:text-[40px] md:text-[64px] text-text leading-[1.05] tracking-[-0.04em] mb-5 sm:mb-6">
+              Aram means rest.
+              <br />
+              <span className="text-text-muted">Zor means force.</span>
+            </p>
+            <p className="text-text-muted text-[16px] sm:text-[18px] max-w-lg leading-relaxed mb-4">
+              The name is the protocol. You already know what to do.
+            </p>
+            <p className="text-[13px] font-medium text-text-dim">
+              $8 / month - Calm and Sleep free to start
+            </p>
+          </div>
+        </section>
+
+        <section className="py-20 sm:py-28 md:py-32 px-5 sm:px-6 md:px-16 border-t border-white/[0.06] pb-[max(5rem,env(safe-area-inset-bottom))]">
+          <div className="max-w-3xl flex flex-col gap-7 sm:gap-8">
+            <h3 className="font-display font-semibold text-[30px] sm:text-[36px] md:text-[52px] text-text leading-[1.08] tracking-[-0.04em]">
+              Breath is the only tool you cannot leave at home.
+            </h3>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4 sm:gap-5">
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center rounded-full bg-text text-bg hover:opacity-90 w-full sm:w-auto px-8 py-3.5 min-h-12 text-[15px] font-medium transition-opacity"
+              >
+                Practice now
+              </Link>
+              <p className="text-text-muted text-[14px] sm:text-[15px] self-center text-center sm:text-left">
+                Three free sessions. $8/month after.
               </p>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="bg-bg-deep w-full py-16 px-6 flex flex-col items-center justify-center space-y-6 border-t border-text-dim/8">
-        <p className="font-display italic text-lg text-ember">ARAMZOR</p>
-        <div className="flex flex-wrap justify-center gap-6 md:gap-12">
-          <Link href="/about" className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors">
+      <footer className="w-full py-12 sm:py-14 px-5 flex flex-col items-center justify-center space-y-5 border-t border-white/[0.06] pb-safe">
+        <p className="font-display font-semibold text-[15px] tracking-[-0.02em] text-text">
+          Aramzor
+        </p>
+        <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+          <Link href="/about" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
             About
           </Link>
-          <Link href="/science" className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors">
+          <Link href="/science" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
             Science
           </Link>
-          <Link href="/login" className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors">
+          <Link href="/login" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
             Sign In
           </Link>
         </div>
-        <p className="caps-wide text-[10px] text-text-dim">
+        <p className="text-[12px] font-medium text-text-dim">
           Aramzor. The Ancient Modernist.
         </p>
-        <p className="max-w-md text-center text-[10px] text-text-dim caps-wide leading-loose px-4">
+        <p className="max-w-md text-center text-[11px] text-text-dim leading-relaxed px-2">
           Disclaimer: Aramzor is a performance breathwork utility. Consult a
           physician before engaging in high-intensity CO2 tolerance training.
         </p>

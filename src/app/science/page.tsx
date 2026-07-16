@@ -127,13 +127,13 @@ export default function SciencePage() {
         <nav className="flex gap-6 md:gap-12">
           <Link
             href="/about"
-            className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors"
+            className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors"
           >
             About
           </Link>
           <Link
             href="/login"
-            className="caps-tight text-[11px] text-ember hover:text-ember-hover transition-colors"
+            className="caps-tight text-[11px] text-accent hover:text-accent-hover transition-colors"
           >
             Sign In
           </Link>
@@ -143,8 +143,8 @@ export default function SciencePage() {
       <main className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-5xl mx-auto w-full">
 
         {/* Hero */}
-        <p className="caps-wide text-xs text-ember mb-6">Lineage + Mechanism</p>
-        <h1 className="font-display italic font-bold text-5xl md:text-7xl leading-[0.92] tracking-tight mb-12">
+        <p className="caps-wide text-xs text-accent mb-6">Lineage + Mechanism</p>
+        <h1 className="font-display font-semibold text-5xl md:text-7xl leading-[0.92] tracking-tight mb-12">
           Combined,
           <br />
           not owned.
@@ -180,11 +180,11 @@ export default function SciencePage() {
             {MECHANISM.map((m) => (
               <div key={m.beat} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
                 <div className="md:col-span-4 flex flex-col gap-2">
-                  <span className="font-display italic text-3xl text-ember/40">{m.number}</span>
-                  <h2 className="font-display italic font-bold text-4xl md:text-5xl text-text leading-tight">
+                  <span className="font-display text-3xl text-accent/40">{m.number}</span>
+                  <h2 className="font-display font-semibold text-4xl md:text-5xl text-text leading-tight">
                     {m.beat}
                   </h2>
-                  <p className="caps-wide text-[11px] text-ember/70 tracking-[0.3em] mt-1">
+                  <p className="caps-wide text-[11px] text-accent/70 tracking-[0.3em] mt-1">
                     {m.subtitle}
                   </p>
                 </div>
@@ -211,10 +211,10 @@ export default function SciencePage() {
                 className="py-8 px-4 border-b border-text-dim/8 first:border-t hover:bg-surface-low transition-colors duration-500"
               >
                 <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-3">
-                  <span className="font-display italic font-bold text-2xl md:text-3xl text-text">
+                  <span className="font-display font-semibold text-2xl md:text-3xl text-text">
                     {s.authors}
                   </span>
-                  <span className="caps-tight text-[10px] text-ember/60">{s.venue}</span>
+                  <span className="caps-tight text-[10px] text-accent/60">{s.venue}</span>
                 </div>
                 <p className="text-sm text-text-muted font-light mb-3 max-w-2xl">
                   {s.title}
@@ -228,7 +228,7 @@ export default function SciencePage() {
         </section>
 
         {/* Attribution note */}
-        <div className="border-l-2 border-ember/40 pl-6 max-w-2xl mb-20">
+        <div className="border-l-2 border-accent/40 pl-6 max-w-2xl mb-20">
           <p className="text-text-muted leading-relaxed font-light">
             Many modern wellness brands charge thousands for retreats built
             entirely on these publicly documented traditions - without
@@ -239,14 +239,14 @@ export default function SciencePage() {
 
         <Link
           href="/login"
-          className="inline-block border border-ember/40 hover:border-ember hover:bg-surface px-12 py-6 caps-wide text-xs md:text-sm transition-all duration-500"
+          className="inline-block border border-accent/40 hover:border-accent hover:bg-surface px-12 py-6 caps-wide text-xs md:text-sm transition-all duration-500"
         >
           Begin Practice
         </Link>
       </main>
 
       <footer className="bg-bg-deep w-full py-12 px-6 flex flex-col items-center gap-4 border-t border-text-dim/10">
-        <p className="font-display italic text-base text-ember">ARAMZOR</p>
+        <p className="font-display text-base text-accent">ARAMZOR</p>
         <p className="caps-wide text-[10px] text-text-dim">
           Aramzor. The Ancient Modernist.
         </p>

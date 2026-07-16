@@ -44,13 +44,13 @@ export default function BoxBreathingPage() {
         <nav className="flex gap-6 md:gap-12">
           <Link
             href="/science"
-            className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors"
+            className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors"
           >
             Science
           </Link>
           <Link
             href="/login"
-            className="caps-tight text-[11px] text-ember hover:text-ember-hover transition-colors"
+            className="caps-tight text-[11px] text-accent hover:text-accent-hover transition-colors"
           >
             Try Free
           </Link>
@@ -59,11 +59,11 @@ export default function BoxBreathingPage() {
 
       <main className="flex-1 px-6 md:px-24 py-20 md:py-28 max-w-4xl mx-auto w-full">
 
-        <p className="caps-wide text-[11px] text-ember tracking-[0.38em] mb-6">
+        <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-6">
           Box breathing
         </p>
 
-        <h1 className="font-display italic font-bold text-5xl md:text-7xl leading-[0.92] tracking-tight mb-8 text-text">
+        <h1 className="font-display font-semibold text-5xl md:text-7xl leading-[0.92] tracking-tight mb-8 text-text">
           Four counts.
           <br />
           Four sides.
@@ -83,7 +83,7 @@ export default function BoxBreathingPage() {
                 className="flex flex-col md:flex-row gap-4 md:gap-12 py-8 border-b border-text-dim/8 first:border-t"
               >
                 <div className="flex items-baseline gap-4 md:w-52 shrink-0">
-                  <span className="font-display italic text-2xl text-ember/40 font-bold">{s.label}</span>
+                  <span className="font-display text-2xl text-accent/40 font-bold">{s.label}</span>
                   <h2 className="font-display font-bold text-3xl md:text-4xl text-text leading-tight">{s.name}</h2>
                 </div>
                 <p className="text-text-muted text-base leading-relaxed font-light max-w-lg">{s.detail}</p>
@@ -140,22 +140,22 @@ export default function BoxBreathingPage() {
         <div className="flex flex-col sm:flex-row items-start gap-6">
           <Link
             href="/login"
-            className="inline-block bg-ember hover:bg-ember-hover text-text px-12 py-5 caps-wide text-xs md:text-sm transition-all duration-300"
+            className="inline-block rounded-full bg-text text-bg hover:opacity-90 px-12 py-5 caps-wide text-xs md:text-sm transition-all duration-300"
           >
             Try the Aramzor Method Free
           </Link>
           <p className="text-text-muted text-sm font-light self-center">
-            Three free sessions. No card required.
+            Three free sessions of Calm and Sleep. No card required.
           </p>
         </div>
       </main>
 
       <footer className="bg-bg-deep w-full py-12 px-6 flex flex-col items-center gap-4 border-t border-text-dim/10">
-        <p className="font-display italic text-base text-ember">ARAMZOR</p>
+        <p className="font-display text-base text-accent">ARAMZOR</p>
         <div className="flex gap-8">
-          <Link href="/" className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors">Home</Link>
-          <Link href="/science" className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors">Science</Link>
-          <Link href="/breathing/anxiety" className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors">Breathing for Anxiety</Link>
+          <Link href="/" className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors">Home</Link>
+          <Link href="/science" className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors">Science</Link>
+          <Link href="/breathing/anxiety" className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors">Breathing for Anxiety</Link>
         </div>
         <p className="caps-wide text-[10px] text-text-dim">
           Aramzor. The Ancient Modernist.

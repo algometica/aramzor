@@ -74,8 +74,8 @@ export default async function ProfilePage() {
       <section className="px-6 md:px-10 pt-12 md:pt-20 pb-24 max-w-3xl mx-auto w-full">
 
         <header className="mb-16 md:mb-20">
-          <p className="caps-wide text-[11px] text-ember tracking-[0.38em] mb-4">Your Archive</p>
-          <h1 className="font-display italic font-bold text-5xl md:text-6xl text-text leading-none tracking-tight">
+          <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-4">Your Archive</p>
+          <h1 className="font-display font-semibold text-5xl md:text-6xl text-text leading-none tracking-tight">
             {totalSessions} {totalSessions === 1 ? "Breath" : "Breaths"}.
           </h1>
           <p className="text-text-muted text-sm mt-4 font-light">{user.email}</p>
@@ -95,7 +95,7 @@ export default async function ProfilePage() {
                 <>
                   <div className="flex items-center gap-3">
                     <span
-                      className={`inline-block w-1.5 h-1.5 rounded-full ${isActive ? "bg-ember" : "bg-text-dim"}`}
+                      className={`inline-block w-1.5 h-1.5 rounded-full ${isActive ? "bg-accent" : "bg-text-dim"}`}
                     />
                     <span className="caps-tight text-[11px] text-text">
                       {isActive ? "Active" : sub.status ?? "Inactive"}
@@ -122,7 +122,7 @@ export default async function ProfilePage() {
               {!sub && (
                 <Link
                   href="/subscribe"
-                  className="caps-tight text-[11px] bg-ember hover:bg-ember-hover text-text px-6 py-3 transition-colors duration-300"
+                  className="caps-tight text-[11px] rounded-full bg-text text-bg hover:opacity-90 px-6 py-3 transition-colors duration-300"
                 >
                   Subscribe - $8/month
                 </Link>
@@ -148,7 +148,7 @@ export default async function ProfilePage() {
           {recentSessions.length === 0 ? (
             <p className="text-text-muted text-sm font-light">
               No sessions yet.{" "}
-              <Link href="/dashboard" className="text-ember hover:text-ember-hover transition-colors">
+              <Link href="/dashboard" className="text-accent hover:text-accent-hover transition-colors">
                 Start your first Aramzor.
               </Link>
             </p>
@@ -160,7 +160,7 @@ export default async function ProfilePage() {
                   className="flex items-baseline justify-between py-4 border-b border-text-dim/8 first:border-t"
                 >
                   <div className="flex items-baseline gap-4">
-                    <span className="font-display italic text-lg text-text">
+                    <span className="font-display text-lg text-text">
                       {MODE_NAME[s.protocolId ?? ""] ?? s.protocolId}
                     </span>
                     <span className="caps-tight text-[10px] text-text-dim">

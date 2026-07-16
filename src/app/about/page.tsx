@@ -67,13 +67,13 @@ export default function AboutPage() {
         <nav className="flex gap-6 md:gap-12">
           <Link
             href="/science"
-            className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors"
+            className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors"
           >
             Science
           </Link>
           <Link
             href="/login"
-            className="caps-tight text-[11px] text-ember hover:text-ember-hover transition-colors"
+            className="caps-tight text-[11px] text-accent hover:text-accent-hover transition-colors"
           >
             Sign In
           </Link>
@@ -82,9 +82,9 @@ export default function AboutPage() {
 
       <main className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-4xl mx-auto w-full">
 
-        <p className="caps-wide text-[11px] text-ember tracking-[0.38em] mb-6">The Ancient Modernist</p>
+        <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-6">The Ancient Modernist</p>
 
-        <h1 className="font-display italic font-bold text-6xl md:text-8xl leading-[0.92] tracking-tight mb-16 text-text">
+        <h1 className="font-display font-semibold text-6xl md:text-8xl leading-[0.92] tracking-tight mb-16 text-text">
           Force in.
           <br />
           Peace out.
@@ -120,7 +120,7 @@ export default function AboutPage() {
               This is not relaxation. It is recalibration.
             </p>
             <p>
-              <Link href="/breathing/anxiety" className="text-ember hover:text-ember-hover transition-colors">
+              <Link href="/breathing/anxiety" className="text-accent hover:text-accent-hover transition-colors">
                 Read the full mechanism behind breathing and anxiety relief.
               </Link>
             </p>
@@ -159,9 +159,9 @@ export default function AboutPage() {
             ].map((b) => (
               <div key={b.num} className="flex flex-col gap-3 py-10 border-b border-text-dim/8 first:border-t">
                 <div className="flex items-baseline gap-4">
-                  <span className="font-display italic text-2xl text-ember/40 font-bold">{b.num}</span>
+                  <span className="font-display text-2xl text-accent/40 font-bold">{b.num}</span>
                   <h2 className="font-display font-bold text-3xl md:text-4xl text-text leading-tight">{b.name}</h2>
-                  <span className="caps-wide text-[8px] text-ember/60 tracking-[0.3em]">{b.role}</span>
+                  <span className="caps-wide text-[8px] text-accent/60 tracking-[0.3em]">{b.role}</span>
                 </div>
                 <p className="text-text-muted text-base leading-relaxed font-light">{b.body}</p>
               </div>
@@ -177,7 +177,7 @@ export default function AboutPage() {
               <div key={m.name} className="flex flex-col gap-3 py-10 border-b border-text-dim/8 first:border-t">
                 <div className="flex flex-col gap-1">
                   <h2 className="font-display font-bold text-3xl md:text-4xl text-text leading-tight">{m.name}</h2>
-                  <p className="font-label text-[10px] text-ember/70 uppercase tracking-wide">{m.goal}</p>
+                  <p className="font-label text-[10px] text-accent/70 uppercase tracking-wide">{m.goal}</p>
                 </div>
                 <p className="text-text-muted text-base leading-relaxed font-light">{m.body}</p>
               </div>
@@ -196,7 +196,7 @@ export default function AboutPage() {
               It also integrates Tibetan Tummo meditation (documented at Harvard Medical School, 1982), the physiological sigh research from Stanford University (Huberman et al., 2023), and coherence breathing from the HeartMath Institute. Eight verified traditions, combined into one structured sequence. Nothing is invented. Everything is attributed.
             </p>
             <p>
-              <Link href="/science" className="text-ember hover:text-ember-hover transition-colors">
+              <Link href="/science" className="text-accent hover:text-accent-hover transition-colors">
                 Read the full research and lineage.
               </Link>
             </p>
@@ -208,15 +208,15 @@ export default function AboutPage() {
           <p className="caps-wide text-[11px] text-text-dim tracking-[0.38em] mb-8">Further reading</p>
           <div className="space-y-px">
             <Link href="/breathing/anxiety" className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 py-6 border-b border-text-dim/8 first:border-t hover:bg-surface-low px-2 transition-colors group">
-              <span className="font-display font-bold text-2xl md:text-3xl text-text group-hover:text-ember transition-colors">Breathing for anxiety</span>
+              <span className="font-display font-bold text-2xl md:text-3xl text-text group-hover:text-accent transition-colors">Breathing for anxiety</span>
               <span className="caps-tight text-[10px] text-text-dim">Why breathing stops anxiety spirals</span>
             </Link>
             <Link href="/breathing/box-breathing" className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 py-6 border-b border-text-dim/8 hover:bg-surface-low px-2 transition-colors group">
-              <span className="font-display font-bold text-2xl md:text-3xl text-text group-hover:text-ember transition-colors">Box breathing explained</span>
+              <span className="font-display font-bold text-2xl md:text-3xl text-text group-hover:text-accent transition-colors">Box breathing explained</span>
               <span className="caps-tight text-[10px] text-text-dim">The 4-4-4-4 technique and its limits</span>
             </Link>
             <Link href="/science" className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 py-6 border-b border-text-dim/8 hover:bg-surface-low px-2 transition-colors group">
-              <span className="font-display font-bold text-2xl md:text-3xl text-text group-hover:text-ember transition-colors">The science and lineage</span>
+              <span className="font-display font-bold text-2xl md:text-3xl text-text group-hover:text-accent transition-colors">The science and lineage</span>
               <span className="caps-tight text-[10px] text-text-dim">Eight traditions, five key studies</span>
             </Link>
           </div>
@@ -225,18 +225,18 @@ export default function AboutPage() {
         <div className="flex flex-col sm:flex-row items-start gap-6">
           <Link
             href="/login"
-            className="inline-block bg-ember hover:bg-ember-hover text-text px-12 py-5 caps-wide text-xs md:text-sm transition-all duration-300"
+            className="inline-block rounded-full bg-text text-bg hover:opacity-90 px-12 py-5 caps-wide text-xs md:text-sm transition-all duration-300"
           >
             Begin Practice
           </Link>
           <p className="text-text-muted text-sm font-light self-center">
-            Three free sessions. No card required.
+            Three free sessions of Calm and Sleep. No card required.
           </p>
         </div>
       </main>
 
       <footer className="bg-bg-deep w-full py-12 px-6 flex flex-col items-center gap-4 border-t border-text-dim/10">
-        <p className="font-display italic text-base text-ember">ARAMZOR</p>
+        <p className="font-display text-base text-accent">ARAMZOR</p>
         <p className="caps-wide text-[10px] text-text-dim">
           Aramzor. The Ancient Modernist.
         </p>

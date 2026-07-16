@@ -63,13 +63,13 @@ export default function AnxietyBreathingPage() {
         <nav className="flex gap-6 md:gap-12">
           <Link
             href="/science"
-            className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors"
+            className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors"
           >
             Science
           </Link>
           <Link
             href="/login"
-            className="caps-tight text-[11px] text-ember hover:text-ember-hover transition-colors"
+            className="caps-tight text-[11px] text-accent hover:text-accent-hover transition-colors"
           >
             Try Free
           </Link>
@@ -78,11 +78,11 @@ export default function AnxietyBreathingPage() {
 
       <main className="flex-1 px-6 md:px-24 py-20 md:py-28 max-w-4xl mx-auto w-full">
 
-        <p className="caps-wide text-[11px] text-ember tracking-[0.38em] mb-6">
+        <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-6">
           Breathing for anxiety
         </p>
 
-        <h1 className="font-display italic font-bold text-5xl md:text-7xl leading-[0.92] tracking-tight mb-8 text-text">
+        <h1 className="font-display font-semibold text-5xl md:text-7xl leading-[0.92] tracking-tight mb-8 text-text">
           Why breathing
           <br />
           stops anxiety.
@@ -151,10 +151,10 @@ export default function AnxietyBreathingPage() {
         </section>
 
         {/* Attribution */}
-        <div className="border-l-2 border-ember/40 pl-6 max-w-2xl mb-16">
+        <div className="border-l-2 border-accent/40 pl-6 max-w-2xl mb-16">
           <p className="text-text-muted text-sm leading-relaxed font-light">
             The science behind this page draws from Kox et al. (PNAS, 2014), Balban and Huberman et al. (Cell Reports Medicine, 2023), and McCraty et al. (HeartMath Institute). See the full{" "}
-            <Link href="/science" className="text-ember hover:text-ember-hover transition-colors">
+            <Link href="/science" className="text-accent hover:text-accent-hover transition-colors">
               research and lineage page
             </Link>
             .
@@ -164,22 +164,22 @@ export default function AnxietyBreathingPage() {
         <div className="flex flex-col sm:flex-row items-start gap-6">
           <Link
             href="/login"
-            className="inline-block bg-ember hover:bg-ember-hover text-text px-12 py-5 caps-wide text-xs md:text-sm transition-all duration-300"
+            className="inline-block rounded-full bg-text text-bg hover:opacity-90 px-12 py-5 caps-wide text-xs md:text-sm transition-all duration-300"
           >
             Try the Aramzor Method Free
           </Link>
           <p className="text-text-muted text-sm font-light self-center">
-            Three free sessions. No card required.
+            Three free sessions of Calm and Sleep. No card required.
           </p>
         </div>
       </main>
 
       <footer className="bg-bg-deep w-full py-12 px-6 flex flex-col items-center gap-4 border-t border-text-dim/10">
-        <p className="font-display italic text-base text-ember">ARAMZOR</p>
+        <p className="font-display text-base text-accent">ARAMZOR</p>
         <div className="flex gap-8">
-          <Link href="/" className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors">Home</Link>
-          <Link href="/science" className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors">Science</Link>
-          <Link href="/breathing/box-breathing" className="caps-tight text-[11px] text-text-muted hover:text-ember transition-colors">Box Breathing</Link>
+          <Link href="/" className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors">Home</Link>
+          <Link href="/science" className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors">Science</Link>
+          <Link href="/breathing/box-breathing" className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors">Box Breathing</Link>
         </div>
         <p className="caps-wide text-[10px] text-text-dim">
           Aramzor. The Ancient Modernist.

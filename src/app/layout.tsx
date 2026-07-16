@@ -1,24 +1,27 @@
-import type { Metadata } from "next";
-import { Newsreader, Work_Sans } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Sora } from "next/font/google";
 
 import "./globals.css";
 
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  weight: ["400", "600", "700"],
-  display: "swap",
-});
-
-const workSans = Work_Sans({
-  variable: "--font-work-sans",
-  subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
 const SITE_URL = "https://aramzor.com";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#000000" },
+  ],
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -28,6 +31,15 @@ export const metadata: Metadata = {
   },
   description:
     "Science-backed breathing exercises for anxiety relief, better sleep, and natural energy. The Aramzor Method combines Tibetan Tummo, Kundalini pranayama, and Stanford HRV research into one proprietary protocol. Free trial. $8/month.",
+  applicationName: "Aramzor",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Aramzor",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   keywords: [
     "breathwork app",
     "breathing exercises for anxiety",
@@ -97,11 +109,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${newsreader.variable} ${workSans.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-bg text-text">{children}</body>
+    <html lang="en" className={`${sora.variable} h-full antialiased`}>
+      <body className="min-h-full min-h-dvh flex flex-col bg-bg text-text font-body">
+        {children}
+      </body>
     </html>
   );
 }

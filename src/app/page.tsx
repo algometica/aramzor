@@ -11,20 +11,21 @@ function HeroOrb({ className = "" }: { className?: string }) {
         className="absolute inset-[-12%] soft-breathe"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, rgba(41,151,255,0.26) 0%, rgba(41,151,255,0.1) 30%, transparent 64%)",
+            "radial-gradient(circle at 50% 50%, rgba(125,207,182,0.38) 0%, rgba(125,207,182,0.14) 32%, transparent 64%)",
         }}
       />
       <div
         className="absolute inset-[16%] rounded-full hero-orb-core"
         style={{
           background:
-            "radial-gradient(circle at 38% 32%, #ffffff 0%, #e8e8ed 22%, #9a9aa1 55%, #3a3a3c 78%, #0a0a0a 100%)",
-          boxShadow: "0 0 48px 6px rgba(255,255,255,0.08)",
+            "radial-gradient(circle at 38% 32%, #f2fff8 0%, #c8f0dc 18%, #7dcfb6 48%, #2a6b56 72%, #0a1f1a 100%)",
+          boxShadow:
+            "0 0 56px 10px rgba(125,207,182,0.22), 0 0 100px 24px rgba(125,207,182,0.1)",
         }}
       />
       <div
-        className="absolute inset-[27%] rounded-full border border-white/10"
-        style={{ opacity: 0.55 }}
+        className="absolute inset-[27%] rounded-full border border-white/15"
+        style={{ opacity: 0.45 }}
       />
     </div>
   );
@@ -82,18 +83,15 @@ export default function LandingPage() {
           </div>
 
           <div className="relative z-10 px-5 sm:px-6 md:px-16 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:pb-24 pt-2 md:pt-0 max-w-3xl">
-            <p className="hero-fade text-[12px] sm:text-[13px] font-medium text-text-dim tracking-[0.14em] uppercase mb-3 sm:mb-5">
-              Aramzor
-            </p>
-            <h1 className="hero-fade hero-fade-delay-1 font-display font-semibold text-[48px] sm:text-[72px] md:text-[92px] leading-[0.96] tracking-[-0.045em] mb-4 sm:mb-5 text-text">
+            <h1 className="hero-fade font-display font-semibold text-[48px] sm:text-[72px] md:text-[92px] leading-[0.96] tracking-[-0.045em] mb-4 sm:mb-5 text-text">
               Peace in.
               <br />
               Stress out.
             </h1>
-            <p className="hero-fade hero-fade-delay-2 text-[16px] sm:text-[18px] md:text-[20px] text-text-muted max-w-md mb-7 sm:mb-9 leading-relaxed">
+            <p className="hero-fade hero-fade-delay-1 text-[16px] sm:text-[18px] md:text-[20px] text-text-muted max-w-md mb-7 sm:mb-9 leading-relaxed">
               When panic hits, start with one breath.
             </p>
-            <div className="hero-fade hero-fade-delay-3 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+            <div className="hero-fade hero-fade-delay-2 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
               <Link
                 href="/login"
                 className="inline-flex items-center justify-center rounded-full bg-text text-bg hover:opacity-90 w-full sm:w-auto px-8 py-3.5 min-h-12 text-[15px] font-medium transition-opacity"
@@ -183,9 +181,7 @@ export default function LandingPage() {
       </main>
 
       <footer className="w-full py-12 sm:py-14 px-5 flex flex-col items-center justify-center space-y-5 border-t border-white/[0.06] pb-safe">
-        <p className="font-display font-semibold text-[15px] tracking-[-0.02em] text-text">
-          Aramzor
-        </p>
+        <Wordmark size="md" href="/" />
         <div className="flex flex-wrap justify-center gap-6 md:gap-10">
           <Link href="/about" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
             About

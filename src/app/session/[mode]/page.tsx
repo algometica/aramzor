@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { SessionPlayer } from "@/components/session-player";
 import { db } from "@/db";
 import { subscriptions, users } from "@/db/schema";
-import { isPremiumMode } from "@/lib/access";
+import { hasFullAccess, isPremiumMode, isUnlimitedAccess } from "@/lib/access";
 import { PROTOCOL_BEATS, protocolDurationSec } from "@/lib/protocol";
 
 export default async function SessionPage({
@@ -22,22 +22,24 @@ export default async function SessionPage({
     const email = session?.user?.email;
     if (!email) redirect("/login");
 
-    const [user] = await db
-      .select({ id: users.id })
-      .from(users)
-      .where(eq(users.email, email))
-      .limit(1);
+    if (!isUnlimitedAccess(email)) {
+      const [user] = await db
+        .select({ id: users.id })
+        .from(users)
+        .where(eq(users.email, email))
+        .limit(1);
 
-    if (!user) redirect("/login");
+      if (!user) redirect("/login");
 
-    const [sub] = await db
-      .select({ status: subscriptions.status })
-      .from(subscriptions)
-      .where(eq(subscriptions.userId, user.id))
-      .limit(1);
+      const [sub] = await db
+        .select({ status: subscriptions.status })
+        .from(subscriptions)
+        .where(eq(subscriptions.userId, user.id))
+        .limit(1);
 
-    if (sub?.status !== "active") {
-      redirect("/subscribe");
+      if (!hasFullAccess(email, sub?.status === "active")) {
+        redirect("/subscribe");
+      }
     }
   }
 

@@ -27,42 +27,58 @@ const PHASE_SHORT: Record<BeatPhase, string> = {
 };
 
 function scaleFor(action: Beat["action"], intensity?: Beat["intensity"]): number {
-  if (action === "inhale") return intensity === "reduced" ? 0.7 : 1.0;
-  if (action === "exhale") return 0.36;
+  // Keep inhale visually full - reduced intensity is only slightly smaller.
+  if (action === "inhale") return intensity === "reduced" ? 0.88 : 1.0;
+  if (action === "exhale") return 0.48;
   if (action === "hold-full") return 1.0;
-  return 0.36;
+  return 0.48;
 }
 
 function bloomFor(phase: Beat["phase"]): { inner: string; outer: string } {
   if (phase === "zor") {
     return {
-      inner: "rgba(41,151,255,0.35)",
-      outer: "rgba(41,151,255,0.12)",
+      inner: "rgba(110,200,190,0.36)",
+      outer: "rgba(110,200,190,0.12)",
     };
   }
   if (phase === "threshold") {
     return {
-      inner: "rgba(161,161,166,0.22)",
-      outer: "rgba(161,161,166,0.08)",
+      inner: "rgba(168,176,184,0.22)",
+      outer: "rgba(168,176,184,0.08)",
     };
   }
   if (phase === "return") {
     return {
-      inner: "rgba(100,181,255,0.45)",
-      outer: "rgba(100,181,255,0.16)",
+      inner: "rgba(140,220,210,0.4)",
+      outer: "rgba(140,220,210,0.14)",
     };
   }
+  // Aram - soft mint landing
   return {
-    inner: "rgba(210,210,215,0.28)",
-    outer: "rgba(210,210,215,0.1)",
+    inner: "rgba(125,207,182,0.38)",
+    outer: "rgba(125,207,182,0.14)",
   };
 }
 
 function ringColorFor(phase: Beat["phase"]): string {
-  if (phase === "zor") return "#2997ff";
-  if (phase === "threshold") return "#a1a1a6";
-  if (phase === "return") return "#64b5ff";
-  return "#d2d2d7";
+  if (phase === "zor") return "#7ecfc0";
+  if (phase === "threshold") return "#a8b0b8";
+  if (phase === "return") return "#8eddd0";
+  return "#7dcfb6";
+}
+
+/** Soft phase-tinted cores - mint family, quieter silver on Threshold. */
+function coreGradientFor(phase: Beat["phase"]): string {
+  if (phase === "zor") {
+    return "radial-gradient(circle at 38% 32%, #f2fffb 0%, #c5f0e6 18%, #6ec8b8 50%, #1f5c52 74%, #0a1f1c 100%)";
+  }
+  if (phase === "threshold") {
+    return "radial-gradient(circle at 38% 32%, #f7f7f8 0%, #d8d8dc 22%, #8e8e93 55%, #2c2c2e 80%, #0a0a0a 100%)";
+  }
+  if (phase === "return") {
+    return "radial-gradient(circle at 38% 32%, #f4fffc 0%, #d0f5ec 16%, #7ed9c8 48%, #246b5e 74%, #071a17 100%)";
+  }
+  return "radial-gradient(circle at 38% 32%, #f2fff8 0%, #c8f0dc 18%, #7dcfb6 50%, #2a6b56 74%, #0a1f1a 100%)";
 }
 
 function phaseCounterFor(
@@ -139,23 +155,41 @@ export function SessionPlayer({
     beatStartRef.current = Date.now() - duration * already;
     if (already === 0) setElapsedSec(0);
 
+    let advanced = false;
+    let closeTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const advance = () => {
+      if (advanced) return;
+      advanced = true;
+      pausedProgressRef.current = 0;
+      setBeatProgress(0);
+      setIdx((i) => i + 1);
+    };
+
+    // Close the ring fully, hold briefly so it reads as complete, then advance.
+    const finishBeat = () => {
+      if (advanced) return;
+      setBeatProgress(1);
+      closeTimer = setTimeout(advance, 140);
+    };
+
     const tick = () => {
       const p = Math.min(1, (Date.now() - beatStartRef.current) / duration);
       setBeatProgress(p);
       if (p < 1) {
         rafRef.current = requestAnimationFrame(tick);
+      } else {
+        finishBeat();
       }
     };
     rafRef.current = requestAnimationFrame(tick);
 
-    beatTimerRef.current = setTimeout(() => {
-      pausedProgressRef.current = 0;
-      setBeatProgress(0);
-      setIdx((i) => i + 1);
-    }, remaining);
+    // Safety net if the tab throttles rAF
+    beatTimerRef.current = setTimeout(finishBeat, remaining + 40);
 
     return () => {
       if (beatTimerRef.current) clearTimeout(beatTimerRef.current);
+      if (closeTimer) clearTimeout(closeTimer);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [stage, idx, beats]);
@@ -229,6 +263,7 @@ export function SessionPlayer({
   const transitionMs = isHold ? 900 : beat.durationMs;
   const bloom = bloomFor(beat.phase);
   const ringColor = ringColorFor(beat.phase);
+  const coreGradient = coreGradientFor(beat.phase);
   const positionHint = POSITION_HINT[modeId];
   const showBuildHint =
     !isPaused &&
@@ -238,12 +273,15 @@ export function SessionPlayer({
 
   const currentPhaseIdx = phaseIndexOf(beat.phase);
 
-  // SVG ring geometry
+  // SVG ring = progress through the current inhale / exhale / hold
   const ringSize = 100;
-  const stroke = 1.6;
+  const stroke = 1.8;
   const radius = (ringSize - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
-  const dashOffset = circumference * (1 - (isPaused ? pausedProgressRef.current : beatProgress));
+  const rawProgress = isPaused ? pausedProgressRef.current : beatProgress;
+  // Snap closed near the end so stroke-linecap never leaves a visible gap
+  const ringProgress = rawProgress >= 0.98 ? 1 : rawProgress;
+  const dashOffset = circumference * (1 - ringProgress);
 
   return (
     <div className="h-dvh max-h-dvh bg-bg-deep flex flex-col select-none overflow-hidden overscroll-none pt-safe">
@@ -327,26 +365,26 @@ export function SessionPlayer({
               height: "min(78vw, 46dvh, 420px)",
             }}
           >
-            {/* Outer bloom via radial gradient only */}
+            {/* Outer bloom - tracks the breath scale */}
             <div
               className="absolute inset-0 transition-opacity duration-1000"
               style={{
                 opacity: isPaused ? 0.35 : 1,
-                background: `radial-gradient(circle at 50% 50%, ${bloom.inner} 0%, ${bloom.outer} 32%, transparent 58%)`,
-                transform: `scale(${0.85 + targetScale * 0.2})`,
+                background: `radial-gradient(circle at 50% 50%, ${bloom.inner} 0%, ${bloom.outer} 34%, transparent 58%)`,
+                transform: `scale(${0.72 + targetScale * 0.28})`,
                 transition: `transform ${transitionMs}ms cubic-bezier(0.4, 0, 0.2, 1), opacity 800ms ease`,
               }}
             />
 
-            {/* Beat progress ring */}
+            {/* Per-breath timer ring - fills once each inhale/exhale/hold */}
             <svg
               className="absolute"
               viewBox={`0 0 ${ringSize} ${ringSize}`}
               style={{
-                width: "78%",
-                height: "78%",
+                width: "76%",
+                height: "76%",
                 transform: "rotate(-90deg)",
-                opacity: isPaused ? 0.4 : 0.9,
+                opacity: isPaused ? 0.35 : 0.9,
               }}
             >
               <circle
@@ -364,39 +402,25 @@ export function SessionPlayer({
                 fill="none"
                 stroke={ringColor}
                 strokeWidth={stroke}
-                strokeLinecap="round"
+                strokeLinecap={ringProgress >= 1 ? "butt" : "round"}
                 strokeDasharray={circumference}
                 strokeDashoffset={dashOffset}
-                style={{ transition: isPaused ? "none" : "stroke-dashoffset 80ms linear" }}
               />
             </svg>
 
-            {/* Core orb */}
+            {/* Core orb - nearly fills the ring at full inhale */}
             <div
               className="absolute rounded-full"
               style={{
-                width: "58%",
-                height: "58%",
-                background:
-                  "radial-gradient(circle at 38% 32%, #ffffff 0%, #e4e4e8 24%, #8e8e93 58%, #2c2c2e 82%, #0a0a0a 100%)",
+                width: "70%",
+                height: "70%",
+                background: coreGradient,
                 boxShadow: isPaused
                   ? "0 0 40px 4px rgba(255,255,255,0.04)"
-                  : `0 0 50px 6px rgba(255,255,255,0.1), 0 0 90px 20px ${bloom.outer}`,
+                  : `0 0 56px 8px rgba(255,255,255,0.12), 0 0 100px 24px ${bloom.outer}`,
                 transform: `scale(${targetScale})`,
-                transition: `transform ${transitionMs}ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 700ms ease, opacity 500ms ease`,
-                opacity: isPaused ? 0.5 : 0.96,
-              }}
-            />
-
-            {/* Inner glass rim */}
-            <div
-              className="absolute rounded-full border border-white/[0.12]"
-              style={{
-                width: "42%",
-                height: "42%",
-                transform: `scale(${targetScale})`,
-                transition: `transform ${transitionMs}ms cubic-bezier(0.4, 0, 0.2, 1)`,
-                opacity: isPaused ? 0.3 : 0.65,
+                transition: `transform ${transitionMs}ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 700ms ease, background 900ms ease, opacity 500ms ease`,
+                opacity: isPaused ? 0.5 : 0.98,
               }}
             />
           </div>

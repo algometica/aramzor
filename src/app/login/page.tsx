@@ -8,6 +8,10 @@ export default async function LoginPage({
   searchParams: Promise<{ callbackUrl?: string }>;
 }) {
   const { callbackUrl } = await searchParams;
+  const devLoginEnabled = Boolean(
+    process.env.DEV_ADMIN_EMAIL?.trim() &&
+      process.env.DEV_ADMIN_PASSWORD?.trim(),
+  );
 
   return (
     <div className="min-h-dvh flex flex-col bg-bg pt-safe pb-safe">
@@ -21,7 +25,9 @@ export default async function LoginPage({
             Enter.
           </h1>
           <p className="text-text-muted mb-8 sm:mb-10 text-[16px] sm:text-[17px] leading-relaxed">
-            Your email. We send a link. No password.
+            {devLoginEnabled
+              ? "Your email. We send a link - or use the test password if you have one."
+              : "Your email. We send a link. No password."}
           </p>
 
           <form action={login} className="space-y-5">
@@ -43,6 +49,26 @@ export default async function LoginPage({
                 className="w-full rounded-xl bg-surface-low text-text px-4 py-3.5 min-h-12 text-[16px] focus:bg-surface focus:outline-none focus:ring-2 focus:ring-accent/40 transition-colors placeholder:text-text-dim"
               />
             </div>
+
+            {devLoginEnabled ? (
+              <div>
+                <label
+                  htmlFor="password"
+                  className="text-[13px] font-medium text-text-muted block mb-2"
+                >
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  autoComplete="current-password"
+                  placeholder="Leave blank for magic link"
+                  className="w-full rounded-xl bg-surface-low text-text px-4 py-3.5 min-h-12 text-[16px] focus:bg-surface focus:outline-none focus:ring-2 focus:ring-accent/40 transition-colors placeholder:text-text-dim"
+                />
+              </div>
+            ) : null}
+
             {callbackUrl ? (
               <input type="hidden" name="callbackUrl" value={callbackUrl} />
             ) : null}
@@ -50,7 +76,7 @@ export default async function LoginPage({
               type="submit"
               className="w-full rounded-full bg-text text-bg hover:opacity-90 active:opacity-80 text-[15px] font-medium py-3.5 min-h-12 transition-opacity"
             >
-              Send link
+              {devLoginEnabled ? "Continue" : "Send link"}
             </button>
           </form>
         </div>

@@ -18,3 +18,21 @@ export function isPremiumMode(modeId: string): boolean {
 export function isFreeMode(modeId: string): boolean {
   return (FREE_MODE_IDS as readonly string[]).includes(modeId);
 }
+
+/**
+ * Env-gated test / admin account.
+ * Set DEV_ADMIN_EMAIL (+ DEV_ADMIN_PASSWORD for password login).
+ * That email skips session limits and unlocks every mode.
+ */
+export function isUnlimitedAccess(email: string | null | undefined): boolean {
+  const admin = process.env.DEV_ADMIN_EMAIL?.trim().toLowerCase();
+  if (!admin || !email) return false;
+  return email.trim().toLowerCase() === admin;
+}
+
+export function hasFullAccess(
+  email: string | null | undefined,
+  subscriptionActive: boolean,
+): boolean {
+  return subscriptionActive || isUnlimitedAccess(email);
+}

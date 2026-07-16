@@ -10,3 +10,4 @@ Use plain hyphens (-) instead.
 Do not use Prisma. ORM is Drizzle only.
 Do not use Supabase. Database is Neon only.
 Payments are Lemon Squeezy only, never Stripe.
+Optional test account: set DEV_ADMIN_EMAIL + DEV_ADMIN_PASSWORD for password login and unlimited access to all modes.

@@ -52,13 +52,14 @@ Avoid Newsreader, Work Sans, Inter, and any warm editorial serif pairing.
 ## 4. Elevation & Depth
 * Static lift comes from surface steps (`#000` -> `#1d1d1f` -> `#2c2c2e`).
 * Shadows are soft and cool: `0 20px 40px rgba(0,0,0,0.35)`.
-* No colored ambient glows on marketing surfaces. Session visuals may use a soft cool bloom tied to the breath circle only.
+* Homepage hero orb uses soft mint / celadon (`#7dcfb6` family) for attraction on black.
+* Session visuals use quiet phase-tinted cores: blue-white (Zor), silver (Threshold), cyan-white (Return), mint (Aram).
 
 ## 5. Signature Experience: Session Player
 The session screen is the product.
 
 * Full black canvas.
-* One large breathing orb (dominant, ~min(72vw, 440px)). Cool silver core with soft radial bloom - never CSS `filter: blur` glows (they paint a square).
+* One large breathing orb (dominant, ~min(72vw, 440px)). Soft phase-tinted core with radial bloom - never CSS `filter: blur` glows (they paint a square).
 * SVG ring around the orb shows beat progress explicitly.
 * Phase stepper (Zor / Threshold / Return / Aram) shows journey through the method.
 * Phase name and instruction in clean sans - clear, large.

@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { AppShell } from "@/components/app-shell";
 import { db } from "@/db";
 import { protocols, subscriptions, users } from "@/db/schema";
-import { isPremiumMode } from "@/lib/access";
+import { hasFullAccess, isPremiumMode } from "@/lib/access";
 
 const CATEGORY_LABEL: Record<string, string> = {
   calm: "Active ritual",
@@ -40,7 +40,9 @@ export default async function DashboardPage() {
         .from(subscriptions)
         .where(eq(subscriptions.userId, user.id))
         .limit(1);
-      isActive = sub?.status === "active";
+      isActive = hasFullAccess(email, sub?.status === "active");
+    } else {
+      isActive = hasFullAccess(email, false);
     }
   }
 

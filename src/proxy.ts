@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { breathSessions, subscriptions, users } from "@/db/schema";
-import { isPremiumMode } from "@/lib/access";
+import { hasFullAccess, isPremiumMode } from "@/lib/access";
 
 const FREE_SESSION_LIMIT = 3;
 
@@ -18,6 +18,11 @@ export default auth(async (req) => {
   const email = req.auth.user?.email;
   if (!email) {
     return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  // Test / admin account: no session cap, every mode unlocked.
+  if (hasFullAccess(email, false)) {
+    return NextResponse.next();
   }
 
   try {
@@ -45,17 +50,17 @@ export default auth(async (req) => {
 
     const sessionsUsed = sessionCount?.value ?? 0;
     const isActive = subRow?.status === "active";
+    const fullAccess = hasFullAccess(email, isActive);
 
     const pathname = req.nextUrl.pathname;
     const sessionMatch = pathname.match(/^\/session\/([^/]+)/);
     const modeId = sessionMatch?.[1];
 
-    // Premium modes (Natural High + Performance + Energy) always require subscription.
-    if (modeId && modeId !== "complete" && isPremiumMode(modeId) && !isActive) {
+    if (modeId && modeId !== "complete" && isPremiumMode(modeId) && !fullAccess) {
       return NextResponse.redirect(new URL("/subscribe", req.url));
     }
 
-    if (sessionsUsed >= FREE_SESSION_LIMIT && !isActive) {
+    if (sessionsUsed >= FREE_SESSION_LIMIT && !fullAccess) {
       return NextResponse.redirect(new URL("/subscribe", req.url));
     }
   } catch {

@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation";
+
+import { auth } from "@/auth";
 import { Wordmark } from "@/components/wordmark";
 
 import { login } from "./actions";
@@ -8,6 +11,18 @@ export default async function LoginPage({
   searchParams: Promise<{ callbackUrl?: string }>;
 }) {
   const { callbackUrl } = await searchParams;
+  const session = await auth();
+
+  if (session?.user?.email) {
+    const safeTarget =
+      typeof callbackUrl === "string" &&
+      callbackUrl.startsWith("/") &&
+      !callbackUrl.startsWith("//")
+        ? callbackUrl
+        : "/dashboard";
+    redirect(safeTarget);
+  }
+
   const devLoginEnabled = Boolean(
     process.env.DEV_ADMIN_EMAIL?.trim() &&
       process.env.DEV_ADMIN_PASSWORD?.trim(),

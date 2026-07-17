@@ -1,6 +1,14 @@
+import { redirect } from "next/navigation";
+
+import { auth } from "@/auth";
 import { Wordmark } from "@/components/wordmark";
 
-export default function VerifyPage() {
+export default async function VerifyPage() {
+  const session = await auth();
+  if (session?.user?.email) {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <header className="px-8 py-10 flex justify-center">

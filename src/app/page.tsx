@@ -1,8 +1,8 @@
 import Link from "next/link";
 
+import { auth } from "@/auth";
+import { SiteHeader } from "@/components/site-header";
 import { Wordmark } from "@/components/wordmark";
-
-export const dynamic = "force-static";
 
 function HeroOrb({ className = "" }: { className?: string }) {
   return (
@@ -31,40 +31,14 @@ function HeroOrb({ className = "" }: { className?: string }) {
   );
 }
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const session = await auth();
+  const signedIn = Boolean(session?.user?.email);
+  const startHref = signedIn ? "/dashboard" : "/login";
+
   return (
     <div className="min-h-dvh flex flex-col bg-bg">
-      <header className="sticky top-0 z-50 px-5 sm:px-6 md:px-10 pt-safe flex justify-between items-center bg-bg/75 backdrop-blur-xl">
-        <div className="py-4 w-full flex justify-between items-center">
-          <Wordmark size="md" />
-          <nav className="hidden md:flex items-center gap-8">
-            <Link
-              href="/science"
-              className="text-[13px] font-medium text-text-muted hover:text-text transition-colors"
-            >
-              Science
-            </Link>
-            <Link
-              href="/about"
-              className="text-[13px] font-medium text-text-muted hover:text-text transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="/login"
-              className="text-[13px] font-medium text-accent hover:text-accent-hover transition-colors"
-            >
-              Sign In
-            </Link>
-          </nav>
-          <Link
-            href="/login"
-            className="md:hidden inline-flex items-center min-h-11 text-[14px] font-medium text-accent"
-          >
-            Sign In
-          </Link>
-        </div>
-      </header>
+      <SiteHeader variant="marketing" />
 
       <main>
         {/*
@@ -93,7 +67,7 @@ export default function LandingPage() {
             </p>
             <div className="hero-fade hero-fade-delay-2 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
               <Link
-                href="/login"
+                href={startHref}
                 className="inline-flex items-center justify-center rounded-full bg-text text-bg hover:opacity-90 w-full sm:w-auto px-8 py-3.5 min-h-12 text-[15px] font-medium transition-opacity"
               >
                 Breathe in calm
@@ -167,7 +141,7 @@ export default function LandingPage() {
             </h3>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4 sm:gap-5">
               <Link
-                href="/login"
+                href={startHref}
                 className="inline-flex items-center justify-center rounded-full bg-text text-bg hover:opacity-90 w-full sm:w-auto px-8 py-3.5 min-h-12 text-[15px] font-medium transition-opacity"
               >
                 Breathe in calm
@@ -181,7 +155,7 @@ export default function LandingPage() {
       </main>
 
       <footer className="w-full py-12 sm:py-14 px-5 flex flex-col items-center justify-center space-y-5 border-t border-white/[0.06] pb-safe">
-        <Wordmark size="md" href="/" />
+        <Wordmark size="md" href={signedIn ? "/dashboard" : "/"} />
         <div className="flex flex-wrap justify-center gap-6 md:gap-10">
           <Link href="/about" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
             About
@@ -189,9 +163,20 @@ export default function LandingPage() {
           <Link href="/science" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
             Science
           </Link>
-          <Link href="/login" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
-            Sign In
-          </Link>
+          {signedIn ? (
+            <>
+              <Link href="/dashboard" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
+                Dashboard
+              </Link>
+              <Link href="/profile" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
+                Account
+              </Link>
+            </>
+          ) : (
+            <Link href="/login" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
+              Sign In
+            </Link>
+          )}
         </div>
         <p className="text-[12px] font-medium text-text-dim">
           Aramzor. The Ancient Modernist.

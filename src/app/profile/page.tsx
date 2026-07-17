@@ -9,7 +9,7 @@ import { breathSessions, subscriptions, users } from "@/db/schema";
 
 import { cancelSubscription } from "./actions";
 
-export const metadata = { title: "Your Archive - Aramzor" };
+export const metadata = { title: "Your Account - Aramzor" };
 
 const MODE_NAME: Record<string, string> = {
   calm: "Calm",
@@ -74,7 +74,7 @@ export default async function ProfilePage() {
       <section className="px-6 md:px-10 pt-12 md:pt-20 pb-24 max-w-3xl mx-auto w-full">
 
         <header className="mb-16 md:mb-20">
-          <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-4">Your Archive</p>
+          <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-4">Your Account</p>
           <h1 className="font-display font-semibold text-5xl md:text-6xl text-text leading-none tracking-tight">
             {totalSessions} {totalSessions === 1 ? "Breath" : "Breaths"}.
           </h1>

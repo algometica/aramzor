@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-import { Wordmark } from "@/components/wordmark";
+import { auth } from "@/auth";
+import { SiteHeader } from "@/components/site-header";
 
 export const metadata = {
   title: "The Science Behind Breathwork for Anxiety and Stress Relief",
@@ -119,26 +120,13 @@ const STUDIES = [
   },
 ];
 
-export default function SciencePage() {
+export default async function SciencePage() {
+  const session = await auth();
+  const startHref = session?.user?.email ? "/dashboard" : "/login";
+
   return (
     <div className="min-h-screen flex flex-col bg-bg-deep">
-      <header className="sticky top-0 z-50 px-6 md:px-10 py-6 flex justify-between items-center bg-gradient-to-b from-bg-deep to-transparent">
-        <Wordmark size="md" />
-        <nav className="flex gap-6 md:gap-12">
-          <Link
-            href="/about"
-            className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors"
-          >
-            About
-          </Link>
-          <Link
-            href="/login"
-            className="caps-tight text-[11px] text-accent hover:text-accent-hover transition-colors"
-          >
-            Sign In
-          </Link>
-        </nav>
-      </header>
+      <SiteHeader variant="marketing" />
 
       <main className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-5xl mx-auto w-full">
 
@@ -238,7 +226,7 @@ export default function SciencePage() {
         </div>
 
         <Link
-          href="/login"
+          href={startHref}
           className="inline-block border border-accent/40 hover:border-accent hover:bg-surface px-12 py-6 caps-wide text-xs md:text-sm transition-all duration-500"
         >
           Begin Practice

@@ -65,7 +65,7 @@ export default async function LandingPage() {
           Mobile: orb sits above copy in a stacked first viewport.
           Desktop: cinematic full-bleed orb with copy overlaid lower-left.
         */}
-        <section className="relative flex min-h-[100dvh] min-h-[100svh] flex-col overflow-hidden md:justify-center">
+        <section className="relative flex min-h-[100dvh] min-h-[100svh] flex-col overflow-hidden md:justify-center px-5 sm:px-6 md:px-16 max-w-6xl mx-auto w-full">
           {/* Mobile orb zone */}
           <div className="relative flex min-h-[38dvh] flex-1 items-center justify-center px-4 md:hidden">
             <HeroOrb className="h-[min(70vw,300px)] w-[min(70vw,300px)]" />
@@ -79,7 +79,7 @@ export default async function LandingPage() {
             <HeroOrb className="h-[min(48vw,520px)] w-[min(48vw,520px)]" />
           </div>
 
-          <div className="relative z-10 max-w-xl px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 sm:px-6 md:max-w-lg md:px-16 md:pb-24 md:pt-0 lg:max-w-xl">
+          <div className="relative z-10 max-w-lg pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 md:pb-24 md:pt-0">
             <h1 className="hero-fade mb-4 font-display text-[48px] font-semibold leading-[0.96] tracking-[-0.045em] text-text sm:mb-5 sm:text-[72px] md:text-[80px]">
               Peace in.
               <br />
@@ -142,7 +142,7 @@ export default async function LandingPage() {
         </section>
 
         <section className="py-24 sm:py-32 md:py-40 px-5 sm:px-6 md:px-16">
-          <div className="max-w-3xl">
+          <div className="max-w-6xl mx-auto">
             <p className="font-display font-semibold text-[34px] sm:text-[40px] md:text-[64px] text-text leading-[1.05] tracking-[-0.04em] mb-5 sm:mb-6">
               Aram means rest.
               <br />
@@ -158,7 +158,7 @@ export default async function LandingPage() {
         </section>
 
         <section className="py-20 sm:py-28 md:py-32 px-5 sm:px-6 md:px-16 border-t border-white/[0.06] pb-[max(5rem,env(safe-area-inset-bottom))]">
-          <div className="max-w-3xl flex flex-col gap-7 sm:gap-8">
+          <div className="max-w-6xl mx-auto flex flex-col gap-7 sm:gap-8">
             <h3 className="font-display font-semibold text-[30px] sm:text-[36px] md:text-[52px] text-text leading-[1.08] tracking-[-0.04em]">
               When your chest is tight, your breath is still with you.
             </h3>

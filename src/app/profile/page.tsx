@@ -74,7 +74,7 @@ export default async function ProfilePage() {
 
   return (
     <AppShell>
-      <section className="px-6 md:px-10 pt-12 md:pt-20 pb-24 max-w-3xl mx-auto w-full">
+      <section className="px-6 md:px-10 pt-12 md:pt-20 pb-24 max-w-6xl mx-auto w-full">
 
         <header className="mb-16 md:mb-20">
           <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-4">Your Account</p>

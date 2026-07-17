@@ -129,7 +129,7 @@ export default async function SciencePage() {
     <div className="min-h-screen flex flex-col bg-bg-deep">
       <SiteHeader variant="marketing" />
 
-      <main id="main-content" className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-5xl mx-auto w-full">
+      <main id="main-content" className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-6xl mx-auto w-full">
 
         {/* Hero */}
         <p className="caps-wide text-xs text-accent mb-6">Lineage + Mechanism</p>

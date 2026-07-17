@@ -38,23 +38,22 @@ export async function SiteFooter({
 
   return (
     <footer
-      className="w-full border-t border-text-dim/10 px-6 pb-safe sm:px-8 md:px-10 py-8 md:py-10"
+      className="w-full border-t border-text-dim/10 px-6 pb-safe sm:px-8 md:px-10 py-8 md:py-12"
       style={{ paddingBottom: "max(2rem, env(safe-area-inset-bottom))" }}
     >
-      <div className="mx-auto w-full max-w-7xl">
-        {/* Single row layout */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
-          {/* Brand - left */}
-          <div className="flex items-center gap-3 shrink-0">
+      <div className="mx-auto w-full max-w-6xl">
+        {/* 3-column grid on desktop, stack on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-8">
+          {/* Left column: Brand */}
+          <div className="flex flex-col gap-3">
             <Wordmark size="sm" href={signedIn ? "/dashboard" : "/"} />
-            <div className="h-6 w-px bg-text-dim/20" />
-            <p className="text-[12px] text-text-muted font-light">
+            <p className="text-[12px] text-text-muted font-light max-w-xs">
               The breathwork that earns your calm.
             </p>
           </div>
 
-          {/* Navigation - center */}
-          <nav aria-label="Footer Navigation" className="flex items-center gap-6 md:gap-8">
+          {/* Center column: Navigation */}
+          <nav aria-label="Footer Navigation" className="flex flex-col gap-3">
             <FooterLink href="/about">About</FooterLink>
             <FooterLink href="/science">Science</FooterLink>
             {signedIn ? (
@@ -69,15 +68,17 @@ export async function SiteFooter({
             )}
           </nav>
 
-          {/* Copyright - right */}
-          <p className="caps-tight text-[11px] text-text-dim shrink-0">
-            © {year} Aramzor
-          </p>
+          {/* Right column: Copyright */}
+          <div className="flex flex-col justify-start">
+            <p className="caps-tight text-[11px] text-text-dim">
+              © {year} Aramzor
+            </p>
+          </div>
         </div>
 
-        {/* Disclaimer - optional secondary row */}
+        {/* Disclaimer - spans full width below */}
         {showDisclaimer && (
-          <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-text-dim/10">
+          <div className="pt-8 border-t border-text-dim/10">
             <p className="text-[11px] leading-relaxed text-text-dim font-light max-w-4xl">
               Performance breathwork utility – not medical advice. Consult a physician before high-intensity CO2 tolerance training.
             </p>

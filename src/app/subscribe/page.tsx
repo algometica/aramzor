@@ -15,7 +15,7 @@ export default function SubscribePage() {
     <div className="min-h-dvh bg-bg flex flex-col">
       <SiteHeader variant="app" />
 
-      <main id="main-content" className="flex-1 flex flex-col justify-center px-5 sm:px-6 md:px-24 py-16 max-w-3xl mx-auto w-full">
+      <main id="main-content" className="flex-1 flex flex-col justify-center px-5 sm:px-6 md:px-24 py-16 max-w-6xl mx-auto w-full">
         <div className="space-y-10">
           <div className="space-y-3">
             <p className="text-[13px] font-medium text-accent">Full access</p>

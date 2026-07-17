@@ -21,7 +21,7 @@ export async function SiteHeader({
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.04] bg-bg/80 px-4 pt-safe backdrop-blur-xl sm:px-6 md:px-10">
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 py-3 sm:gap-4 sm:py-3.5">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 py-3 sm:gap-4 sm:py-3.5">
         <Wordmark
           size="md"
           className="min-w-0"

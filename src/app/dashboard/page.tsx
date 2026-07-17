@@ -94,7 +94,7 @@ export default async function DashboardPage() {
 
         {trialExhausted ? (
           <div
-            className="mb-10 rounded-2xl p-6"
+            className="mb-10 rounded-lg p-6"
             style={{
               background:
                 "linear-gradient(155deg, #145c28 0%, #0d3a1a 48%, #082410 100%)",
@@ -142,7 +142,7 @@ export default async function DashboardPage() {
                       ? `Unlock ${p.name}, ${p.durationMin} minutes`
                       : `Begin ${p.name}, ${p.durationMin} minutes`
                   }
-                  className={`flex items-center justify-between gap-4 rounded-2xl px-5 py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:px-6 sm:py-6 ${
+                  className={`flex items-center justify-between gap-4 rounded-lg px-5 py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:px-6 sm:py-6 ${
                     isNaturalHigh
                       ? "transition-opacity hover:opacity-95"
                       : "bg-surface-low transition-colors hover:bg-surface"
@@ -162,7 +162,7 @@ export default async function DashboardPage() {
                     {isNaturalHigh ? (
                       <p
                         className="mb-2 text-[11px] font-medium uppercase tracking-[0.12em]"
-                        style={{ color: "#9ee0cb" }}
+                        style={{ color: "var(--color-accent-mint)" }}
                       >
                         Signature
                       </p>

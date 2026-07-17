@@ -69,7 +69,7 @@ export default async function AboutPage() {
     <div className="min-h-screen flex flex-col bg-bg-deep">
       <SiteHeader variant="marketing" />
 
-      <main id="main-content" className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-4xl mx-auto w-full">
+      <main id="main-content" className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-6xl mx-auto w-full">
 
         <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-6">The Ancient Modernist</p>
 

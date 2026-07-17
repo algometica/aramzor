@@ -43,17 +43,17 @@ export async function SiteFooter({
     >
       <div className="mx-auto w-full max-w-6xl">
         {/* 3-column grid on desktop, stack on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 mb-6">
           {/* Left column: Brand */}
           <div className="flex flex-col gap-3">
             <Wordmark size="sm" href={signedIn ? "/dashboard" : "/"} />
             <p className="text-[12px] text-text-muted font-light max-w-xs">
-              The breathwork that earns your calm.
+              When panic hits, start with one breath.
             </p>
           </div>
 
           {/* Center column: Navigation */}
-          <nav aria-label="Footer Navigation" className="flex flex-col gap-3">
+          <nav aria-label="Footer Navigation" className="flex flex-col gap-3 md:items-center">
             <FooterLink href="/about">About</FooterLink>
             <FooterLink href="/science">Science</FooterLink>
             {signedIn ? (
@@ -69,7 +69,7 @@ export async function SiteFooter({
           </nav>
 
           {/* Right column: Copyright */}
-          <div className="flex flex-col justify-start">
+          <div className="flex flex-col justify-start md:items-end md:justify-start">
             <p className="caps-tight text-[11px] text-text-dim">
               © {year} Aramzor
             </p>
@@ -78,10 +78,14 @@ export async function SiteFooter({
 
         {/* Disclaimer - spans full width below */}
         {showDisclaimer && (
-          <div className="pt-8 border-t border-text-dim/10">
+          <div className="pt-6 border-t border-text-dim/10 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <p className="text-[11px] leading-relaxed text-text-dim font-light max-w-4xl">
-              Performance breathwork utility – not medical advice. Consult a physician before high-intensity CO2 tolerance training.
+              Performance breathwork utility - not medical advice. Consult a physician before high-intensity CO2 tolerance training.
             </p>
+            <div className="flex items-center gap-4 shrink-0">
+              <FooterLink href="/privacy">Privacy</FooterLink>
+              <FooterLink href="/terms">Terms</FooterLink>
+            </div>
           </div>
         )}
       </div>

@@ -102,7 +102,7 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-16 border-t border-white/[0.06]">
+        <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-16 border-t-2 border-white/15">
           <div className="max-w-6xl mx-auto">
             <p className="text-[12px] sm:text-[13px] font-medium text-text-dim tracking-[0.12em] uppercase mb-10 sm:mb-14">
               One method. Four beats.
@@ -141,7 +141,7 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        <section className="py-24 sm:py-32 md:py-40 px-5 sm:px-6 md:px-16">
+        <section className="py-24 sm:py-32 md:py-40 px-5 sm:px-6 md:px-16 border-t-2 border-white/15">
           <div className="max-w-6xl mx-auto">
             <p className="font-display font-semibold text-[34px] sm:text-[40px] md:text-[64px] text-text leading-[1.05] tracking-[-0.04em] mb-5 sm:mb-6">
               Aram means rest.
@@ -157,7 +157,7 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        <section className="py-20 sm:py-28 md:py-32 px-5 sm:px-6 md:px-16 border-t border-white/[0.06] pb-[max(5rem,env(safe-area-inset-bottom))]">
+        <section className="py-20 sm:py-28 md:py-32 px-5 sm:px-6 md:px-16 border-t-2 border-white/15 pb-[max(5rem,env(safe-area-inset-bottom))]">
           <div className="max-w-6xl mx-auto flex flex-col gap-7 sm:gap-8">
             <h3 className="font-display font-semibold text-[30px] sm:text-[36px] md:text-[52px] text-text leading-[1.08] tracking-[-0.04em]">
               When your chest is tight, your breath is still with you.

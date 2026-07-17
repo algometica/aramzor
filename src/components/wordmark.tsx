@@ -1,23 +1,5 @@
 import Link from "next/link";
 
-const SIZE = {
-  sm: {
-    text: "text-[15px]",
-    mark: "h-3.5 w-3.5",
-    gap: "gap-2",
-  },
-  md: {
-    text: "text-[19px]",
-    mark: "h-[18px] w-[18px]",
-    gap: "gap-2.5",
-  },
-  lg: {
-    text: "text-[24px]",
-    mark: "h-6 w-6",
-    gap: "gap-3",
-  },
-} as const;
-
 function Mark({ className }: { className: string }) {
   return (
     <span
@@ -35,21 +17,35 @@ function Mark({ className }: { className: string }) {
 export function Wordmark({
   href = "/",
   size = "md",
+  className = "",
 }: {
   href?: string;
   size?: "sm" | "md" | "lg";
+  className?: string;
 }) {
-  const s = SIZE[size];
+  const mark =
+    size === "sm"
+      ? "h-3.5 w-3.5"
+      : size === "lg"
+        ? "h-6 w-6"
+        : "h-[18px] w-[18px]";
+  const text =
+    size === "sm"
+      ? "text-[15px]"
+      : size === "lg"
+        ? "text-[24px]"
+        : "text-[19px]";
+  const gap = size === "lg" ? "gap-3" : size === "sm" ? "gap-2" : "gap-2.5";
 
   return (
     <Link
       href={href}
-      className={`inline-flex items-center ${s.gap} group`}
+      className={`group inline-flex items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg ${gap} ${className}`}
       aria-label="Aramzor home"
     >
-      <Mark className={s.mark} />
+      <Mark className={mark} />
       <span
-        className={`font-display font-bold tracking-[-0.045em] text-text leading-none group-hover:text-white transition-colors ${s.text}`}
+        className={`font-display font-bold leading-none tracking-[-0.045em] text-text transition-colors group-hover:text-white ${text}`}
       >
         Aramzor
       </span>

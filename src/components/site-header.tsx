@@ -1,18 +1,15 @@
 import Link from "next/link";
 
-import { auth, signOut } from "@/auth";
+import { signOutAction } from "@/app/auth-actions";
+import { auth } from "@/auth";
 
+import { MobileNav } from "./mobile-nav";
 import { Wordmark } from "./wordmark";
 
 const linkMuted =
-  "text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center";
+  "inline-flex min-h-11 items-center text-[13px] font-medium text-text-muted transition-colors hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 const linkAccent =
-  "text-[13px] font-medium text-accent hover:text-accent-hover transition-colors min-h-11 inline-flex items-center";
-
-async function signOutAction() {
-  "use server";
-  await signOut({ redirectTo: "/" });
-}
+  "inline-flex min-h-11 items-center text-[13px] font-medium text-accent transition-colors hover:text-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 
 export async function SiteHeader({
   variant = "marketing",
@@ -23,22 +20,24 @@ export async function SiteHeader({
   const signedIn = Boolean(session?.user?.email);
 
   return (
-    <header className="sticky top-0 z-50 px-5 sm:px-8 md:px-10 pt-safe bg-bg/75 backdrop-blur-xl">
-      <div className="py-3.5 sm:py-4 w-full flex justify-between items-center gap-6">
-        <Wordmark size="md" href={signedIn ? "/dashboard" : "/"} />
-        <nav className="flex items-center gap-5 sm:gap-7 shrink-0">
+    <header className="sticky top-0 z-50 border-b border-white/[0.04] bg-bg/80 px-4 pt-safe backdrop-blur-xl sm:px-6 md:px-10">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 py-3 sm:gap-4 sm:py-3.5">
+        <Wordmark
+          size="md"
+          className="min-w-0"
+          href={signedIn ? "/dashboard" : "/"}
+        />
+
+        <nav
+          aria-label="Primary"
+          className="hidden items-center gap-6 sm:flex md:gap-8"
+        >
           {variant === "marketing" ? (
             <>
-              <Link
-                href="/science"
-                className={`${linkMuted} hidden md:inline-flex`}
-              >
+              <Link href="/science" className={linkMuted}>
                 Science
               </Link>
-              <Link
-                href="/about"
-                className={`${linkMuted} hidden md:inline-flex`}
-              >
+              <Link href="/about" className={linkMuted}>
                 About
               </Link>
             </>
@@ -46,10 +45,7 @@ export async function SiteHeader({
 
           {signedIn ? (
             <>
-              <Link
-                href="/dashboard"
-                className={`${linkMuted} hidden sm:inline-flex`}
-              >
+              <Link href="/dashboard" className={linkMuted}>
                 Dashboard
               </Link>
               <Link href="/profile" className={linkMuted}>
@@ -67,6 +63,8 @@ export async function SiteHeader({
             </Link>
           )}
         </nav>
+
+        <MobileNav signedIn={signedIn} variant={variant} />
       </div>
     </header>
   );

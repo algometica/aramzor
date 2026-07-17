@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { auth } from "@/auth";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = {
@@ -64,7 +65,7 @@ export default async function AnxietyBreathingPage() {
     <div className="min-h-screen flex flex-col bg-bg-deep">
       <SiteHeader variant="marketing" />
 
-      <main className="flex-1 px-6 md:px-24 py-20 md:py-28 max-w-4xl mx-auto w-full">
+      <main id="main-content" className="flex-1 px-6 md:px-24 py-20 md:py-28 max-w-4xl mx-auto w-full">
 
         <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-6">
           Breathing for anxiety
@@ -162,17 +163,7 @@ export default async function AnxietyBreathingPage() {
         </div>
       </main>
 
-      <footer className="bg-bg-deep w-full py-12 px-6 flex flex-col items-center gap-4 border-t border-text-dim/10">
-        <p className="font-display text-base text-accent">ARAMZOR</p>
-        <div className="flex gap-8">
-          <Link href="/" className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors">Home</Link>
-          <Link href="/science" className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors">Science</Link>
-          <Link href="/breathing/box-breathing" className="caps-tight text-[11px] text-text-muted hover:text-accent transition-colors">Box Breathing</Link>
-        </div>
-        <p className="caps-wide text-[10px] text-text-dim">
-          Aramzor. The Ancient Modernist.
-        </p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

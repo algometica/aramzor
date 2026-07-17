@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 import { Wordmark } from "@/components/wordmark";
 
 import { login } from "./actions";
+
+export const metadata: Metadata = {
+  title: "Sign In",
+  robots: { index: false, follow: false },
+};
 
 export default async function LoginPage({
   searchParams,
@@ -34,7 +40,7 @@ export default async function LoginPage({
         <Wordmark size="md" />
       </header>
 
-      <main className="flex-1 flex items-center justify-center px-5 sm:px-8">
+      <main id="main-content" className="flex-1 flex items-center justify-center px-5 sm:px-8">
         <div className="w-full max-w-md">
           <h1 className="font-display font-semibold text-[40px] sm:text-[48px] md:text-[56px] text-text mb-3 tracking-[-0.04em]">
             Enter.

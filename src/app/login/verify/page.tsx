@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 import { Wordmark } from "@/components/wordmark";
+
+export const metadata: Metadata = {
+  title: "Check your email",
+  robots: { index: false, follow: false },
+};
 
 export default async function VerifyPage() {
   const session = await auth();
@@ -15,7 +21,7 @@ export default async function VerifyPage() {
         <Wordmark size="md" />
       </header>
 
-      <main className="flex-1 flex items-center justify-center px-8">
+      <main id="main-content" className="flex-1 flex items-center justify-center px-8">
         <div className="w-full max-w-md text-center">
           <h1 className="font-display font-semibold text-5xl md:text-6xl text-text mb-6 tracking-tight">
             Check your email.

@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Sora } from "next/font/google";
 
+import { SkipLink } from "@/components/skip-link";
+
 import "./globals.css";
 
 const sora = Sora({
@@ -115,7 +117,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${sora.variable} h-full antialiased`}>
-      <body className="min-h-full min-h-dvh flex flex-col bg-bg text-text font-body">
+      <body className="flex min-h-full min-h-dvh flex-col overflow-x-clip bg-bg font-body text-text">
+        <SkipLink />
         {children}
       </body>
     </html>

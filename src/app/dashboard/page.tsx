@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { count, eq } from "drizzle-orm";
 
@@ -10,6 +11,11 @@ import {
   hasFullAccess,
   isPremiumMode,
 } from "@/lib/access";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  robots: { index: false, follow: false },
+};
 
 const GOAL_LABEL: Record<string, string> = {
   calm: "Stop the spiral",
@@ -131,7 +137,12 @@ export default async function DashboardPage() {
               <li key={p.id}>
                 <Link
                   href={href}
-                  className={`flex items-center justify-between gap-4 rounded-2xl px-5 py-5 sm:px-6 sm:py-6 ${
+                  aria-label={
+                    locked
+                      ? `Unlock ${p.name}, ${p.durationMin} minutes`
+                      : `Begin ${p.name}, ${p.durationMin} minutes`
+                  }
+                  className={`flex items-center justify-between gap-4 rounded-2xl px-5 py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:px-6 sm:py-6 ${
                     isNaturalHigh
                       ? "transition-opacity hover:opacity-95"
                       : "bg-surface-low transition-colors hover:bg-surface"

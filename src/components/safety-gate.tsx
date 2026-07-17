@@ -20,19 +20,22 @@ export function SafetyGate({ onEnter }: { onEnter: () => void }) {
         <Wordmark size="sm" />
       </header>
 
-      <main className="flex-1 flex flex-col items-center justify-center px-5 sm:px-6 md:px-12 py-6">
-        <div className="max-w-lg w-full space-y-7 sm:space-y-10">
-          <p className="text-[13px] font-medium text-text-muted tracking-[-0.01em]">
+      <main
+        id="main-content"
+        className="flex flex-1 flex-col items-center justify-center px-5 py-6 sm:px-6 md:px-12"
+      >
+        <div className="w-full max-w-lg space-y-7 sm:space-y-10">
+          <h1 className="text-[13px] font-medium tracking-[-0.01em] text-text-muted">
             Before you begin
-          </p>
+          </h1>
 
-          <div className="space-y-4 sm:space-y-5">
-            <p className="font-display font-semibold text-[24px] sm:text-[28px] md:text-[34px] leading-snug tracking-[-0.03em] text-text">
+          <div className="space-y-4 sm:space-y-5" role="note" aria-label="Safety warnings">
+            <p className="font-display text-[24px] font-semibold leading-snug tracking-[-0.03em] text-text sm:text-[28px] md:text-[34px]">
               Never practice Aramzor near or in water - bathtub, pool, or open
               water. Brief loss of consciousness is possible during breath holds.
               It is fatal near water.
             </p>
-            <p className="text-text-muted text-[15px] sm:text-[17px] leading-relaxed">
+            <p className="text-[15px] leading-relaxed text-text-muted sm:text-[17px]">
               Do not practice while driving or operating machinery. If you are
               pregnant, have cardiovascular disease, epilepsy, or recent surgery
               - consult a physician first. This is not medical treatment.
@@ -40,12 +43,14 @@ export function SafetyGate({ onEnter }: { onEnter: () => void }) {
           </div>
 
           <button
+            type="button"
             onClick={onEnter}
             disabled={!armed}
-            className={`rounded-full text-[15px] font-medium w-full sm:w-auto px-8 py-3.5 min-h-12 transition-all duration-500 ${
+            aria-disabled={!armed}
+            className={`min-h-12 w-full rounded-full px-8 py-3.5 text-[15px] font-medium transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:w-auto ${
               armed
-                ? "bg-text text-bg hover:opacity-90 active:opacity-80 cursor-pointer"
-                : "bg-surface-low text-text-dim cursor-not-allowed"
+                ? "cursor-pointer bg-text text-bg hover:opacity-90 active:opacity-80"
+                : "cursor-not-allowed bg-surface-low text-text-dim"
             }`}
           >
             {armed ? "I understand. Begin" : "Read carefully..."}

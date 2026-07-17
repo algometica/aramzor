@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { auth } from "@/auth";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata = {
@@ -128,7 +129,7 @@ export default async function SciencePage() {
     <div className="min-h-screen flex flex-col bg-bg-deep">
       <SiteHeader variant="marketing" />
 
-      <main className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-5xl mx-auto w-full">
+      <main id="main-content" className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-5xl mx-auto w-full">
 
         {/* Hero */}
         <p className="caps-wide text-xs text-accent mb-6">Lineage + Mechanism</p>
@@ -233,12 +234,7 @@ export default async function SciencePage() {
         </Link>
       </main>
 
-      <footer className="bg-bg-deep w-full py-12 px-6 flex flex-col items-center gap-4 border-t border-text-dim/10">
-        <p className="font-display text-base text-accent">ARAMZOR</p>
-        <p className="caps-wide text-[10px] text-text-dim">
-          Aramzor. The Ancient Modernist.
-        </p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

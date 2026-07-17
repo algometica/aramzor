@@ -9,7 +9,10 @@ import { breathSessions, subscriptions, users } from "@/db/schema";
 
 import { cancelSubscription } from "./actions";
 
-export const metadata = { title: "Your Account - Aramzor" };
+export const metadata = {
+  title: "Your Account",
+  robots: { index: false, follow: false },
+};
 
 const MODE_NAME: Record<string, string> = {
   calm: "Calm",

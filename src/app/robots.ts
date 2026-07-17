@@ -6,7 +6,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/dashboard", "/session", "/profile", "/api"],
+        disallow: [
+          "/dashboard",
+          "/session",
+          "/profile",
+          "/subscribe",
+          "/login",
+          "/api",
+        ],
       },
     ],
     sitemap: "https://aramzor.com/sitemap.xml",

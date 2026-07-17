@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 import { auth } from "@/auth";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { Wordmark } from "@/components/wordmark";
 
 function HeroOrb({ className = "" }: { className?: string }) {
   return (
@@ -36,43 +36,66 @@ export default async function LandingPage() {
   const signedIn = Boolean(session?.user?.email);
   const startHref = signedIn ? "/dashboard" : "/login";
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Aramzor",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Web",
+    url: "https://aramzor.com",
+    description:
+      "Science-backed breathwork for anxiety, sleep, and energy. Peace in. Stress out.",
+    offers: {
+      "@type": "Offer",
+      price: "8.00",
+      priceCurrency: "USD",
+    },
+  };
+
   return (
-    <div className="min-h-dvh flex flex-col bg-bg">
+    <div className="flex min-h-dvh flex-col overflow-x-clip bg-bg">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader variant="marketing" />
 
-      <main>
+      <main id="main-content">
         {/*
           Mobile: orb sits above copy in a stacked first viewport.
           Desktop: cinematic full-bleed orb with copy overlaid lower-left.
         */}
-        <section className="relative min-h-[100dvh] min-h-[100svh] flex flex-col md:justify-center overflow-hidden">
+        <section className="relative flex min-h-[100dvh] min-h-[100svh] flex-col overflow-hidden md:justify-center">
           {/* Mobile orb zone */}
-          <div className="md:hidden relative flex-1 flex items-center justify-center px-4 min-h-[42dvh]">
-            <HeroOrb className="w-[min(78vw,340px)] h-[min(78vw,340px)]" />
+          <div className="relative flex min-h-[38dvh] flex-1 items-center justify-center px-4 md:hidden">
+            <HeroOrb className="h-[min(70vw,300px)] w-[min(70vw,300px)]" />
           </div>
 
-          {/* Desktop full-bleed orb */}
-          <div className="hidden md:flex absolute inset-0 z-0 pointer-events-none items-center justify-center">
-            <HeroOrb className="w-[min(70vw,720px)] h-[min(70vw,720px)]" />
+          {/* Desktop orb - right side, keeps copy readable */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute top-1/2 right-[-6%] z-0 hidden -translate-y-1/2 md:block lg:right-[2%]"
+          >
+            <HeroOrb className="h-[min(48vw,520px)] w-[min(48vw,520px)]" />
           </div>
 
-          <div className="relative z-10 px-5 sm:px-6 md:px-16 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:pb-24 pt-2 md:pt-0 max-w-3xl">
-            <h1 className="hero-fade font-display font-semibold text-[48px] sm:text-[72px] md:text-[92px] leading-[0.96] tracking-[-0.045em] mb-4 sm:mb-5 text-text">
+          <div className="relative z-10 max-w-xl px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-2 sm:px-6 md:max-w-lg md:px-16 md:pb-24 md:pt-0 lg:max-w-xl">
+            <h1 className="hero-fade mb-4 font-display text-[48px] font-semibold leading-[0.96] tracking-[-0.045em] text-text sm:mb-5 sm:text-[72px] md:text-[80px]">
               Peace in.
               <br />
               Stress out.
             </h1>
-            <p className="hero-fade hero-fade-delay-1 text-[16px] sm:text-[18px] md:text-[20px] text-text-muted max-w-md mb-7 sm:mb-9 leading-relaxed">
+            <p className="hero-fade hero-fade-delay-1 mb-7 max-w-md text-[16px] leading-relaxed text-text-muted sm:mb-9 sm:text-[18px] md:text-[20px]">
               When panic hits, start with one breath.
             </p>
-            <div className="hero-fade hero-fade-delay-2 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+            <div className="hero-fade hero-fade-delay-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
               <Link
                 href={startHref}
-                className="inline-flex items-center justify-center rounded-full bg-text text-bg hover:opacity-90 w-full sm:w-auto px-8 py-3.5 min-h-12 text-[15px] font-medium transition-opacity"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-text px-8 py-3.5 text-[15px] font-medium text-bg transition-opacity hover:opacity-90 sm:w-auto"
               >
                 Breathe in calm
               </Link>
-              <p className="text-[13px] font-medium text-text-dim text-center sm:text-left">
+              <p className="text-center text-[13px] font-medium text-text-dim sm:text-left">
                 Three free sessions. No card required.
               </p>
             </div>
@@ -154,38 +177,7 @@ export default async function LandingPage() {
         </section>
       </main>
 
-      <footer className="w-full py-12 sm:py-14 px-5 flex flex-col items-center justify-center space-y-5 border-t border-white/[0.06] pb-safe">
-        <Wordmark size="md" href={signedIn ? "/dashboard" : "/"} />
-        <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-          <Link href="/about" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
-            About
-          </Link>
-          <Link href="/science" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
-            Science
-          </Link>
-          {signedIn ? (
-            <>
-              <Link href="/dashboard" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
-                Dashboard
-              </Link>
-              <Link href="/profile" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
-                Account
-              </Link>
-            </>
-          ) : (
-            <Link href="/login" className="text-[13px] font-medium text-text-muted hover:text-text transition-colors min-h-11 inline-flex items-center">
-              Sign In
-            </Link>
-          )}
-        </div>
-        <p className="text-[12px] font-medium text-text-dim">
-          Aramzor. The Ancient Modernist.
-        </p>
-        <p className="max-w-md text-center text-[11px] text-text-dim leading-relaxed px-2">
-          Disclaimer: Aramzor is a performance breathwork utility. Consult a
-          physician before engaging in high-intensity CO2 tolerance training.
-        </p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

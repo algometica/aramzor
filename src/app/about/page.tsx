@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { auth } from "@/auth";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = {
@@ -68,7 +69,7 @@ export default async function AboutPage() {
     <div className="min-h-screen flex flex-col bg-bg-deep">
       <SiteHeader variant="marketing" />
 
-      <main className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-4xl mx-auto w-full">
+      <main id="main-content" className="flex-1 px-6 md:px-24 py-24 md:py-32 max-w-4xl mx-auto w-full">
 
         <p className="caps-wide text-[11px] text-accent tracking-[0.38em] mb-6">The Ancient Modernist</p>
 
@@ -223,12 +224,7 @@ export default async function AboutPage() {
         </div>
       </main>
 
-      <footer className="bg-bg-deep w-full py-12 px-6 flex flex-col items-center gap-4 border-t border-text-dim/10">
-        <p className="font-display text-base text-accent">ARAMZOR</p>
-        <p className="caps-wide text-[10px] text-text-dim">
-          Aramzor. The Ancient Modernist.
-        </p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

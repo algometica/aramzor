@@ -285,23 +285,34 @@ export function SessionPlayer({
 
   return (
     <div className="h-dvh max-h-dvh bg-bg-deep flex flex-col select-none overflow-hidden overscroll-none pt-safe">
-      <header className="relative z-20 flex justify-between items-center px-4 sm:px-6 md:px-10 shrink-0">
+      <header className="relative z-20 flex shrink-0 items-center justify-between px-4 sm:px-6 md:px-10">
         <button
+          type="button"
           onClick={() => router.push("/dashboard")}
-          className="text-[14px] font-medium text-text-muted hover:text-text transition-colors min-h-11 min-w-14 inline-flex items-center"
+          aria-label="Exit session and return to dashboard"
+          className="inline-flex min-h-11 min-w-14 items-center text-[14px] font-medium text-text-muted transition-colors hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
           Exit
         </button>
         <Wordmark size="sm" />
         <button
+          type="button"
           onClick={handlePause}
-          className="text-[14px] font-medium text-text-muted hover:text-text transition-colors min-h-11 min-w-14 inline-flex items-center justify-end"
+          aria-label={isPaused ? "Resume practice" : "Pause practice"}
+          className="inline-flex min-h-11 min-w-14 items-center justify-end text-[14px] font-medium text-text-muted transition-colors hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
           {isPaused ? "Resume" : "Pause"}
         </button>
       </header>
 
-      <div className="w-full h-px bg-white/[0.06] shrink-0">
+      <div
+        className="h-px w-full shrink-0 bg-white/[0.06]"
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(progressPct)}
+        aria-label="Session progress"
+      >
         <div
           className="h-full bg-white/35 transition-all duration-700 ease-out"
           style={{ width: `${progressPct}%` }}
@@ -309,35 +320,39 @@ export function SessionPlayer({
       </div>
 
       {/* Phase journey */}
-      <div className="relative z-20 px-3 sm:px-6 md:px-10 pt-3 sm:pt-5 shrink-0 flex flex-col items-center gap-1.5 sm:gap-2">
-        <div className="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 max-w-full overflow-x-auto">
+      <div className="relative z-20 flex shrink-0 flex-col items-center gap-1.5 px-3 pt-3 sm:gap-2 sm:px-6 sm:pt-5 md:px-10">
+        <nav aria-label="Session phases" className="max-w-full overflow-x-auto">
+          <ol className="m-0 flex list-none items-center justify-center gap-1.5 p-0 sm:gap-2 md:gap-3">
           {PHASE_ORDER.map((phase, i) => {
             const done = i < currentPhaseIdx;
             const active = i === currentPhaseIdx;
             return (
-              <div key={phase} className="flex items-center gap-2 md:gap-3">
+              <li key={phase} className="flex items-center gap-2 md:gap-3">
                 {i > 0 && (
                   <div
+                    aria-hidden
                     className={`h-px w-3 sm:w-4 md:w-8 transition-colors ${
                       done || active ? "bg-white/25" : "bg-white/8"
                     }`}
                   />
                 )}
                 <span
-                  className={`text-[10px] sm:text-[11px] md:text-[12px] font-medium tracking-[-0.01em] whitespace-nowrap transition-colors ${
+                  aria-current={active ? "step" : undefined}
+                  className={`whitespace-nowrap text-[10px] font-medium tracking-[-0.01em] transition-colors sm:text-[11px] md:text-[12px] ${
                     active
                       ? "text-text"
                       : done
                         ? "text-text-muted"
-                        : "text-text-dim/70"
+                        : "text-text-dim"
                   }`}
                 >
                   {PHASE_SHORT[phase]}
                 </span>
-              </div>
+              </li>
             );
           })}
-        </div>
+          </ol>
+        </nav>
         {roundInfo && (
           <p className="text-[11px] font-medium text-text-dim tabular-nums">
             Round {roundInfo.current} of {roundInfo.total}
@@ -345,7 +360,7 @@ export function SessionPlayer({
         )}
       </div>
 
-      <main className="flex-1 relative flex flex-col min-h-0">
+      <main id="main-content" className="relative flex min-h-0 flex-1 flex-col">
         <div className="pt-3 sm:pt-6 md:pt-8 flex flex-col items-center gap-1 relative z-10 px-4">
           <p className="text-[11px] sm:text-[12px] font-medium text-text-dim tracking-[0.1em] uppercase">
             {PHASE_SUBTITLE[beat.phase]}
@@ -483,8 +498,9 @@ export function SessionPlayer({
 
       <footer className="relative z-20 w-full pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] md:py-9 flex flex-col items-center gap-2 sm:gap-3 shrink-0 px-4">
         <button
+          type="button"
           onClick={handlePause}
-          className="rounded-full bg-surface-low hover:bg-surface active:bg-surface-high text-text text-[15px] font-medium px-8 py-3.5 min-h-12 min-w-[200px] transition-colors cursor-pointer"
+          className="min-h-12 min-w-[200px] cursor-pointer rounded-full bg-surface-low px-8 py-3.5 text-[15px] font-medium text-text transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:bg-surface-high"
         >
           {isPaused ? "Resume practice" : "Pause practice"}
         </button>

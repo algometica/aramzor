@@ -1,6 +1,9 @@
 /** Modes available during the free trial (3 sessions). */
 export const FREE_MODE_IDS = ["calm", "sleep"] as const;
 
+/** Free sessions before the subscribe gate. */
+export const FREE_SESSION_LIMIT = 3;
+
 /** Modes that always require an active subscription. */
 export const PREMIUM_MODE_IDS = [
   "energy",

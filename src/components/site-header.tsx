@@ -23,10 +23,10 @@ export async function SiteHeader({
   const signedIn = Boolean(session?.user?.email);
 
   return (
-    <header className="sticky top-0 z-50 px-5 sm:px-6 md:px-10 pt-safe bg-bg/75 backdrop-blur-xl">
-      <div className="py-4 w-full flex justify-between items-center gap-4">
+    <header className="sticky top-0 z-50 px-5 sm:px-8 md:px-10 pt-safe bg-bg/75 backdrop-blur-xl">
+      <div className="py-3.5 sm:py-4 w-full flex justify-between items-center gap-6">
         <Wordmark size="md" href={signedIn ? "/dashboard" : "/"} />
-        <nav className="flex items-center gap-4 sm:gap-6 md:gap-8">
+        <nav className="flex items-center gap-5 sm:gap-7 shrink-0">
           {variant === "marketing" ? (
             <>
               <Link
@@ -46,15 +46,18 @@ export async function SiteHeader({
 
           {signedIn ? (
             <>
-              <Link href="/dashboard" className={linkMuted}>
+              <Link
+                href="/dashboard"
+                className={`${linkMuted} hidden sm:inline-flex`}
+              >
                 Dashboard
               </Link>
               <Link href="/profile" className={linkMuted}>
                 Account
               </Link>
-              <form action={signOutAction}>
+              <form action={signOutAction} className="inline-flex">
                 <button type="submit" className={linkMuted}>
-                  Sign Out
+                  Sign out
                 </button>
               </form>
             </>

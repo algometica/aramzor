@@ -1,26 +1,22 @@
 import Link from "next/link";
-import { eq } from "drizzle-orm";
+import { count, eq } from "drizzle-orm";
 
 import { auth } from "@/auth";
 import { AppShell } from "@/components/app-shell";
 import { db } from "@/db";
-import { protocols, subscriptions, users } from "@/db/schema";
-import { hasFullAccess, isPremiumMode } from "@/lib/access";
-
-const CATEGORY_LABEL: Record<string, string> = {
-  calm: "Active ritual",
-  sleep: "Recovery",
-  energy: "Vitality",
-  performance: "Flow state",
-  "natural-high": "Expansion",
-};
+import { breathSessions, protocols, subscriptions, users } from "@/db/schema";
+import {
+  FREE_SESSION_LIMIT,
+  hasFullAccess,
+  isPremiumMode,
+} from "@/lib/access";
 
 const GOAL_LABEL: Record<string, string> = {
-  calm: "I need to stop spiraling right now",
-  sleep: "It's late and my brain won't shut off",
-  energy: "Morning energy without another coffee",
-  performance: "I freeze up when it matters most",
-  "natural-high": "Show me what this body can do",
+  calm: "Stop the spiral",
+  sleep: "Quiet a racing mind",
+  energy: "Wake up without caffeine",
+  performance: "Hold steady under pressure",
+  "natural-high": "Reach an altered state",
 };
 
 export default async function DashboardPage() {
@@ -28,23 +24,36 @@ export default async function DashboardPage() {
   const email = session?.user?.email;
 
   let isActive = false;
+  let sessionsUsed = 0;
+
   if (email) {
     const [user] = await db
       .select({ id: users.id })
       .from(users)
       .where(eq(users.email, email))
       .limit(1);
+
     if (user) {
-      const [sub] = await db
-        .select({ status: subscriptions.status })
-        .from(subscriptions)
-        .where(eq(subscriptions.userId, user.id))
-        .limit(1);
+      const [[sub], [sessionCount]] = await Promise.all([
+        db
+          .select({ status: subscriptions.status })
+          .from(subscriptions)
+          .where(eq(subscriptions.userId, user.id))
+          .limit(1),
+        db
+          .select({ value: count() })
+          .from(breathSessions)
+          .where(eq(breathSessions.userId, user.id)),
+      ]);
       isActive = hasFullAccess(email, sub?.status === "active");
+      sessionsUsed = sessionCount?.value ?? 0;
     } else {
       isActive = hasFullAccess(email, false);
     }
   }
+
+  const trialExhausted = !isActive && sessionsUsed >= FREE_SESSION_LIMIT;
+  const sessionsLeft = Math.max(FREE_SESSION_LIMIT - sessionsUsed, 0);
 
   const rows = await db.select().from(protocols);
   const order = ["calm", "sleep", "energy", "performance", "natural-high"];
@@ -54,73 +63,126 @@ export default async function DashboardPage() {
 
   return (
     <AppShell>
-      <section className="px-5 sm:px-6 md:px-10 pt-8 sm:pt-10 md:pt-16 pb-16 sm:pb-20 max-w-5xl w-full mx-auto">
-        <header className="mb-12 md:mb-16">
-          <h1 className="font-display font-semibold text-[36px] sm:text-[44px] md:text-[64px] text-text leading-[1.05] tracking-[-0.04em]">
-            Choose your practice.
-          </h1>
-          <p className="mt-4 text-[17px] text-text-muted max-w-md leading-relaxed">
-            Two modes free to start. Energy, Performance, and Natural High unlock with Full Aramzor.
+      <section className="w-full max-w-lg mx-auto px-5 sm:px-6 pt-8 sm:pt-10 pb-16">
+        <header className="mb-10">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.14em] text-text-dim">
+            Practice
           </p>
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-text sm:text-5xl">
+            What do you need?
+          </h1>
+          <p className="mt-3 max-w-sm text-base leading-relaxed text-text-muted sm:text-[17px]">
+            {trialExhausted
+              ? "Your free sessions are done. Unlock the full method to continue."
+              : isActive
+                ? "All five modes are open. Pick a state and begin."
+                : "Calm and Sleep are free to start. Three sessions. No card."}
+          </p>
+          {!isActive && !trialExhausted ? (
+            <p className="mt-4 text-sm font-medium text-text-dim">
+              {sessionsLeft} free{" "}
+              {sessionsLeft === 1 ? "session" : "sessions"} left
+            </p>
+          ) : null}
         </header>
 
-        <div className="flex flex-col gap-3">
+        {trialExhausted ? (
+          <div
+            className="mb-10 rounded-2xl p-6"
+            style={{
+              background:
+                "linear-gradient(155deg, #145c28 0%, #0d3a1a 48%, #082410 100%)",
+              border: "1px solid rgba(57, 255, 20, 0.45)",
+              boxShadow: "0 0 28px rgba(57, 255, 20, 0.12)",
+            }}
+          >
+            <p
+              className="text-xs font-medium uppercase tracking-[0.12em]"
+              style={{ color: "#39FF14" }}
+            >
+              Full access
+            </p>
+            <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-text">
+              Full Aramzor
+            </h2>
+            <p className="mt-2 text-[15px] leading-relaxed text-text-muted">
+              Unlimited sessions. All five modes. Cancel anytime.
+            </p>
+            <div className="mt-6 flex flex-col items-start gap-2.5 sm:flex-row sm:items-center sm:gap-4">
+              <Link
+                href="/subscribe"
+                className="inline-flex h-11 w-fit items-center justify-center rounded-full bg-text px-6 text-[14px] font-medium leading-none tracking-normal text-bg transition-opacity hover:opacity-90"
+              >
+                Subscribe
+              </Link>
+              <p className="text-[13px] font-medium text-text-dim">$8/month</p>
+            </div>
+          </div>
+        ) : null}
+
+        <ul className="m-0 list-none space-y-3 p-0">
           {sorted.map((p) => {
             const premium = isPremiumMode(p.id);
-            const locked = premium && !isActive;
+            const locked = !isActive && (premium || trialExhausted);
+            const isNaturalHigh = p.id === "natural-high";
             const href = locked ? "/subscribe" : `/session/${p.id}`;
 
             return (
-              <Link
-                key={p.id}
-                href={href}
-                className="group relative rounded-2xl bg-surface-low hover:bg-surface px-5 sm:px-6 md:px-8 py-6 sm:py-7 md:py-8 active:bg-surface transition-colors duration-300"
-              >
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+              <li key={p.id}>
+                <Link
+                  href={href}
+                  className={`flex items-center justify-between gap-4 rounded-2xl px-5 py-5 sm:px-6 sm:py-6 ${
+                    isNaturalHigh
+                      ? "transition-opacity hover:opacity-95"
+                      : "bg-surface-low transition-colors hover:bg-surface"
+                  }`}
+                  style={
+                    isNaturalHigh
+                      ? {
+                          background:
+                            "linear-gradient(155deg, #1f4a40 0%, #16352e 45%, #0f2420 100%)",
+                          border: "1px solid rgba(125, 207, 182, 0.45)",
+                          boxShadow: "0 12px 32px rgba(20, 60, 50, 0.35)",
+                        }
+                      : undefined
+                  }
+                >
                   <div className="min-w-0">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-[12px] font-medium text-text-dim tracking-[0.06em] uppercase">
-                        {CATEGORY_LABEL[p.id]}
-                      </span>
-                      {premium && (
-                        <span className="text-[11px] font-medium text-accent">
-                          {locked ? "Full access" : "Included"}
-                        </span>
-                      )}
-                    </div>
-                    <h2 className="font-display font-semibold text-[28px] sm:text-[32px] md:text-[40px] text-text tracking-[-0.035em] leading-none">
+                    {isNaturalHigh ? (
+                      <p
+                        className="mb-2 text-[11px] font-medium uppercase tracking-[0.12em]"
+                        style={{ color: "#9ee0cb" }}
+                      >
+                        Signature
+                      </p>
+                    ) : null}
+                    <h2 className="font-display text-[22px] font-semibold tracking-tight text-text sm:text-2xl">
                       {p.name}
                     </h2>
-                    <p className="mt-3 text-[15px] text-text-muted leading-relaxed max-w-xl">
+                    <p className="mt-1.5 text-[15px] leading-snug text-text-muted">
                       {GOAL_LABEL[p.id]}
                     </p>
-                    {p.description && (
-                      <p className="mt-2 text-[14px] text-text-dim leading-relaxed max-w-xl">
-                        {p.description}
-                      </p>
-                    )}
+                    <p className="mt-3 text-sm font-medium text-text-dim">
+                      {p.durationMin} min
+                    </p>
                   </div>
-
-                  <div className="flex items-center gap-4 shrink-0 md:flex-col md:items-end md:gap-2">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="font-display font-semibold text-[28px] text-text tracking-[-0.03em]">
-                        {p.durationMin}
-                      </span>
-                      <span className="text-[13px] text-text-dim font-medium">min</span>
-                    </div>
-                    <span className="text-[14px] font-medium text-accent group-hover:text-accent-hover transition-colors">
-                      {locked ? "Unlock" : "Begin"}
-                    </span>
-                  </div>
-                </div>
-              </Link>
+                  <span
+                    className={`shrink-0 text-sm font-medium ${
+                      isNaturalHigh ? "" : "text-accent"
+                    }`}
+                    style={isNaturalHigh ? { color: "#9ee0cb" } : undefined}
+                  >
+                    {locked ? "Unlock" : "Begin"}
+                  </span>
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ul>
 
-        <footer className="mt-16 md:mt-24">
-          <p className="text-[17px] text-text-dim max-w-lg leading-relaxed">
-            The breath is the only part of the autonomic nervous system that we can control. By changing the breath, we change the mind.
+        <footer className="mt-14 border-t border-white/10 pt-8">
+          <p className="max-w-sm text-sm leading-relaxed text-text-dim">
+            Change the breath, and the nervous system follows.
           </p>
         </footer>
       </section>

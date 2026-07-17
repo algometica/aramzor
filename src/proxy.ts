@@ -4,9 +4,11 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { breathSessions, subscriptions, users } from "@/db/schema";
-import { hasFullAccess, isPremiumMode } from "@/lib/access";
-
-const FREE_SESSION_LIMIT = 3;
+import {
+  FREE_SESSION_LIMIT,
+  hasFullAccess,
+  isPremiumMode,
+} from "@/lib/access";
 
 export default auth(async (req) => {
   if (!req.auth) {
@@ -22,6 +24,16 @@ export default auth(async (req) => {
 
   // Test / admin account: no session cap, every mode unlocked.
   if (hasFullAccess(email, false)) {
+    return NextResponse.next();
+  }
+
+  const pathname = req.nextUrl.pathname;
+  const sessionMatch = pathname.match(/^\/session\/([^/]+)/);
+  const modeId = sessionMatch?.[1];
+
+  // Dashboard, account, and session-complete stay available after the free trial.
+  // Only starting a new breath session is paywalled.
+  if (!modeId || modeId === "complete") {
     return NextResponse.next();
   }
 
@@ -52,11 +64,7 @@ export default auth(async (req) => {
     const isActive = subRow?.status === "active";
     const fullAccess = hasFullAccess(email, isActive);
 
-    const pathname = req.nextUrl.pathname;
-    const sessionMatch = pathname.match(/^\/session\/([^/]+)/);
-    const modeId = sessionMatch?.[1];
-
-    if (modeId && modeId !== "complete" && isPremiumMode(modeId) && !fullAccess) {
+    if (isPremiumMode(modeId) && !fullAccess) {
       return NextResponse.redirect(new URL("/subscribe", req.url));
     }
 

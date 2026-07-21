@@ -7,19 +7,13 @@ import { AppShell } from "@/components/app-shell";
 import { db } from "@/db";
 import { breathSessions, subscriptions, users } from "@/db/schema";
 
+import { protocolName } from "@/lib/protocol";
+
 import { cancelSubscription } from "./actions";
 
 export const metadata = {
   title: "Your Account",
   robots: { index: false, follow: false },
-};
-
-const MODE_NAME: Record<string, string> = {
-  calm: "Calm",
-  sleep: "Sleep",
-  energy: "Energy",
-  performance: "Performance",
-  "natural-high": "Natural High",
 };
 
 function fmtDate(d: Date | null | undefined): string {
@@ -164,7 +158,7 @@ export default async function ProfilePage() {
                 >
                   <div className="flex items-baseline gap-4">
                     <span className="font-display text-lg text-text">
-                      {MODE_NAME[s.protocolId ?? ""] ?? s.protocolId}
+                      {protocolName(s.protocolId ?? "")}
                     </span>
                     <span className="caps-tight text-[10px] text-text-dim">
                       {fmtDuration(s.durationSec)}

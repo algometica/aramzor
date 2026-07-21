@@ -11,6 +11,7 @@ import {
   hasFullAccess,
   isPremiumMode,
 } from "@/lib/access";
+import { protocolDurationSec, protocolName } from "@/lib/protocol";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -21,7 +22,7 @@ const GOAL_LABEL: Record<string, string> = {
   calm: "Stop the spiral",
   sleep: "Quiet a racing mind",
   energy: "Wake up without caffeine",
-  performance: "Hold steady under pressure",
+  performance: "Stay steady when performance anxiety hits",
   "natural-high": "Reach an altered state",
 };
 
@@ -132,6 +133,11 @@ export default async function DashboardPage() {
             const locked = !isActive && (premium || trialExhausted);
             const isNaturalHigh = p.id === "natural-high";
             const href = locked ? "/subscribe" : `/session/${p.id}`;
+            const durationMin = Math.max(
+              1,
+              Math.round(protocolDurationSec(p.id) / 60),
+            );
+            const name = protocolName(p.id);
 
             return (
               <li key={p.id}>
@@ -139,8 +145,8 @@ export default async function DashboardPage() {
                   href={href}
                   aria-label={
                     locked
-                      ? `Unlock ${p.name}, ${p.durationMin} minutes`
-                      : `Begin ${p.name}, ${p.durationMin} minutes`
+                      ? `Unlock ${name}, ${durationMin} minutes`
+                      : `Begin ${name}, ${durationMin} minutes`
                   }
                   className={`flex items-center justify-between gap-4 rounded-lg px-5 py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:px-6 sm:py-6 ${
                     isNaturalHigh
@@ -168,13 +174,13 @@ export default async function DashboardPage() {
                       </p>
                     ) : null}
                     <h2 className="font-display text-[22px] font-semibold tracking-tight text-text sm:text-2xl">
-                      {p.name}
+                      {name}
                     </h2>
                     <p className="mt-1.5 text-[15px] leading-snug text-text-muted">
                       {GOAL_LABEL[p.id]}
                     </p>
                     <p className="mt-3 text-sm font-medium text-text-dim">
-                      {p.durationMin} min
+                      {durationMin} min
                     </p>
                   </div>
                   <span

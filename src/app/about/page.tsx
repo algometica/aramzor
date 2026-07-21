@@ -50,9 +50,9 @@ const MODES = [
     body: "Thirty fast breaths building from breath five, a brief pelvis-to-crown scan, and a short five-cycle closing pattern. Energising without over-activating the parasympathetic.",
   },
   {
-    name: "Performance",
-    goal: "Freeze response and performance anxiety",
-    body: "A controlled activation with an extended 45-second minimum hold, emphasis on the pelvic floor, and a closing pattern with humming exhalation. The humming produces 15x more nasal nitric oxide than quiet breathing. Addresses performance anxiety, public speaking, and social anxiety.",
+    name: "Steady",
+    goal: "Stay steady when performance anxiety hits",
+    body: "A controlled activation with an extended hold, emphasis on the pelvic floor, and a closing pattern with humming exhalation. The humming produces 15x more nasal nitric oxide than quiet breathing. Built for freeze under pressure - closeness, speaking, and high-stakes moments - without forcing the mind to push through.",
   },
   {
     name: "Natural High",

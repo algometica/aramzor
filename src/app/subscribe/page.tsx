@@ -43,7 +43,7 @@ export default function SubscribePage() {
             {[
               "All five modes",
               "Unlimited sessions",
-              "Natural High, Performance, and Energy",
+              "Natural High, Steady, and Energy",
               "Calm and Sleep included",
               "No ads. No newsletter.",
             ].map((line) => (

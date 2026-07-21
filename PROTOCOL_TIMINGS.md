@@ -1,141 +1,102 @@
-# Aramzor Protocol Timings & Breath Counts
+# Aramzor Protocol Timings
 
-All hold times are predetermined for safety and protocol integrity. Users cannot customize hold durations - this maintains the structured method and prevents unsafe practices.
+Source of truth: `src/lib/protocol.ts`.
+Dashboard labels use `protocolDurationSec()` (rounded minutes).
 
-## CALM - ~4m 19s total
+All hold times are predetermined for safety. Users cannot customize hold durations.
 
-**The Zor (Activation) - 84s**
-- 30 breaths @ 2.8s cycle (1.4s inhale + 1.4s exhale)
-- Instruction: "Inhale through your nose" / "Let it go"
-- First 10 breaths: reduced intensity (visual scaling: 0.72)
-- Remaining 20 breaths: full intensity (visual scaling: 1.0)
+## Summary
 
-**The Threshold (Retention) - 30s**
-- Hold at empty lungs
-- Instruction: "Hold. Empty lungs. Scan your body."
+| Mode | Actual total | Shown |
+|---|---|---|
+| Calm | **6m 45s** | 7 min |
+| Sleep | **8m 09s** | 8 min |
+| Energy | **4m 05s** | 4 min |
+| Steady | **5m 34s** | 6 min |
+| Natural High | **16m 18s** | 16 min |
 
-**The Return (Rescue Breath) - 25s**
-- 5s inhale (nose) → 15s hold at top → 5s exhale (nose)
-- Instructions: "One breath in. Nose. Full." / "Hold. Top of the breath." / "Release slowly. Nose."
-
-**The Aram (Landing) - 120s**
-- 10 cycles @ 12s per cycle (5s inhale + 7s exhale)
-- Instructions: "In through your nose" / "Out through your nose"
-- No bottom pause
+Zor pace: Energy **1.25s / 1.25s**. Calm, Sleep, Steady, Natural High **1.75s / 1.75s**.
 
 ---
 
-## SLEEP - 6m total
+## CALM - 6m 45s (405s)
 
-**The Zor (Activation) - 60s**
-- 20 breaths @ 3s cycle (1.5s inhale + 1.5s exhale)
-- First 10 breaths: reduced intensity
-- Remaining 10 breaths: full intensity
-
-**The Threshold (Retention) - 25s**
-- Hold at empty lungs
-
-**The Return (Rescue Breath) - 20s**
-- 5s inhale → 10s hold → 5s exhale
-
-**The Aram (Landing) - 255s**
-- 15 cycles @ 17s per cycle (5s inhale + 9s exhale + 3s bottom pause)
-- 3 second pause at the bottom of each exhale for extended parasympathetic activation
+| Phase | Detail | Duration |
+|---|---|---|
+| Zor | 40 breaths @ 3.5s (1.75s in + 1.75s out). First 10 reduced intensity | **2m 20s** |
+| Threshold | Empty-lung hold | **45s** |
+| Return | 5s inhale + 15s hold-full + 5s exhale | **25s** |
+| Aram | 15 cycles (5s inhale + 8s exhale) | **3m 15s** |
 
 ---
 
-## ENERGY - ~2m 35s total
+## SLEEP - 8m 09s (489s)
 
-**The Zor (Activation) - 60s** (fastest pace)
-- 30 breaths @ 2s cycle (1s inhale + 1s exhale)
-- First 10 breaths: reduced intensity
-- Remaining 20 breaths: full intensity
-- Instruction: "Inhale through your mouth" (mouth breathing increases activation)
-
-**The Threshold (Retention) - 25s**
-- Hold at empty lungs
-
-**The Return (Rescue Breath) - 25s**
-- 5s inhale (mouth) → 15s hold → 5s sharp exhale (mouth)
-- Instructions: "One breath in. Mouth. Full." / "Hold. Top of the breath." / "Sharp release. Mouth."
-
-**The Aram (Landing) - 45s**
-- 5 cycles @ 9s per cycle (4s inhale + 5s exhale)
-- No bottom pause - quick resolution
+| Phase | Detail | Duration |
+|---|---|---|
+| Zor | 30 breaths @ 3.5s (1.75s in + 1.75s out) | **1m 45s** |
+| Threshold | Empty-lung hold | **40s** |
+| Return | 5s inhale + 10s hold-full + 5s exhale | **20s** |
+| Aram | 18 cycles (5s inhale + 10s exhale + 3s bottom pause) | **5m 24s** |
 
 ---
 
-## PERFORMANCE - ~4m 10s total
+## ENERGY - 4m 05s (245s)
 
-**The Zor (Activation) - 60s**
-- 20 breaths @ 3s cycle
-- First 10 breaths: reduced intensity
-- Remaining 10 breaths: full intensity
-
-**The Threshold (Retention) - 45s** (longest threshold in standard modes)
-- Hold at empty lungs
-- Instruction: "Hold. Empty lungs. Scan your body."
-
-**The Return (Rescue Breath) - 25s**
-- 5s inhale → 15s hold → 5s exhale
-
-**The Aram (Landing) - 120s**
-- 10 cycles @ 12s per cycle (4s inhale + 8s exhale)
-- **Unique instruction: "Hum. Out through your nose."** (generates nitric oxide for cardiovascular coherence)
-- No bottom pause
+| Phase | Detail | Duration |
+|---|---|---|
+| Zor | 40 breaths @ 2.5s (1.25s in + 1.25s out), mouth inhale | **1m 40s** |
+| Threshold | Empty-lung hold | **40s** |
+| Return | 5s inhale + 15s hold-full + 5s mouth exhale | **25s** |
+| Aram | 8 cycles (4s inhale + 6s exhale) | **1m 20s** |
 
 ---
 
-## NATURAL HIGH - ~11m 30s total ⚡ (3 complete rounds - advanced)
+## STEADY - 5m 34s (334s)
 
-This is the most challenging protocol - three back-to-back full cycles with increasing hold times.
-
-**Round 1 - 195s**
-- Zor: 30 breaths @ 2.5s (75s)
-  - First 10 breaths: reduced intensity
-  - Remaining 20 breaths: full intensity
-- Threshold: 40s hold
-- Return: 5s → 20s hold → 5s (30s)
-- Aram: 5 cycles @ 10s (4s inhale + 6s exhale) (50s)
-
-**Round 2 - 200s** (increases intensity)
-- Zor: 30 breaths @ 2.5s (75s)
-  - First 10 breaths: reduced intensity
-  - Remaining 20 breaths: full intensity
-- Threshold: 45s hold
-- Return: 5s → 20s hold → 5s (30s)
-- Aram: 5 cycles @ 10s (50s)
-
-**Round 3 - 295s** (final push)
-- Zor: 30 breaths @ 2.5s (75s)
-  - First 10 breaths: reduced intensity
-  - Remaining 20 breaths: full intensity
-- Threshold: 60s hold (longest hold in any protocol)
-- Return: 5s → 20s hold → 5s (30s)
-- Aram: 10 cycles @ 13s (5s inhale + 8s exhale) (130s)
+| Phase | Detail | Duration |
+|---|---|---|
+| Zor | 30 breaths @ 3.5s (1.75s in + 1.75s out) | **1m 45s** |
+| Threshold | Empty-lung hold | **60s** |
+| Return | 5s inhale + 15s hold-full + 5s exhale | **25s** |
+| Aram | 12 cycles (4s inhale + 8s hum exhale) | **2m 24s** |
 
 ---
 
-## Visual Scaling Reference
+## NATURAL HIGH - 16m 18s (978s) - 3 rounds
 
-During inhalation:
-- Reduced intensity: circle scales to 0.72
-- Full intensity: circle scales to 1.0
+### Round 1 - 4m 40s
+| Phase | Duration |
+|---|---|
+| Zor - 40 breaths @ 3.5s | 2m 20s |
+| Threshold | 55s |
+| Return - 5s + 20s hold + 5s | 30s |
+| Aram - 5 cycles (4s + 7s) | 55s |
 
-During exhalation or hold:
-- Circle scales to 0.38
+### Round 2 - 4m 45s
+| Phase | Duration |
+|---|---|
+| Zor - 40 breaths @ 3.5s | 2m 20s |
+| Threshold | 60s |
+| Return - 5s + 20s hold + 5s | 30s |
+| Aram - 5 cycles (4s + 7s) | 55s |
 
-During hold-full (return rescue breath):
-- Circle stays at 1.0
+### Round 3 - 6m 53s
+| Phase | Duration |
+|---|---|
+| Zor - 40 breaths @ 3.5s | 2m 20s |
+| Threshold | 75s |
+| Return - 5s + 20s hold + 5s | 30s |
+| Aram - 12 cycles (5s + 9s) | 2m 48s |
 
 ---
 
-## Design Notes for Future Enhancement
+## Notes for tweaking
 
-**Potential "Challenge Mode" variants:**
-- Extended holds (add 5-10 seconds to all thresholds)
-- Longer Aram cycles for deeper parasympathetic work
-- Progression tiers based on completed session counts
-- Performance tracking (hold capacity improvement over time)
+Edit helpers in `src/lib/protocol.ts`:
+- `zorBeats(count, perBreathMs, instruction)` - `perBreathMs` is full cycle (split evenly inhale/exhale)
+- `thresholdBeat(durationSec)`
+- `returnBeat(holdSec, mouthExhale?)`
+- `aramCycles(count, inhaleMs, exhaleMs, bottomPauseMs?, exhaleInstruction?)`
 
-**Do NOT implement freeform holds** - the predetermined structure is essential for safety, protocol integrity, and consistent app progression.
+Dashboard minutes auto-update from the beat math.

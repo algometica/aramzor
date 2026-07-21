@@ -60,7 +60,9 @@ function bloomFor(phase: Beat["phase"]): { inner: string; outer: string } {
   };
 }
 
-function ringColorFor(phase: Beat["phase"]): string {
+/** Inhale stays mint; exhale shifts to soft coral so the breath direction reads clearly. */
+function ringColorFor(phase: Beat["phase"], action: Beat["action"]): string {
+  if (action === "exhale") return "#e8956a";
   if (phase === "zor") return "#7ecfc0";
   if (phase === "threshold") return "#a8b0b8";
   if (phase === "return") return "#8eddd0";
@@ -215,6 +217,38 @@ export function SessionPlayer({
     });
   }, [stage, modeId, totalDurationSec, router]);
 
+  // Keep the phone screen awake during practice (Screen Wake Lock API).
+  useEffect(() => {
+    if (stage !== "running" && stage !== "paused") return;
+    if (typeof navigator === "undefined" || !("wakeLock" in navigator)) return;
+
+    let wakeLock: WakeLockSentinel | null = null;
+    let cancelled = false;
+
+    const requestLock = async () => {
+      try {
+        wakeLock = await navigator.wakeLock.request("screen");
+      } catch {
+        // Unsupported, denied, or low-power mode - fail quietly.
+      }
+    };
+
+    const onVisibility = () => {
+      if (!cancelled && document.visibilityState === "visible") {
+        void requestLock();
+      }
+    };
+
+    void requestLock();
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      cancelled = true;
+      document.removeEventListener("visibilitychange", onVisibility);
+      void wakeLock?.release();
+    };
+  }, [stage]);
+
   const handlePause = useCallback(() => {
     if (stage === "running") {
       if (beatTimerRef.current) clearTimeout(beatTimerRef.current);
@@ -228,7 +262,21 @@ export function SessionPlayer({
     }
   }, [stage, beatProgress]);
 
-  const progressPct = Math.round((idx / Math.max(beats.length, 1)) * 100);
+  const totalMs = useMemo(
+    () => beats.reduce((sum, b) => sum + b.durationMs, 0),
+    [beats],
+  );
+  const completedMs = useMemo(() => {
+    let sum = 0;
+    for (let i = 0; i < idx; i++) sum += beats[i]?.durationMs ?? 0;
+    return sum;
+  }, [beats, idx]);
+  const progressPct = Math.min(
+    100,
+    ((completedMs + beatProgress * (beat?.durationMs ?? 0)) /
+      Math.max(totalMs, 1)) *
+      100,
+  );
   const counter = useMemo(() => phaseCounterFor(beats, idx), [beats, idx]);
 
   const roundInfo = useMemo(() => {
@@ -262,7 +310,7 @@ export function SessionPlayer({
   const targetScale = scaleFor(beat.action, beat.intensity);
   const transitionMs = isHold ? 900 : beat.durationMs;
   const bloom = bloomFor(beat.phase);
-  const ringColor = ringColorFor(beat.phase);
+  const ringColor = ringColorFor(beat.phase, beat.action);
   const coreGradient = coreGradientFor(beat.phase);
   const positionHint = POSITION_HINT[modeId];
   const showBuildHint =
@@ -314,7 +362,7 @@ export function SessionPlayer({
         aria-label="Session progress"
       >
         <div
-          className="h-full bg-white/35 transition-all duration-700 ease-out"
+          className="h-full bg-white/35"
           style={{ width: `${progressPct}%` }}
         />
       </div>

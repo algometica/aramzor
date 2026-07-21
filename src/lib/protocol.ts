@@ -31,6 +31,19 @@ export const POSITION_HINT: Record<string, string> = {
   "natural-high": "Lying down - mandatory",
 };
 
+/** Display names. Internal ids stay stable (`performance`, etc.). */
+export const PROTOCOL_NAME: Record<string, string> = {
+  calm: "Calm",
+  sleep: "Sleep",
+  energy: "Energy",
+  performance: "Steady",
+  "natural-high": "Natural High",
+};
+
+export function protocolName(modeId: string): string {
+  return PROTOCOL_NAME[modeId] ?? modeId;
+}
+
 function zorBeats(
   count: number,
   perBreathMs: number,
@@ -128,46 +141,46 @@ function thresholdBeat(durationSec: number): Beat[] {
 }
 
 const CALM: Beat[] = [
-  ...zorBeats(30, 2800, "Inhale through your nose"),
-  ...thresholdBeat(30),
+  ...zorBeats(40, 3500, "Inhale through your nose"),
+  ...thresholdBeat(45),
   ...returnBeat(15),
-  ...aramCycles(10, 5000, 7000),
+  ...aramCycles(15, 5000, 8000),
 ];
 
 const SLEEP: Beat[] = [
-  ...zorBeats(20, 3000, "Inhale through your nose"),
-  ...thresholdBeat(25),
+  ...zorBeats(30, 3500, "Inhale through your nose"),
+  ...thresholdBeat(40),
   ...returnBeat(10),
-  ...aramCycles(15, 5000, 9000, 3000),
+  ...aramCycles(18, 5000, 10000, 3000),
 ];
 
 const ENERGY: Beat[] = [
-  ...zorBeats(30, 2000, "Inhale through your mouth"),
-  ...thresholdBeat(25),
+  ...zorBeats(40, 2500, "Inhale through your mouth"),
+  ...thresholdBeat(40),
   ...returnBeat(15, true),
-  ...aramCycles(5, 4000, 5000),
+  ...aramCycles(8, 4000, 6000),
 ];
 
 const PERFORMANCE: Beat[] = [
-  ...zorBeats(20, 3000, "Inhale through your nose"),
-  ...thresholdBeat(45),
+  ...zorBeats(30, 3500, "Inhale through your nose"),
+  ...thresholdBeat(60),
   ...returnBeat(15),
-  ...aramCycles(10, 4000, 8000, 0, "Hum. Out through your nose."),
+  ...aramCycles(12, 4000, 8000, 0, "Hum. Out through your nose."),
 ];
 
 const NATURAL_HIGH: Beat[] = [
-  ...zorBeats(30, 2500, "Inhale through your nose"),
-  ...thresholdBeat(40),
+  ...zorBeats(40, 3500, "Inhale through your nose"),
+  ...thresholdBeat(55),
   ...returnBeat(20),
-  ...aramCycles(5, 4000, 6000),
-  ...zorBeats(30, 2500, "Inhale through your nose"),
-  ...thresholdBeat(45),
-  ...returnBeat(20),
-  ...aramCycles(5, 4000, 6000),
-  ...zorBeats(30, 2500, "Inhale through your nose"),
+  ...aramCycles(5, 4000, 7000),
+  ...zorBeats(40, 3500, "Inhale through your nose"),
   ...thresholdBeat(60),
   ...returnBeat(20),
-  ...aramCycles(10, 5000, 8000),
+  ...aramCycles(5, 4000, 7000),
+  ...zorBeats(40, 3500, "Inhale through your nose"),
+  ...thresholdBeat(75),
+  ...returnBeat(20),
+  ...aramCycles(12, 5000, 9000),
 ];
 
 export const PROTOCOL_BEATS: Record<string, Beat[]> = {

@@ -3,15 +3,15 @@
 ## 1. Overview & Creative North Star
 The Creative North Star is **"Quiet Precision."**
 
-Aramzor should feel like a first-party Apple product page at night: calm, exact, and confident. No editorial theatrics. No warm terracotta. No serif display drama. The interface gets out of the way so the practice can dominate.
+Aramzor should feel like a first-party Apple product page at night: calm, exact, and confident. No editorial theatrics. No serif display drama. The interface gets out of the way so the practice can dominate.
 
 To achieve this:
-* **System typography first.** Prefer SF Pro via the Apple system stack. One sans family for display, body, and labels.
+* **One expressive sans.** Sora for display, body, and labels - geometric with character, not Inter / system UI as the primary face.
 * **Restraint over ornament.** Large type, generous space, soft contrast. Hierarchy comes from size and weight, not color shouting.
-* **Cool black surfaces.** Near-black bases with cool gray elevations. Accent is used sparingly for links and status, never as the default text color.
+* **Cool black surfaces.** Pure black bases with cool gray elevations. Accent blue is for links and focus; mint is for brand and breath identity.
 
 ## 2. Colors & Surface Philosophy
-Palette is cool black and soft silver, with a single blue accent for interactive emphasis.
+Palette is cool black and soft silver, with blue for interaction and mint for brand / breath.
 
 | Token | Hex | Role |
 |---|---|---|
@@ -23,20 +23,30 @@ Palette is cool black and soft silver, with a single blue accent for interactive
 | `surface-highest` | `#48484a` | Focused inputs |
 | `text` | `#f5f5f7` | Primary reading |
 | `text-muted` | `#86868b` | Secondary copy |
-| `text-dim` | `#6e6e73` | Meta / captions |
-| `accent` | `#2997ff` | Links, focus, status |
+| `text-dim` | `#8e8e93` | Meta / captions (WCAG-friendly on black) |
+| `accent` | `#2997ff` | Links, focus rings, status |
 | `accent-hover` | `#0077ed` | Hover for accent |
+| `accent-mint` | `#9ee0cb` | Brand highlight, signature cards |
 | `error` | `#ff453a` | Alerts only |
+
+### Breath / session palette (session player only)
+| Use | Hex / family | Role |
+|---|---|---|
+| Inhale ring + Zor / Return / Aram cores | `#7dcfb6` – `#7ecfc0` mint family | Breath in, phase identity |
+| Threshold core / ring | silver `#a8b0b8` | Quiet retention |
+| Exhale ring | soft coral `#e8956a` | Breath direction only - not a brand accent |
 
 ### Surface Rules
 * Prefer tonal shifts over borders.
 * If a border is required, use white at 8-12% opacity.
-* Do not use warm browns, terracotta, or orange anywhere.
+* Marketing and product chrome stay cool (no warm browns or terracotta panels).
+* Soft coral is reserved for the session exhale progress ring so inhale vs exhale reads clearly.
 
 ### Buttons
-* **Primary:** Solid white (`#f5f5f7`) fill, black text, medium weight, slight radius (`9999px` or `12px` for forms).
+* **Primary CTA:** White (`#f5f5f7`) on black, medium weight, pill (`9999px`) or `12px` for forms.
 * **Secondary:** Transparent with a light ghost border (`rgba(255,255,255,0.18)`).
 * **Tertiary:** Text only in `text-muted`, `text` on hover. Accent blue only for true links.
+* **Session pause:** Quiet surface pill (`surface-low`), not a white primary CTA.
 
 ## 3. Typography
 Use **Sora** (Google Font) for display, body, and labels. One family, clear hierarchy through weight and size.
@@ -51,35 +61,46 @@ Avoid Newsreader, Work Sans, Inter, and any warm editorial serif pairing.
 
 ## 4. Elevation & Depth
 * Static lift comes from surface steps (`#000` -> `#1d1d1f` -> `#2c2c2e`).
-* Shadows are soft and cool: `0 20px 40px rgba(0,0,0,0.35)`.
-* Homepage hero orb uses soft mint / celadon (`#7dcfb6` family) for attraction on black.
-* Session visuals use quiet phase-tinted cores: blue-white (Zor), silver (Threshold), cyan-white (Return), mint (Aram).
+* Shadows are soft and cool: `0 20px 40px rgba(0,0,0,0.35)` (`shadow-ambient`).
+* Homepage hero orb and wordmark mark use soft mint / celadon (`#7dcfb6` family) for attraction on black.
+* Session visuals use quiet phase-tinted cores: mint (Zor), silver (Threshold), brighter mint (Return), soft mint (Aram). Blooms are radial gradients - never CSS `filter: blur` (it paints a square).
 
 ## 5. Signature Experience: Session Player
 The session screen is the product.
 
-* Full black canvas.
-* One large breathing orb (dominant, ~min(72vw, 440px)). Soft phase-tinted core with radial bloom - never CSS `filter: blur` glows (they paint a square).
-* SVG ring around the orb shows beat progress explicitly.
-* Phase stepper (Zor / Threshold / Return / Aram) shows journey through the method.
-* Phase name and instruction in clean sans - clear, large.
-* Thin session progress bar at top.
-* Controls are quiet and thumb-friendly.
+* Full black canvas (`bg-deep`), safe-area aware, wake lock while running / paused.
+* Chrome: Exit · Wordmark · Pause; thin **time-based** session progress bar; phase stepper.
+* Phase stepper stays four steps: **Zor / Threshold / Return / Aram**. Return’s inhale → hold-full → exhale stay inside the phase (do not promote them into the stepper). Natural High shows `Round n of 3` under the stepper.
+* One large breathing orb (about `min(78vw, 46dvh, 420px)`). Soft phase-tinted core with radial bloom.
+* SVG ring around the orb shows progress through the current inhale / exhale / hold. Mint on inhale and holds; soft coral on exhale.
+* Phase subtitle + phase name above the orb; instruction and counters below.
+* Threshold shows a live hold timer; Zor / Aram show breath or cycle counts.
+* Controls are quiet and thumb-friendly (header Pause + footer Pause practice).
 
-## 6. Paywall Presentation
+## 6. Marketing & Product Chrome
+* Brand first on promotional surfaces: wordmark with mint orb mark is a hero-level signal, not nav-only text.
+* Dashboard mode list is minimal - no card grids of stats. Natural High may use a mint-tinted signature panel.
+* Primary subscribe CTA can use a luminous mint panel; body CTAs stay white-on-black.
+* Site header / mobile nav: session-aware (Dashboard, Account, Sign out when logged in).
+
+## 7. Paywall Presentation
 Premium modes show a small lock affordance and route unpaid users to `/subscribe`.
 Never tease Natural High as free content. Free trial sessions may only access free modes.
+Dashboard and Account stay reachable after the trial; only new session routes are gated.
 
-## 7. Do's and Don'ts
+## 8. Do's and Don'ts
 
 ### Do
 * Keep black.
-* Use white primary CTAs and blue only for links/status.
+* Use white primary CTAs; blue for links / focus; mint for brand and breath identity.
 * Let whitespace and type scale carry the brand.
 * Make session UI calmer than marketing UI.
+* Keep session progress time-based so longer Aram / Threshold phases feel honest.
 
 ### Don't
-* Don't use terracotta, ember orange, or cream text.
+* Don't use terracotta panels, ember orange CTAs, or cream editorial themes on product pages.
 * Don't use italic display serifs.
 * Don't fill the first viewport with cards, stats, or badge clusters.
-* Don't paint instructional text in accent orange.
+* Don't paint instructional text in accent orange or coral.
+* Don't split Return into stepper steps.
+* Don't use Prisma, Supabase, Stripe, or Inter as defaults (stack: Drizzle + Neon, Lemon Squeezy, Sora).

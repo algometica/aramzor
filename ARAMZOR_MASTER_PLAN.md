@@ -1,6 +1,12 @@
 # ARAMZOR - Complete Master Plan
 # Copy this entire document into Claude Code at the start of any session.
 
+> **Living sources of truth (prefer these over older numbers in this file):**
+> - UI / brand: `DESIGN.md`
+> - Protocol timings: `PROTOCOL_TIMINGS.md` and `src/lib/protocol.ts`
+> - Agent constraints: `CLAUDE.md` / `AGENTS.md`
+> - Mode display name for id `performance` is **Steady** (not "Performance")
+
 ---
 
 ## WHAT THIS APP IS
@@ -24,7 +30,7 @@ Not Calm. Not Headspace. Doesn't apologise for the intensity.
 - Framework: Next.js 16 (App Router)
 - Database: Neon (serverless Postgres)
 - ORM: Drizzle only - never Prisma
-- Auth: NextAuth / Auth.js v5 with DrizzleAdapter - magic link only
+- Auth: NextAuth / Auth.js v5 with DrizzleAdapter - magic link; optional DEV_ADMIN password login
 - Payments: Lemon Squeezy only - never Stripe
 - Hosting: Vercel
 - Package manager: pnpm only - never npm or yarn
@@ -108,24 +114,24 @@ export const sessions = pgTable("sessions", {
 
 Protocol seed data - insert these rows into protocols table:
 ```
-id: 'calm',        name: 'Calm',         mode: 'calm',         duration_min: 10, is_premium: false
-id: 'sleep',       name: 'Sleep',        mode: 'sleep',        duration_min: 14, is_premium: true
-id: 'energy',      name: 'Energy',       mode: 'energy',       duration_min: 7,  is_premium: true
-id: 'performance', name: 'Performance',  mode: 'performance',  duration_min: 11, is_premium: true
-id: 'natural-high',name: 'Natural High', mode: 'natural-high', duration_min: 20, is_premium: true
+id: 'calm',         name: 'Calm',         mode: 'calm',         duration_min: 7,  is_premium: false
+id: 'sleep',        name: 'Sleep',        mode: 'sleep',        duration_min: 8,  is_premium: false
+id: 'energy',       name: 'Energy',       mode: 'energy',       duration_min: 4,  is_premium: true
+id: 'performance',  name: 'Steady',       mode: 'performance',  duration_min: 6,  is_premium: true
+id: 'natural-high', name: 'Natural High', mode: 'natural-high', duration_min: 16, is_premium: true
 ```
+
+`duration_min` is advisory / legacy. Dashboard display uses `protocolDurationSec()` from `src/lib/protocol.ts`.
+Display name for `performance` is **Steady**.
 
 ---
 
 ## PAYWALL LOGIC
 
 - Free tier: 3 lifetime sessions total (not per day)
-- All 5 modes accessible during free trial
-- Session count logic in proxy.ts:
-  - count < 3 = allow access regardless of subscription
-  - count >= 3 AND no active subscription = redirect to /subscribe
-  - active subscription (status = 'active') = allow regardless of count
-- After limit: hard gate, redirect to /subscribe
+- Free modes during trial: **Calm** and **Sleep** only (`FREE_MODE_IDS`)
+- Premium modes always require subscription (or DEV_ADMIN unlimited access): Energy, Steady, Natural High
+- After trial: Dashboard and Account stay open; new `/session/*` routes redirect to `/subscribe`
 - Never trust client-side payment state - always read from DB
 
 ---
@@ -174,109 +180,96 @@ useSubscription hook: src/hooks/useSubscription.ts
 ## THE ARAMZOR METHOD - PROTOCOL SPEC
 
 One method. Four beats. Every session. Every mode.
+**Exact seconds live in `src/lib/protocol.ts` and `PROTOCOL_TIMINGS.md`.** Summary below.
 
 ### The Four Beats
 
 BEAT 1 - THE ZOR (Activation)
-- 20-30 connected breaths, full inhale, passive exhale
-- First 10 breaths at 70% intensity, remainder at full
-- Inhale: nose or mouth (volume matters)
-- Exhale: mouth, completely passive - never forced
-- Rhythm: 1 breath per 2.5-3 seconds
+- Connected breaths; first 10 at reduced intensity, then full (Calm and similar)
+- Inhale: nose or mouth (mode-specific)
+- Exhale: passive - never forced
+- Pace (current): Energy 1.25s / 1.25s; Calm, Sleep, Steady, Natural High 1.75s / 1.75s
 - Mechanism: Controlled hypocapnia, CO2 drops, epinephrine releases,
   respiratory alkalosis, inner heat (Tummo mechanism)
 - Effect: Breaks anxiety spiral, generates activation, clears fog
 
 BEAT 2 - THE THRESHOLD (Retention)
 - Hold on EMPTY lungs after last passive exhale
-- Do not forcefully empty - just stop after natural exhale
-- Duration: hold to urge, then 3 more seconds
-- UI shows elapsed time as information, not as target
+- Hold durations are predetermined in code (safety) - UI shows elapsed time
 - Body scan during hold: feet -> calves -> knees -> thighs ->
-  pelvis/pelvic floor (extended in Performance mode) ->
+  pelvis/pelvic floor (extended in Steady) ->
   lower abdomen -> solar plexus -> chest -> throat -> jaw -> crown
 - Mechanism: CO2 rises, parasympathetic pivot begins,
   interoceptive scan displaces rumination
 - Effect: Performance anxiety dissolves here, return to body from head
 
 BEAT 3 - THE RETURN (Rescue breath)
-- ONE full inhale through nose, as deep as possible
-- Hold at top: 15 seconds (Calm/Performance), 10s (Sleep), 20s (Natural High)
-- Release slowly through nose
-- Mechanism: Oxygenation rebound, pulmonary stretch receptor activation
-- Effect: Euphoria lives here, the natural high peaks at this beat
+- ONE full inhale, hold at top, release
+- Hold at top: 15s (Calm / Steady / Energy), 10s (Sleep), 20s (Natural High)
 - THIS BEAT IS NOT OPTIONAL - it bridges Threshold to Aram
+- Session stepper keeps Return as one phase (inhale / hold / exhale are sub-actions)
 
-BEAT 4 - THE ARAM (Flow/Landing)
-- Extended exhale ratio, nasal both ways - mandatory
-- Nasal breathing produces nitric oxide, full parasympathetic bias
-- No holds, continuous, rhythmic
-- Mechanism: Extended exhale activates vagal brake, HRV optimizes,
-  cortisol drops within 4-5 cycles
+BEAT 4 - THE ARAM (Landing)
+- Extended exhale ratio, nasal both ways (Steady uses humming exhale)
+- Sleep adds a bottom pause; Energy stays shorter so it does not fully sedate
 - Effect: Lands you - calm, present, ready. Not sedated.
 
-### The Five Modes
+### The Five Modes (current)
 
-MODE 1 - CALM
-Goal: "I need to stop spiraling right now"
-- The Zor: 30 breaths, full intensity, 1 breath/2.5-3s, nose or mouth in, mouth out
-- The Threshold: hold to urge +3s, full body scan feet to crown
-- The Return: deep nasal inhale, hold 15s, slow nasal exhale
-- The Aram: 10 cycles, 5s inhale / 7s exhale, nasal both ways
+MODE 1 - CALM (~6m 45s / shown 7 min)
+Goal: Stop the spiral
+- Zor: 40 breaths @ 1.75/1.75
+- Threshold: 45s
+- Return: 15s hold-full
+- Aram: 15 cycles, 5s / 8s
 - Position: seated or lying
-- Duration: ~10 min
+- Free during trial
 
-MODE 2 - SLEEP
-Goal: "It's late and my brain won't shut off"
-- The Zor: 20 breaths, 70% intensity only, 1 breath/3s, nose in, mouth out
-- The Threshold: hold to urge only (no +3s), emphasis on jaw and chest in scan
-- The Return: deep nasal inhale, hold 10s (gentler), slow nasal exhale
-- The Aram: 15 cycles, 5s inhale / 9s exhale + 3s pause at bottom, nasal
-- Position: lying down, mandatory, lights off
-- Duration: ~14 min
-- Note: session auto-logs complete, does not require interaction to end
+MODE 2 - SLEEP (~8m 09s / shown 8 min)
+Goal: Quiet a racing mind
+- Zor: 30 breaths @ 1.75/1.75
+- Threshold: 40s
+- Return: 10s hold-full
+- Aram: 18 cycles, 5s / 10s + 3s bottom pause
+- Position: lying down - lights off
+- Free during trial
 
-MODE 3 - ENERGY
-Goal: "Morning energy without another coffee"
-- The Zor: 30 breaths, full intensity from breath 5, 1 breath/2s (faster), mouth in, mouth out
-- The Threshold: 20-30s maximum, pelvis to crown scan only (brief)
-- The Return: mouth inhale (volume), hold 15s, sharp mouth exhale
-- The Aram: 5 cycles only, 4s inhale / 5s exhale, nasal, balanced ratio (not extended - avoid sedation)
-- Position: seated, spine straight
-- Duration: ~7 min
+MODE 3 - ENERGY (~4m 05s / shown 4 min)
+Goal: Wake up without caffeine
+- Zor: 40 breaths @ 1.25/1.25, mouth inhale
+- Threshold: 40s
+- Return: 15s hold-full, mouth exhale
+- Aram: 8 cycles, 4s / 6s
+- Position: seated - spine straight
+- Premium
 
-MODE 4 - PERFORMANCE
-Goal: "I freeze up when it matters most"
-Covers: sexual performance anxiety, public speaking, sports, exams, social anxiety
-- The Zor: 20 breaths, measured and controlled, 1 breath/3s, nose in, mouth out
-- The Threshold: extended hold minimum 45s, EXTENDED pelvis/pelvic floor emphasis
-  (8-10 seconds on pelvic floor specifically), then sweep to crown
-- The Return: deep nasal inhale, hold 15s, slow nasal exhale
-- The Aram: 10 cycles, 4s inhale / 8s exhale with HUMMING on exhale, nasal in
-- Position: lying (sexual performance anxiety), seated (all other performance contexts)
-- Duration: ~11 min
+MODE 4 - STEADY (id: `performance`, ~5m 34s / shown 6 min)
+Goal: Stay steady when performance anxiety hits
+Covers: performance anxiety including intimate contexts, speaking, sports, exams, social freeze
+- Zor: 30 breaths @ 1.75/1.75
+- Threshold: 60s (pelvic floor emphasis in guidance)
+- Return: 15s hold-full
+- Aram: 12 cycles, 4s / 8s with HUMMING on exhale
+- Position: lying or seated
+- Premium
 
-WHY THE HUMMING: Laryngeal vibration stimulates recurrent laryngeal nerve
-(vagus nerve branch). Produces 15x more nasal nitric oxide than quiet breathing.
-Most powerful parasympathetic activation in the entire protocol.
-The humming exhale is NOT optional in Performance mode.
+WHY THE HUMMING: Laryngeal vibration stimulates a vagus branch and produces
+~15x more nasal nitric oxide than quiet breathing. Not optional in Steady.
 
-MODE 5 - NATURAL HIGH
-Goal: "Show me what this body can do without substances"
-- Structure: 3 complete rounds of Zor + Threshold + Return, brief Aram between rounds
-- The Zor: 30 breaths each round, full intensity, do not reduce between rounds
-- The Threshold: hold to maximum comfortable limit each round, no minimum shown,
-  follow tingling and sensation, round 3 hold is typically longest
-- The Return: 20s hold (not 15s), this is where the altered state peaks
-- The Aram between rounds: 5 cycles, 4s / 6s, nasal (stabilisation only)
-- The Aram final: 10 cycles, 5s / 8s, nasal (full landing)
-- Position: LYING DOWN MANDATORY - brief loss of consciousness possible in round 3
-- Duration: ~18-22 min depending on hold durations
+MODE 5 - NATURAL HIGH (~16m 18s / shown 16 min)
+Goal: Reach an altered state
+- 3 rounds of Zor + Threshold + Return + Aram
+- Zor: 40 breaths @ 1.75/1.75 each round
+- Threshold: 55s / 60s / 75s
+- Return: 20s hold-full each round
+- Aram bridges R1-R2: 5 cycles 4s / 7s; final R3: 12 cycles 5s / 9s
+- Position: LYING DOWN MANDATORY
+- Premium
 
 WHAT USERS EXPERIENCE IN NATURAL HIGH:
 - Round 1: tingling in hands and face, mental clarity, mild warmth
 - Round 2: tingling spreads, possible visual effects (phosphenes), noticeable euphoria on Return
-- Round 3: full altered state, effortless hold, peak euphoria on 20s Return
+- Round 3: fuller altered state, longer hold, peak euphoria on Return
   Some users report quality similar to MDMA onset or cannabis indica without cognitive distortion
   This is physiologically documented, not marketing
 
@@ -318,77 +311,32 @@ If you are pregnant, have cardiovascular disease, epilepsy, or recent surgery
 
 ---
 
-## DESIGN SYSTEM (FROM DESIGN.MD)
+## DESIGN SYSTEM
 
-Creative direction: "The Nocturnal Archive"
-Reference: Black Afgano by Nasomatto. Leather-bound volumes, resinous textures,
-soft glow of embers against obsidian.
+**Canonical file: `DESIGN.md` (Quiet Precision).** Older terracotta / Newsreader /
+warm-archive notes in this master plan are obsolete - do not implement them.
 
-### Colors (EXACT HEX VALUES)
-
-Primary accent: #C4522A (deep burnt terracotta - NOT bright orange #E35336)
-Accent hover: #D4603A
-Accent muted: #8B3A1E
-Background base: #161310
-Background deeper: #110e0b
-Surface container low: #1e1b18
-Surface container: #252220
-Surface container high: #2d2927
-Surface container highest: #342f2c
-Text primary: #F5EFE6 (warm off-white - NEVER pure white #ffffff)
-Text secondary: #9E9189
-Outline variant: #57423b
-Error: #ffb4ab (never use terracotta for errors)
-
-### Typography
-
-Display/Headlines: Newsreader (Google Font) - tight letter-spacing, authoritative
-Body text: Newsreader - artisanal long-form feel
-Labels/Buttons: Work Sans (Google Font) - all-caps, 0.05em tracking
-NEVER use Work Sans for body copy. NEVER use Inter or Space Grotesk.
-
-### Design Rules
-
-NO-LINE RULE: Never use 1px solid borders. Boundaries only through
-background shifts and negative space.
-
-GHOST BORDER: If boundary strictly required for accessibility,
-use #57423b at 15% opacity maximum.
-
-NO PURE BLACK: Darkest color is #110e0b.
-
-SHADOWS: Ambient only - 0px 20px 40px rgba(132, 38, 0, 0.08)
-Never hard-edged shadows.
-
-BUTTONS:
-- Primary: filled #C4522A, Work Sans label-md, all-caps, 0.05em tracking
-- Secondary: ghost style, no fill, ghost border only
-- Tertiary: text only, #D4603A color, underline on hover only
-
-CARDS: No dividers between items. Use 16-24px vertical padding.
-Background shift on hover to indicate interactivity.
-
-GLASSMORPHISM for modals/dropdowns: semi-transparent with 32px backdrop-blur.
-
-### Breathing Circle (Primary UI Element)
-
-- Centered on active session screen
-- Expands on inhale, contracts on exhale
-- Warm terracotta glow (#C4522A) on dark background
-- Phase label above circle in spaced caps: "THE ZOR" / "THE THRESHOLD" / "THE RETURN" / "THE ARAM"
-- Instruction text below circle: "Inhale through your nose" - changes per phase
-- No countdown timer visible to user - just the circle and phase label
-- The circle IS the timer
+Quick facts:
+- Background `#000000`, text `#F5F5F7`, accent `#2997ff`, mint brand `#7dcfb6` / `#9ee0cb`
+- Font: Sora for display, body, and labels
+- Primary CTA: white on black (pill)
+- Session: mint inhale ring, soft coral `#e8956a` exhale ring, time-based progress bar,
+  phase stepper Zor / Threshold / Return / Aram, Screen Wake Lock while practicing
+- Threshold shows a live hold timer; Zor / Aram show breath or cycle counts
 
 ---
 
+
 ## UI SCREENS AND COPY
+
+> Historical copy bank. Live marketing and product UI follow `DESIGN.md` and the
+> current Next.js pages. Prefer shipped screens over the drafts below when they conflict.
 
 ### Landing Page (/)
 
 Hero headline: "Force in. Peace out."
 Subheadline: "The breathwork that earns your calm."
-CTA button: "BEGIN YOUR ARAMZOR - $8/MONTH" (outlined style - terracotta border, no fill)
+CTA button: white-on-black primary (see DESIGN.md)
 Social proof line: "USED BY PEOPLE WHO ARE DONE WITH MEDITATION FLUFF"
 
 Below fold section - three phases explained:
@@ -411,7 +359,7 @@ Competitor pricing table:
 - Othership: $17.99
 - Headspace: $12.99
 - Calm: $8.99
-- ARAMZOR: $8.00 (highlighted in terracotta)
+- ARAMZOR: $8.00 (highlighted)
 
 Footer quote: "Breath is the only tool you cannot leave at home."
 CTA: "PRACTICE NOW"
@@ -424,7 +372,8 @@ Title: "ARAMZOR"
 Instruction: "Enter your email. We'll send you a link."
 Input: email field (filled container style per DESIGN.md)
 Button: "SEND LINK" (primary button)
-No password. No OAuth. Magic link only.
+Magic link for everyone; optional DEV_ADMIN email + password for the test account.
+No OAuth.
 
 ### Login Verify Page (/login/verify)
 
@@ -438,42 +387,28 @@ Header: "Select your ritual."
 Subhead: "Breath is the bridge between the physical and the metaphysical.
 Choose the frequency for your current state."
 
-Five mode cards (no dividers between them, background shifts only):
-Each card shows:
-- Category label in small terracotta text (e.g. "ACTIVE RITUAL", "RECOVERY", "VITALITY")
-- Mode name in large Newsreader serif
-- One-line description
-- Duration in minutes
+Dashboard mode list (see DESIGN.md - Quiet Precision, not terracotta/serif):
+Each row shows mode name, one-line goal, duration from `protocolDurationSec()`.
 
-Card content:
-CALM (is_premium: false - free):
-Category: ACTIVE RITUAL
-Description: "A rhythmic slowing of the internal clock. Designed for the
-restoration of equilibrium through extended exhalations."
-Duration: 12 min
+CALM (free trial):
+Goal: Stop the spiral
+Duration: ~7 min
 
-SLEEP (premium):
-Category: RECOVERY
-Description: "Deep descent into the nocturnal state. Delta-wave
-synchronisation for cellular repair."
-Duration: 20 min
+SLEEP (free trial):
+Goal: Quiet a racing mind
+Duration: ~8 min
 
 ENERGY (premium):
-Category: VITALITY
-Description: "Oxygenation of the blood through rapid inhalation cycles.
-Kinetic awakening."
-Duration: 8 min
+Goal: Wake up without caffeine
+Duration: ~4 min
 
-PERFORMANCE (premium):
-Category: FLOW STATE
-Description: "Controlled hypercapnia for physical endurance and mental grit."
-Duration: 15 min
+STEADY (premium, id performance):
+Goal: Stay steady when performance anxiety hits
+Duration: ~6 min
 
-NATURAL HIGH (premium):
-Category: EXPANSION
-Description: "Euphoric state through specific breath retention techniques.
-Transcendence."
-Duration: 30 min
+NATURAL HIGH (premium, signature mint panel):
+Goal: Reach an altered state
+Duration: ~16 min
 
 Footer quote on mode selection:
 "The breath is the only part of the autonomic nervous system that is very
@@ -502,7 +437,7 @@ Header: "You just did your Aramzor."
 Body: "The ritual is etched into the archive. Your breath has returned
 to the root, leaving only the record of your presence."
 
-Session count (terracotta, large): "47 Aramzors."
+Session count (large): "47 Aramzors."
 Duration: "24 min"
 Consistency note: "Consistent, steady focus."
 
@@ -529,7 +464,7 @@ CTA: "BEGIN" (redirects to Lemon Squeezy checkout URL)
 - Calm: search "tibetan bowl loop CC0"
 - Sleep: search "brown noise sleep CC0"
 - Energy: search "rhythmic pulse drone CC0"
-- Performance: search "sub bass drone CC0"
+- Steady: search "sub bass drone CC0"
 - Natural High: search "deep tone ambient CC0"
 
 3 CC0 chime/tone files for beat transitions:
@@ -559,12 +494,12 @@ Post session: "You just did your Aramzor. Notice the difference."
 Paywall: "Full Aramzor. $8/month. No fluff."
 Session count: "47 Aramzors." (private, never social)
 
-Goal selection labels (on mode selection):
-- "ACTIVE RITUAL" (Calm)
-- "RECOVERY" (Sleep)
-- "VITALITY" (Energy)
-- "FLOW STATE" (Performance)
-- "EXPANSION" (Natural High)
+Dashboard goal lines (current):
+- Calm: Stop the spiral
+- Sleep: Quiet a racing mind
+- Energy: Wake up without caffeine
+- Steady: Stay steady when performance anxiety hits
+- Natural High: Reach an altered state
 
 ---
 
@@ -589,7 +524,7 @@ r/stress: "Been anxious for years. Built the app I wished existed. It's called
 Aramzor - aram means peace, zor means force. You use one to get the other. $8/month."
 
 r/productivity: "Morning routine upgrade: replaced coffee with Aramzor.
-Three phases, ten minutes, hits harder. Built the app myself."
+Four beats, about seven minutes for Calm, hits harder. Built the app myself."
 
 Week 2-3: ProductHunt launch
 
@@ -689,7 +624,7 @@ Key differentiators:
 - Mouth/nose route shown per phase - no competitor does this
 - Dark aesthetic - not another pastel wellness app
 - Goal-first UX, not technique-first
-- Performance mode humming exhale for performance anxiety
+- Steady mode humming exhale for performance anxiety
 - Natural High mode - endogenous altered state without substances
 - Science attribution without Goop-ification
 - Session count shown privately ("47 Aramzors") - not gamified

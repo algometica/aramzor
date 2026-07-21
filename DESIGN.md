@@ -80,6 +80,8 @@ The session screen is the product.
 ## 6. Marketing & Product Chrome
 * Brand first on promotional surfaces: wordmark with mint orb mark is a hero-level signal, not nav-only text.
 * Dashboard mode list is minimal - no card grids of stats. Natural High may use a mint-tinted signature panel.
+* Mode display names: Calm, Sleep, Energy, **Steady** (id `performance`), Natural High.
+* Dashboard durations come from live protocol math, not stale DB `duration_min`.
 * Primary subscribe CTA can use a luminous mint panel; body CTAs stay white-on-black.
 * Site header / mobile nav: session-aware (Dashboard, Account, Sign out when logged in).
 

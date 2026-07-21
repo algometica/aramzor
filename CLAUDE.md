@@ -1,6 +1,8 @@
 @AGENTS.md
 
 Always reference DESIGN.md for all UI decisions.
+Protocol timings: PROTOCOL_TIMINGS.md must match src/lib/protocol.ts. Dashboard minutes come from protocolDurationSec().
+Mode id `performance` displays as **Steady**.
 Next.js 16 - use proxy.ts not middleware.ts.
 Package manager is pnpm. Never use npm or yarn.
 Fonts: Sora (display, body, labels) - geometric sans with character, not system/Inter.

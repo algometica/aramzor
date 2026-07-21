@@ -36,28 +36,28 @@ export const metadata: Metadata = {
 const MODES = [
   {
     name: "Calm",
-    goal: "Anxiety and stress relief",
-    body: "Thirty connected breaths at full intensity, followed by an empty-lung hold and a 15-second rescue breath, closing with ten extended-exhale cycles. The most complete anxiety reset available in ten minutes.",
+    goal: "Stop the spiral",
+    body: "Forty connected breaths at 1.75s each side, a 45-second empty-lung hold, a 15-second rescue breath, then fifteen extended-exhale cycles. A complete anxiety reset in about seven minutes.",
   },
   {
     name: "Sleep",
-    goal: "Racing mind, can't switch off",
-    body: "A gentler activation cycle at 70% intensity, emphasis on jaw and chest in the body scan, fifteen closing cycles with a long bottom pause. The session auto-completes - designed to put you under before it ends.",
+    goal: "Quiet a racing mind",
+    body: "Thirty activation breaths, a 40-second hold, a gentler 10-second rescue breath, then eighteen closing cycles with a long exhale and bottom pause. Designed to put you under before it ends - about eight minutes.",
   },
   {
     name: "Energy",
-    goal: "Morning activation without caffeine",
-    body: "Thirty fast breaths building from breath five, a brief pelvis-to-crown scan, and a short five-cycle closing pattern. Energising without over-activating the parasympathetic.",
+    goal: "Wake up without caffeine",
+    body: "Forty fast mouth breaths at 1.25s each side, a 40-second hold, a sharp mouth return, and eight short landing cycles. Energising without a full parasympathetic shutdown - about four minutes.",
   },
   {
     name: "Steady",
     goal: "Stay steady when performance anxiety hits",
-    body: "A controlled activation with an extended hold, emphasis on the pelvic floor, and a closing pattern with humming exhalation. The humming produces 15x more nasal nitric oxide than quiet breathing. Built for freeze under pressure - closeness, speaking, and high-stakes moments - without forcing the mind to push through.",
+    body: "Thirty measured breaths, a 60-second hold with pelvic-floor emphasis, a 15-second rescue breath, and twelve humming exhales. Built for freeze under pressure - closeness, speaking, and high-stakes moments - about six minutes.",
   },
   {
     name: "Natural High",
-    goal: "Endogenous altered state without substances",
-    body: "Three complete rounds of activation, retention, and return. By round three, the altered state is physiologically documented: tingling, phosphenes, euphoria peaking on the 20-second rescue breath hold. Lying down is mandatory.",
+    goal: "Reach an altered state",
+    body: "Three complete rounds of activation, retention, and return. Thresholds climb to 75 seconds; round three lands with a long Aram. Tingling, phosphenes, euphoria on the rescue hold. Lying down is mandatory - about sixteen minutes.",
   },
 ];
 
